@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<style>
+	table {
+		bgcolor: white;
+		width: 1400px;
+		border: 1px solid green;
+		margin: auto;
+	}
+
+	td, th {
+		text-align: center;
+	}
+	h2 {
+		text-align: center;
+		color: orange;
+	}
+	</style>
+</head>
+<body>
+<h2>Information for students</h2>
+	<table border="1">
+		<caption>SCHEDULE OF CLASSES</caption>
+		<tr>
+			<th bgcolor="lightgreen">Time of class</th>			
+			<th>Mon</th>
+			<th bgcolor="lightgreen">Tue</th>
+			<th>Wed</th>
+			<th bgcolor="lightgreen">Thu</th>
+			<th>Fri</th>
+			<th bgcolor="lightgreen">Sat</th>
+			<th>Sun</th>
+		</tr>	
+		<tr>
+			<td>9:00-9:40</td>
+			<td>JavaScript</td>
+			<td>HTML5/CSS3</td>
+			<td>QA</td>
+			<td>PHP</td>
+			<td>Kotlin</td>
+			<td>C++</td>
+			<td>Day off</td>
+		</tr>
+	</table>	
+<h2>Task#1</h2>
+<script> 
+
+const rows = +prompt("type a size of tiangle");
+
+function task1_myFunction(rows){
+
+const middle = Math.ceil(rows/2);
+let str ="";
+
+for(let i = 0; i < middle; i++){
+        str +='*';
+	console.log(str);  
+}
+
+for(let i= middle-1; i > 0; i--){
+	str ="";
+	for(let j = 0; j < i; j++){
+		str +='*';		
+	}
+console.log(str);
+}
+}
+console.log(task1_myFunction(rows));
+</script>
+
+<h2>Task#2</h2>
+<script> 
+const min = +prompt("type one number from 0 to 59")
+
+function task2_myFunction(min){
+	
+	if ((min>=0) && (min<=14)){
+	  alert("it's the first quarter");   
+	}
+	else if((min>=15) && (min<=29)){
+	  alert("it's the second quarter");	  
+	}
+	else if((min>=30) && (min<=44)){
+	  alert("it's the third quarter"); 
+	}
+	else if ((min>=45) && (min<=59)){
+	   alert("it's the fourth quarter");	  
+	}
+	else {
+	   alert("it's wrong number");	  
+	}
+}
+console.log(task2_myFunction(min));
+</script>
+
+<h2>Task#3</h2>
+<script> 
+  const num = +prompt("type any number or type 5, 0, -3, 2");
+     function task3_myFunction(num){
+
+	if ((num===0) || (num===2)){
+	    num+=7;
+            console.log(num);
+	    return true;
+	}
+	else{
+	  num/=10;
+	  console.log(num);
+	  return false;
+	}
+}
+console.log(task3_myFunction(num));
+</script>
+
+<h2>Task#4</h2>
+<script> 
+     const test = prompt("type true or false")
+     function task4_myFunction(test){
+	if (test=="true"){
+	    console.log("Верно");          
+	}
+	else{
+	  console.log("Неверно");
+	}
+}
+console.log(task4_myFunction(test));
+console.log(task4_myFunction("true"));
+console.log(task4_myFunction("false"));
+</script>
+
+<h2>Task#4_var2</h2>
+<script> 
+     const test2 = prompt("type true or false")
+     function task42_myFunction(test2){
+return "Task#4_var2" + ": "+ ((test2!="false") ? 
+"Верно" : "Неверно");
+}
+console.log(task42_myFunction(test2));
+</script>
+
+<h2>Task#5</h2>
+
+<script> 
+     	const a = +prompt("type a")
+	const b = +prompt("type b")
+	const c = +prompt("type c")
+       
+function task5_myFunction(a,b,c){
+
+console.log(a+"(x*x)"+ "+" + b + "x" + "+" + c + "=0");
+ 
+	let expr= b*b - 4*a*c; 
+
+	if (expr < 0){
+		//alert("нет действительных корней");
+		console.log("нет действительных корней");
+	}
+	else{
+		let x1= (-b + Math.sqrt(expr)) / 2*a;
+		let x2= (-b - Math.sqrt(expr)) / 2*a;
+		
+	console.log("Task#5_x1: " + x1);
+	console.log("Task#5_x2: " + x2);
+	}	
+}
+console.log(task5_myFunction(a,b,c));
+</script>	
+</body>
+</html>
