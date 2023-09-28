@@ -6,7 +6,259 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
+
+
 	
-	
+	<script>
+		// variables and data types
+
+		// private int a = 8;
+
+		let a; // undefined
+		let b, c, d; // undefined
+		const e = 10; // number  2^54-1
+		// e = 12; // TypeError: Assignment to constant variable.
+		var f = false; // boolean
+
+		b = 'Hello!'; // string '' "" ``
+		b = `I have ${e} apples`;
+
+		c = null; // null  => typeof c == object 
+
+		d = Symbol('name'); // symbol
+		const r = Symbol('name'); // symbol again, not equal to previous
+
+		const big = 1234567789012345n; // bigint  -> BigInt(11111111111)
+
+		// * 8th data type is Object
+
+
+		// math operators + - / * % ++ --  += -= /= *=  
+
+		// logic operators == === [equal] != !== ! [not equal] > >= < <= && [and] || [or]
+
+		// frequently used JS functions
+
+		// alert('Hello');
+		// const q = confirm('Are you human?'); // true/false
+		// const p = prompt('Type any number', 1);
+
+		// console.log(r);
+		// console.warn('Learn JS!!!');
+		// console.error('Error!');
+
+
+		// increment always add 1, decrement extracts 1
+		let x = 5;
+		console.log(++x);
+
+		x += 5; // x = x + 5;
+		console.log(x); // 11
+
+		// Math class for math operations - random, sin/cos, pow, sqrt etc...
+
+		let y = e ** 2; // 100
+		let u = Math.pow(e,2); // 100
+
+
+		// conditions
+
+		if(3){ // if (true)
+			x = 12;
+		}
+		else{
+			console.warn('not true');
+		}
+
+
+		// ternar
+
+		let max = e > x ? e : x; // max = (condition) ? true : false	
+		
+		let g = 3, h = 9; 
+
+		if(g > h){
+			console.log('g > h');
+		}
+		else if(g === h){
+			console.log('g = h');
+		}
+		else{
+			console.log('g < h');
+		}
+
+		// switch/case
+
+		// const day = +prompt('Type any number 1-7');
+
+		// switch(day){
+		// 	case 1: console.log('Mo');
+		// 			break;
+		// 	case 2: console.log('Tue');
+		// 			break;
+		// 	case 3: console.log('Wed');
+		// 			break;
+		// 	case 4: console.log('Thu');
+		// 			break;
+		// 	case 5: console.log('Fri');
+		// 			break;
+		// 	case 6: console.log('Sat');
+		// 			break;
+		// 	case 7: console.log('Sun');
+		// 			break;
+		// 	default: console.error('Not a day!');
+		// 			break;
+		// }
+
+
+		// loops 
+
+		for(let i = 0; i <= 5; i++){
+			console.log(`i = ${i}`);
+		}
+
+		let j = 7;
+		while(j > 4){
+			console.log(`j = ${j}`);
+			j--;
+		}
+
+		let k = 6;
+		do{
+			console.log(`k = ${k}`);
+			k++;
+		}
+		while(k<3);
+
+
+
+
+		// practice
+
+		let l = 5;
+		let m = 8;
+
+		if(l > 5 && l < 7){
+			console.log('Lemon!');
+		}
+
+		if(m % 2 === 0 || m > 10){
+			console.log('Mango!');
+		}
+
+		// numbers: +-0 0%2... 6/0 = Infinity - +- Infinity NaN
+
+		console.log('Hello' + 'World');
+		console.log('Hello' - 'World');
+
+		a++;
+		console.log(a);
+
+
+		// for(let i = 10; i > 0; i--){
+		// 	if(i === 8){
+		// 		continue;
+		// 	}
+		// 	if(i === 6){
+		// 		break;
+		// 	}
+		// 	console.warn(`i = ${i}`);
+		// }
+
+		for(let i = 10; i > 0; i--){
+			if(i === 8){
+				continue;
+			}
+			else if(i === 6){
+				break;
+			}
+			// else{
+				console.warn(`i = ${i}`);
+			// }
+		}
+
+
+		// console log number 1 - 50, /3 - fizz, /5 buzz, /3&/5 fizzbuzz
+
+		for(let i = 1; i <= 50; i++){
+			if(i%3 === 0 && i%5 === 0){
+				console.log('fizzbuzz');
+			}
+			else if(i%5 === 0){
+				console.log('buzz');
+			}
+			else if(i%3 === 0 ){
+				console.log('fizz');
+			}
+			else{
+				console.log(i);
+			}
+		}
+
+
+		// # # # # 
+		//  # # # #
+
+		const size = 8;
+
+		for(let i = 0; i < size; i++){ // rows
+			let str = '';
+
+			for(let j = 0; j < size; j++){ // cols
+				if(i%2 === 0 && j%2 === 0 || i%2 !== 0 && j%2 !== 0){ 
+				// четная строка И четный символ ИЛИ нечетная строка И нечетный символ
+					str += '#';
+				}
+				else{
+					str += ' ';
+				}
+			}
+
+			console.log(str);
+		}
+
+
+		// *
+		// **
+		// ***
+		// ****
+		// *****
+		// ****
+		// ***
+		// **
+		// *
+
+		// const rows = 5;
+		// let triangle = '';
+
+		// for(let i = 0; i < rows; i++){
+		// 	triangle += '*';
+		// 	console.log(triangle);
+		// }
+
+
+		const rows = +prompt('Type a size of triangle');
+		const middle = Math.ceil(rows/2);
+
+		for(let i = 0; i < rows; i++){
+			let str = '';
+
+			if(i < middle){
+				for(let j = 0; j <= i; j++){
+					str += '*';
+				}
+				
+			}
+			else{
+				for(let k = 0; k < rows - i; k++){
+					str += '*';
+				}
+			}
+
+			console.log(str);
+		}
+
+
+	</script>
 </body>
 </html>
