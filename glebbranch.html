@@ -9,5 +9,57 @@
 	<h1>
         Homework
     </h1>
+
+<script>
+		// math operators + - / * % ++ -- += -= *= /+
+
+		// logic operators == === [equal] != !== !=== [not equal] > >= < <= && [and] || [or]
+
+
+		/*const rows = 5;
+		let triangle = '';
+		for(i = 0; i < 5; i++) {
+			triangle += '*'
+			console.log(triangle)
+		}*/
+
+
+		/* const rows = +prompt('Type a size of triangle');
+		const middle = Math.ceil(rows/2);
+
+		for(let i = 0; i < rows; i++) {
+			let str = '';
+
+			if(i < middle) {
+				for(let j = 0; j <= i; j++) {
+					str += '*';
+				}
+			}
+			else {
+				for(let k = 0; k < rows - i; k++) {
+				str += '*';
+				}
+			}
+
+			console.log(str)
+			if(rows%2 === 0 && j == i) {
+				console.log(`${str}`)
+			}
+		} */
+		
+		 let min = +prompt('Type number from 0 to 59')
+		if(min >= 0 && min < 15) {
+			console.log('First quarter')
+		}
+		if(min >= 15 && min < 30) {
+			console.log('Second quarter')
+		}
+		if(min >= 30 && min < 45) {
+			console.log('Third quarter')
+		}
+		if(min >= 45 && min <= 59) {
+			console.log('Fourth quarter')
+		} 
+	</script>
 </body>
 </html>
