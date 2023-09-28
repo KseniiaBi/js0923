@@ -13,27 +13,27 @@
 
 
 
-// let a = 5; 
+let a = 5; 
 
-// if (a === 0 || a === 2) {
-//     a += 7;
-// } else {
-//     a = a/10;
-// }
-
-
-// console.log(a);
+if (a === 0 || a === 2) {
+    a += 7;
+} else {
+    a = a/10;
+}
 
 
+console.log(a);
 
 
-// let test = true; 
 
-// if (test === true) {
-//     console.log('Верно');
-// } else {
-//     console.log('Неверно');
-// }
+
+let test = true; 
+
+if (test === true) {
+    console.log('Верно');
+} else {
+    console.log('Неверно');
+}
 
 
 
