@@ -11,71 +11,194 @@
 	
 	<script>
 
-		// В переменной min лежит число от 0 до 59. Определите в какую четверть часа попадает это число 
-
-		// const min = +prompt('Type number 0-59');
-		// let quarter;
-
-		// if(min >= 0 && min <15){
-		// 	quarter = 'first';
-		// }
-		// else if(min >= 15 && min < 30){
-		// 	quarter = 'second';
-		// }
-		// else if(min >= 30 && min < 45){
-		// 	quarter = 'third';
-		// }
-		// else if(min >= 45 && min <= 59){
-		// 	quarter = 'fourth';
-		// }
-		// else{
-		// 	quarter = 'any';
-		// }
-
-		// console.log(`Variable min belongs to ${quarter} quarter`);
-
-		// 3) Если переменная a равна нулю или равна двум, то прибавьте к ней 7, иначе поделите ее на 10. Выведите новое значение переменной на экран.
-		//  Проверьте работу скрипта при a, равном 5, 0, -3, 2
-		//  let a2 = +prompt('Type any num');
-		//  a2 = (a2 === 0 || a2 === 2) ? a2+=7 : a2/= 10;
-
-		//  console.log(a2);
+		let vw = 'viewport';
 		
-		// 4) Если переменная test равна true, то выведите 'Верно', иначе выведите ‘Неверно'. Проверьте работу скрипта при test, равном true, false. Напишите два варианта скрипта - с короткой записью и с длинной. 
-		let test = true;
-		// let message = test ? 'Верно' : 'Неверно';
-		// console.log(message);
-		
-		if(test){
-			console.log('Верно');
+		for(let i = 0; i < vw.length; i++){
+			console.log(vw[i]);
 		}
-		else{
-			console.log('Неверно');
-		}
-		
-		// 5) Получить с помощью prompt аргументы a,b,c, вывести в консоли квадратное уравнение с ними, а затем вычислить корни этого уравнения и вывести в консоли
 
-		const a = +prompt('Type A');
-		const b = +prompt('Type B');
-		const c = +prompt('Type C');
 
-		console.log(`${a}x^2 + ${b}x +${c}`);
+		// fibonacci
 
-		const d = b**2 - 4*a*c;
-		console.log(`D = ${d}`);
+		// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 ....
 
-		if(d > 0){
-			let x1 = (-b - Math.sqrt(d))/2*a;
-			let x2 = (-b + Math.sqrt(d))/2*a;
-			console.log(`x1 = ${x1}, x2 = ${x2}`);
+		const n = 11;
+		let a = 0, b = 1, c;
+		for(let i = 3; i <= n; i++){
+			c = a + b;
+			a = b;
+			b = c;
 		}
-		else if(d === 0){
-			let x = -b/(2*a);
-			console.log(`x = ${x}`);
+		console.log(c);
+
+
+		// sum 1 ... n using while
+
+		// const x = +prompt('Type X');
+		// let i = 0;
+		// let sum = 0;  // if undefined => undefined + 1 => type conversion
+		// while(i <= x){
+		// 	sum += i;
+		// 	i++;
+		// }
+
+		// console.log(sum);
+
+
+		// type conversion
+
+		// to String: alert()  string + something => 
+
+		// to Number any math operation 
+		// undefined => NaN, null = 0, true => 1, false => 0, string -> '' -> 0, '  54  ' -> 54, 'Apple' -> NaN
+		// to boolean: 0, '', undefined, NaN -> false else all converts to true
+
+
+		const y = 12 + '57' - true + null - 4; // 1252
+
+
+		// factorial  N! = 1* 2 * 3 * ... * N
+
+		// let N = +prompt('Type N (factorial)');
+
+		// for(let i = N-1; i > 1; i-- ){
+		// 	N *= i;
+		// }
+
+		// console.log(`factorial = ${N}`);
+
+
+		// m, return amount of positive even numbers less than m
+
+		// const m = +prompt('Type m');
+
+		// let count = 0;
+
+		// for(let i = 1; i < m; i++){
+		// 	if(i%2 === 0){
+		// 		count += 1;
+		// 	}
+		// }
+
+		// console.log(`number of positive even numbers less ${m} = ${count}`);
+
+		// f <= 1 e >= 3
+
+		// const f = +prompt('Type F');
+		// const e = +prompt('Type E');
+		// const d = f<= 1 && e >= 3 ? f+e : f-e;
+		// console.log(`f = ${f}, e = ${e}, d = ${d}`);
+
+
+		// k = 1000, /2 while k<50 => ret k and iterations
+
+		let k = 1000;
+		let i = 0;
+
+		while(k >=50){
+			k /= 2;
+			i++;
 		}
-		else{
-			console.warn('Нет действительных корней');
+		console.log(`Result: ${k}, iterations: ${i}`);
+
+
+		// В книге pagenum страниц, пронумерованных от 1 до pagenum. 
+		// Найти число pagenum, если сумма всех цифр, которые составляют номера страниц равна 1095
+
+		let sum = 0;
+		let pagenum = 1;
+
+		while(sum < 1095){
+			if(pagenum > 9){
+				let p = String(pagenum); // 12 -> '12'
+				for(let i = 0; i < p.length; i++){ // 1, 2
+					sum += +p[i]; // 1 and then 2
+				}
+			}
+			else{
+				sum += pagenum;
+			}
+			pagenum++;
 		}
+		console.log(`sum: ${sum}, pages: ${pagenum}`);
+
+
+		// 1st free, 2-4 = 20, 5-7 = 30, 8+ 40
+
+		// const floor = +prompt('На какой этаж заносить мебель?');
+		// let price = 0;
+
+		// for(let i = 2; i <= floor; i++){
+		// 	if(i <= 4){
+		// 		price += 20;
+		// 	}
+		// 	else if(i >= 5 && i <= 7){
+		// 		price += 30;
+		// 	}
+		// 	else {
+		// 		price += 40;
+		// 	}
+		// }
+
+		// console.log(`Занос мебели на ${floor} этаж обойдется вам в ${price}грн`);
+
+
+		// sum from start to end
+
+		// let start = +prompt('Type where to start');
+		// let end = +prompt('Type end');
+		// let total = 0;
+		// while(start <= end){
+		// 	total += start;
+		// 	start++;
+		// }
+		// console.log(`Sum of range = ${total}`);
+
+
+		// Count b's
+
+		// const word = prompt('Type any word with letter b');
+		// let count = 0;
+		// for(let i = 0; i < word.length; i++){
+		// 	if(word[i] === 'b' || word[i] === 'B'){
+		// 		count++;
+		// 	}
+		// }
+		// console.log(`Word ${word} contains ${count} b's`);
+
+
+		// number of dividers for number H
+
+		const h = +prompt('Type h');
+		let dividers = 0;
+
+		// for(let i = 1; i <= h; i++){
+		// 	if(h%i === 0){
+		// 		dividers++;
+		// 	}
+		// }
+
+		// let j = 1;
+		// while (j <= h){
+		// 	if(h%j === 0){
+		// 		dividers++;
+		// 	}
+		// 	j++;
+		// }
+
+		let j = h;
+		while (j > 0){
+			if(h%j === 0){
+				dividers++;
+			}
+			j--;
+		}
+
+		console.log(`number of dividers for ${h} = ${dividers}`);
+
+
+		// HW: задача про мудреца и шахматы - 1) посчитать на сколько зерен "прилип" султан. 
+		// 2) сумму в долларах при условии, что одно зерно весит 0,0186 г.
 
 	</script>
 </body>
