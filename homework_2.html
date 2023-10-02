@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<style>
+	table {
+		bgcolor: white;
+		width: 1400px;
+		border: 1px solid green;
+		margin: auto;
+	}
+
+	td, th {
+		text-align: center;
+	}
+	h2 {
+		text-align: center;
+		color: orange;
+	}
+	</style>
+</head>
+<body>
+//zerna
+
+<script>
+
+let sum_grain = 0n;
+const base = 2;
+const weight = 0.0186;
+let number =1n;
+
+for (let i = 1; i < 65; i++){
+	number *= 2n;
+}
+
+sum_grain = number - 1n;
+
+console.log("sum_grain");
+console.log(sum_grain);
+alert(`summa of grain is: ${sum_grain}`);
+
+let weight_$ = sum_grain * 186n/10n;
+//tons = sum_grain * BigInt(186/10000);
+alert(`the weight ($) of the grain is: ${weight_$}`);
+
+console.log("weight($)");
+console.log(sum_grain * 186n/10n);
+
+
+
+//let mathpow = BigInt(Math.pow(base, 64);
+//console.log("mathpow");
+//console.log(mathpow-1n);
+
+
+</script>
+
+</body>
+</html>
