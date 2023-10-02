@@ -10,29 +10,234 @@
 
 	
 	<script>
-		// HW: задача про мудреца и шахматы - 1) посчитать на сколько зерен "прилип" султан. 
-		// 2) сумму в долларов при условии, что одно зерно весит 0,0186 г.
+		// arrays
 
-		// let desk = 64; // размер доски
-		// let rice = 0n; // количество зерен риса
-		// let weight = 0.0186; // 1 rice grain weight
+		let a1 = new Array(5);
+		let a2 = [];
+		let a3 = ['Apple', 'Orange', 'Kiwi', 'Pear'];
 
-		// for(let i = 0; i < desk; i++){
-		// 	rice += BigInt(Math.pow(2, i)); // 1, 2, 4, 8, 16 ...
-		// }
+		// arrays have length and indexes and last index is ALWAYS length-1
 
-		// console.log(`rice count: ${rice}`);
+		// using indexes we can add or change existing data in array
+		a1[3] = 3;
+		a1[0] = 0;		
+		a1[5] = 5;
+		
+		delete a1[3]; // or delete, but it will cause 'empty' place
 
-		let desk = 64; // размер доски
-		let rice = 0; // вес риса
-		let price = 1; // 1usd/kg
-		let weight = 0.0000186; // 1 rice grain weight
+		// arrays are mutable
 
-		for(let i = 0; i < desk; i++){
-			rice += Math.pow(2, i)*weight*price/1000; //
+		a3[1] = 'Avocado';
+
+		// strings are immutable
+
+		let o = 'Orange';
+		o[0] = 'o';
+
+
+		
+		// create arr with numbers 1-10
+		let numbers = [];
+		for(let i = 0; i < 10; i++){
+			numbers[i] = i+1; // arr[0] = 1, arr[1] = 2, ... arr[9] = 10
+		}
+		console.log(numbers);
+
+
+		// -1-2-3-4-5-6-7-8-9-10-
+
+		let str = '-';
+		
+		for(let i = 0; i < numbers.length; i++){
+			str += `${numbers[i]}-`
+		}
+		console.log(str);
+
+
+		// array of all dividers for number
+
+		let num = 30;//+prompt('Type any positive num');
+		let dividers = [];
+		let index = 0;
+		
+		for(let i = 1; i <= num; i++){
+			if(num % i === 0){ // число является делителем, если исходное делится на него без остатка
+				dividers[index] = i; // в массив на 0,1,2,3...н место записывается делитель
+				index++;
+			}
+		}
+		console.log(`dividers for number ${num} are: ${dividers}`);
+
+
+		// array of even numbers 1-10
+
+		let evens = [];
+		let ind = 0;
+
+		for(let i = 1; i <= 10; i++){
+			if(i % 2 === 0){
+				evens[ind] = i;
+				ind++;
+			}
 		}
 
-		console.log(`rice total in USD: ${rice}`);
+		console.log(evens);
+
+
+		// find 3 in array
+
+		let nums = [1,4,7,9,3,12,35, 8];
+		let foundThree = false;
+
+		for(let i = 0; i < nums.length; i++){
+			if(nums[i] === 3){
+				foundThree = true;
+			}
+		}
+
+		console.log(foundThree);
+
+
+		// true if array has 2 equal numbers nearby
+
+		let foundEqual = false;
+
+		for(let i = 0; i < nums.length -1; i++){
+			if(nums[i] === nums[i+1]){
+				foundEqual = true;
+			}
+		}
+
+		console.warn(foundEqual);
+
+
+		// arr[length+1] = undefined
+
+		// sr arifm
+
+		let sum = 0;
+		for(let i = 0; i < nums.length; i++){
+			sum += nums[i];
+		}
+		let sr = sum/nums.length;
+		console.log(`med of nums = ${sr}`);
+
+
+		// const
+
+		const a = [1,2,3];
+		a[3] = 4;
+		a[4] = 5;
+
+		// a = 'Hello'; // Assignment to constant variable.
+
+		// [1,2,3] == [1,2,3] // !!! false
+
+		let b = a; // a == b // true
+
+		// typeof b // object
+
+		let x = 10;
+		let y = x;
+
+		// когда мы копируем примитивы, то берем их значение, когда копируем структуры данных (обьект или массив), то копируем их ссылку
+
+		// [10, 20, 30, 100, 200, 300, 1000] how may numbers starts from 1
+
+		let arr1 = [10, 20, 30, 100, 200, 300, 1000];
+		let count = 0;
+
+		for(let i = 0; i < arr1.length; i++){
+			let s = String(arr1[i]);
+			if(s[0] == 1){
+				count++;
+			}
+		}
+		console.log(count);
+
+
+		// arrays can include arrays inside
+
+		let m = [[1,2,3], [4,5,6], [7,8,9,0, [1,2,3, [1,2,3]]]];
+
+		// [9,8,7,6,5,4,3,2,1] => [1,2,3,4,5,6,7,8,9]
+
+		// let rev = [9,8,7,6,5,4,3,2,1];
+		// let revrev = [];
+
+		// for(let i = 0; i < rev.length; i++ ){
+		// 	revrev[i] = rev[rev.length - 1 - i];
+		// }
+
+		// console.log(revrev);
+
+		let rev = [9,8,7,6,5,4,3,2,1];
+
+		for(let i = 0; i< rev.length/2; i++ ){
+			let old = rev[i];
+			rev[i] = rev[rev.length - 1 - i];
+			rev[rev.length - 1 - i] = old;
+		}
+
+		console.log(rev);
+
+
+		let diff = [-6, 25, 13, -9, 65, -88, -10, 34, 82, -12]
+
+		// sum of all positive numbers
+
+		let posSum = 0;
+		for(let i = 0; i < diff.length; i++){
+			posSum += diff[i] > 0 ? diff[i] : 0;
+		}
+		console.log(posSum);
+
+		// new arr [-30...30]
+
+		let rangeArr = [];
+		let iter = 0;
+
+		for(let i = 0; i < diff.length; i++){
+			if(diff[i] >= -30 && diff[i] <= 30){
+				rangeArr[iter] = diff[i];
+				iter++;
+			}
+		}
+
+		console.log(rangeArr);
+
+
+		// sort arr
+
+		let arr = [5,7,8,1,2,4,9,3,6];
+
+		// bubble sort
+		for(let i = 0; i < arr.length-1; i++){ // внешний цикл запускает перебор в 9 итераций - для каждого элемента массива 
+			for(let j = 0; j < arr.length-1; j++){ // мы планируем попарно сравнивать каждый элемент цикла со следующим и для того, чтобы за итерацию вытеснить в конец самое большое число,нам нужно постепенно его переставлять
+				if(arr[j] > arr[j+1]){ // если первое число больше второго (текущее больше следующего), то мы будем их менять местами
+					let max = arr[j]; // чтобы не  потерять, большее сохраняем в отдельную переменную
+					arr[j] = arr[j+1]; //вместо него записываем меьшее число
+					arr[j+1] = max; //  и после него ставим большее
+				}
+			}
+		}
+		console.log(arr);
+
+
+		// [[2*1 = 2; 2*2 = 4]]
+
+		const table = [];
+
+		for(let i = 2; i <10; i++){ // внешний цикл у нас отвечает за текущий множитель
+			const inner = []; // для каждого множителя создаем вложенный массив
+			for(let j = 1; j < 10; j++){ //  и умножаем числа на множитель
+				inner[j-1] = `${i}x${j} = ${i*j}`; // результат записываем как в таблице умножения
+			}
+			table[i-2] = inner; // готовый "столбец" таблицы записываем в родительский массив
+		}
+
+		console.warn(table);
+
 
 	</script>
 </body>
