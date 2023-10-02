@@ -10,195 +10,29 @@
 
 	
 	<script>
-
-		let vw = 'viewport';
-		
-		for(let i = 0; i < vw.length; i++){
-			console.log(vw[i]);
-		}
-
-
-		// fibonacci
-
-		// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 ....
-
-		const n = 11;
-		let a = 0, b = 1, c;
-		for(let i = 3; i <= n; i++){
-			c = a + b;
-			a = b;
-			b = c;
-		}
-		console.log(c);
-
-
-		// sum 1 ... n using while
-
-		// const x = +prompt('Type X');
-		// let i = 0;
-		// let sum = 0;  // if undefined => undefined + 1 => type conversion
-		// while(i <= x){
-		// 	sum += i;
-		// 	i++;
-		// }
-
-		// console.log(sum);
-
-
-		// type conversion
-
-		// to String: alert()  string + something => 
-
-		// to Number any math operation 
-		// undefined => NaN, null = 0, true => 1, false => 0, string -> '' -> 0, '  54  ' -> 54, 'Apple' -> NaN
-		// to boolean: 0, '', undefined, NaN -> false else all converts to true
-
-
-		const y = 12 + '57' - true + null - 4; // 1252
-
-
-		// factorial  N! = 1* 2 * 3 * ... * N
-
-		// let N = +prompt('Type N (factorial)');
-
-		// for(let i = N-1; i > 1; i-- ){
-		// 	N *= i;
-		// }
-
-		// console.log(`factorial = ${N}`);
-
-
-		// m, return amount of positive even numbers less than m
-
-		// const m = +prompt('Type m');
-
-		// let count = 0;
-
-		// for(let i = 1; i < m; i++){
-		// 	if(i%2 === 0){
-		// 		count += 1;
-		// 	}
-		// }
-
-		// console.log(`number of positive even numbers less ${m} = ${count}`);
-
-		// f <= 1 e >= 3
-
-		// const f = +prompt('Type F');
-		// const e = +prompt('Type E');
-		// const d = f<= 1 && e >= 3 ? f+e : f-e;
-		// console.log(`f = ${f}, e = ${e}, d = ${d}`);
-
-
-		// k = 1000, /2 while k<50 => ret k and iterations
-
-		let k = 1000;
-		let i = 0;
-
-		while(k >=50){
-			k /= 2;
-			i++;
-		}
-		console.log(`Result: ${k}, iterations: ${i}`);
-
-
-		// В книге pagenum страниц, пронумерованных от 1 до pagenum. 
-		// Найти число pagenum, если сумма всех цифр, которые составляют номера страниц равна 1095
-
-		let sum = 0;
-		let pagenum = 1;
-
-		while(sum < 1095){
-			if(pagenum > 9){
-				let p = String(pagenum); // 12 -> '12'
-				for(let i = 0; i < p.length; i++){ // 1, 2
-					sum += +p[i]; // 1 and then 2
-				}
-			}
-			else{
-				sum += pagenum;
-			}
-			pagenum++;
-		}
-		console.log(`sum: ${sum}, pages: ${pagenum}`);
-
-
-		// 1st free, 2-4 = 20, 5-7 = 30, 8+ 40
-
-		// const floor = +prompt('На какой этаж заносить мебель?');
-		// let price = 0;
-
-		// for(let i = 2; i <= floor; i++){
-		// 	if(i <= 4){
-		// 		price += 20;
-		// 	}
-		// 	else if(i >= 5 && i <= 7){
-		// 		price += 30;
-		// 	}
-		// 	else {
-		// 		price += 40;
-		// 	}
-		// }
-
-		// console.log(`Занос мебели на ${floor} этаж обойдется вам в ${price}грн`);
-
-
-		// sum from start to end
-
-		// let start = +prompt('Type where to start');
-		// let end = +prompt('Type end');
-		// let total = 0;
-		// while(start <= end){
-		// 	total += start;
-		// 	start++;
-		// }
-		// console.log(`Sum of range = ${total}`);
-
-
-		// Count b's
-
-		// const word = prompt('Type any word with letter b');
-		// let count = 0;
-		// for(let i = 0; i < word.length; i++){
-		// 	if(word[i] === 'b' || word[i] === 'B'){
-		// 		count++;
-		// 	}
-		// }
-		// console.log(`Word ${word} contains ${count} b's`);
-
-
-		// number of dividers for number H
-
-		const h = +prompt('Type h');
-		let dividers = 0;
-
-		// for(let i = 1; i <= h; i++){
-		// 	if(h%i === 0){
-		// 		dividers++;
-		// 	}
-		// }
-
-		// let j = 1;
-		// while (j <= h){
-		// 	if(h%j === 0){
-		// 		dividers++;
-		// 	}
-		// 	j++;
-		// }
-
-		let j = h;
-		while (j > 0){
-			if(h%j === 0){
-				dividers++;
-			}
-			j--;
-		}
-
-		console.log(`number of dividers for ${h} = ${dividers}`);
-
-
 		// HW: задача про мудреца и шахматы - 1) посчитать на сколько зерен "прилип" султан. 
-		// 2) сумму в долларах при условии, что одно зерно весит 0,0186 г.
+		// 2) сумму в долларов при условии, что одно зерно весит 0,0186 г.
+
+		// let desk = 64; // размер доски
+		// let rice = 0n; // количество зерен риса
+		// let weight = 0.0186; // 1 rice grain weight
+
+		// for(let i = 0; i < desk; i++){
+		// 	rice += BigInt(Math.pow(2, i)); // 1, 2, 4, 8, 16 ...
+		// }
+
+		// console.log(`rice count: ${rice}`);
+
+		let desk = 64; // размер доски
+		let rice = 0; // вес риса
+		let price = 1; // 1usd/kg
+		let weight = 0.0000186; // 1 rice grain weight
+
+		for(let i = 0; i < desk; i++){
+			rice += Math.pow(2, i)*weight*price/1000; //
+		}
+
+		console.log(`rice total in USD: ${rice}`);
 
 	</script>
 </body>
