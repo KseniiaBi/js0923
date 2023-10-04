@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<script>
+
+//task#1
+
+let arr1 = [9,10,2,1,4,3,8,7,6,5];
+let arr2 = [9,7,5,3,1,8,6,4,2,10];
+
+let arrNew = [];
+
+for (let i = 0; i < 10; i++){
+	arrNew[i] = arr1[i] + arr2[i];
+}
+console.log(`New array has next elements: ${arrNew}`);
+
+//for(el of arrNew){
+//console.log(el)
+//}
+
+//task#2
+
+let array = [[1,2,3],[4,5,6]];
+let sum = 0;
+
+//console.log(array);
+
+for (let i = 0; i < array.length; i++){
+	for( let j = 0; j < array[i].length; j++){
+		sum += array[i][j];
+	}
+}
+console.log(`sum of array elements is  ${sum}`);
+
+</script>	
+	
+</body>
+</html>
