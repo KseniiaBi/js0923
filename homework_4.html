@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	
+<script>
+
+
+//task#4_1
+
+let mus =[9,10,6,1,4,3,8,7,6,5];
+
+function checkValue5(array){
+
+	let flag = false;
+
+	for(let i = 0; i<array.length; i++){
+		if(array[i] == 5){
+			console.log(`true, it was found a value ${array[i]} + ${i}`)
+			flag = true;
+			return flag;
+		}
+	}	
+console.log("false, it was not found a value ");	
+return flag;
+}
+
+console.log("task#4_1");
+console.log(checkValue5(mus));
+
+//task#4_2
+
+function checkValue3(){
+
+	let flag = false;
+	let s = '';
+	let arr = [];
+	let count = 0;
+
+	for(let i = 0; i < 1000; i++){	
+		arr[i] = i + 1;
+	}
+		
+	for (let j = 0; j < arr.length; j++){
+		s = String(arr[j] );
+		for (let i = 0; i < s.length; i++){
+			if(s[i] == 3){
+				console.log(s);
+				count++;
+				flag = true;
+				break;
+			}
+		}	
+	}
+console.log(`count of numbers with 3: ${count}`);
+return flag;
+}
+
+console.log("task#4_2");
+console.log(checkValue3());
+
+//task#4_3
+
+function fib(n) {
+
+	if(n <= 1){
+		return n;
+	}
+	else{
+		return fib(n - 1) + fib(n - 2);
+	}
+}
+
+console.log("task#4_2");
+console.log(`fib: ${fib(3)}`);
+
+//task#4_4
+
+function getDigitsSum(num) {
+                     
+let str = String(num);
+                     let sum = 0;
+                     for (let i = 0; i < str.length; i++) {
+                         sum += Number(str[i]);
+                     }
+                     return sum;
+}
+
+console.log(getDigitsSum(2923));
+
+function getDigitsSumOfYear13(){
+
+	for (let i = 1; i < 2023; i++) {
+		if (getDigitsSum(i) == 13) {         
+			console.log("sum "  + getDigitsSum(i) +", year " + i);
+		}
+	}
+}
+
+console.log("task#4_4");
+console.log(getDigitsSumOfYear13());
+
+</script>	
+</body>
+</html>
