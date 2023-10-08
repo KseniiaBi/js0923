@@ -68,6 +68,31 @@
 
 // console.log(sum);
 
+function checkFive(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === 5) {
+        console.log('Есть');
+        break; 
+    }
+}
+}
+const myArray = [1, 2, 3, 4, 5, 6];
+checkFive(myArray);
+
+
+
+
+function fibonacci(n) {
+    if (n <= 2) {
+        return 1;
+  } else {
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+}
+
+const n = 20
+const result = fibonacci(n);
+console.log(`число Фибоначчи: ${result}`);
 
 
 
