@@ -10,87 +10,363 @@
 
 	
 	<script>
-// 		1) Функция принимает в качестве аргумента массив с числами. С помощью цикла проверьте, что в нем есть элемент со значением 5. Как только будет найден первый такой элемент - выведите 'Есть' и оборвите цикл. Если такого элемента нет - ничего не выводите.
-		function findFive(arr){
-			for(let i = 0; i < arr.length; i++){
-				if(arr[i] === 5){
-					console.log('Есть');
-					break;
-				}
-			}
-		}
+	// functions
+	
+	// scope
 
-		findFive([1,2,3,4,5,6,7,8,9]);
+	let a = 5;
 
-// 2) У скольких целых чисел, лежащих в диапазоне от 1 до 1000, есть цифра 3? PS: 33 - одно число
-		function findAllWithThrees(start, end){
-			let count = 0;
-			for(let i = start; i <= end; i++){
-				if(hasThree(i)){
-					count++;
-				}
-			}
-			return count;
-		}
+	if(3){
+		let a = 10;
+		console.log(a);
+	}
 
-		function hasThree(num){
-			num = String(num);
-			let has = false;
-			for(let char of num){
-				if(char == 3){ '3' == 3
-					has = true;
-				}
-			}
-			return has;
-		}
+	{
+		let a = 15;
+		console.log(a);
+	}
 
-		console.log(findAllWithThrees(1,1000));
+	console.log(a);
 
-// 3) рекурсией посчитать н-ноее число Фибоначчи, ряд начинать с 1
+	// let const {}  var -> function
 
-	function fibonacci(a,b,n, current = 3){
-		if(current < n){
-			return fibonacci(b, b+a, n, ++current);
-		}
-		else{
-			return b+a;
+
+	var b = 6;
+
+	if(5){
+		var b = 7;
+		console.log(b);
+	}
+	console.log(b);
+
+	function foo(){
+		var b = 12;
+		console.log(b);
+	}
+	foo();
+	console.log(b);
+
+
+
+	// hoisting
+
+	console.log(apples);
+	var apples = 12;
+
+	// console.log(bananas); // Cannot access 'bananas' before initialization
+	let bananas = 3;
+
+	boo();
+	function boo(){
+		console.log('Hello!');
+	}
+
+	// sayHi(); var sayHi sayHi is not a function - sayHi всплыла, но значение ей не присвоено
+	// sayHi(); // Cannot access 'sayHi' before initialization если let sayHi
+	let sayHi = function(){
+		console.log('Hi!');
+	}
+	sayHi();
+
+
+	// let/var inside for loop
+
+	for(var k = 0; k < 5; k++){
+		console.log(`k = ${k}`);
+	}
+	console.warn(`k = ${k}`);
+
+
+	for(let l = 0; l < 5; l++){
+		console.log(`l = ${l}`);
+	}
+	// console.warn(`l = ${l}`); // ReferenceError: l is not defined
+
+
+
+	// closures 
+
+
+	let oranges = 9;
+	function orange(){
+		let oranges = 33;
+		console.log(`We have ${oranges} oranges`);
+	}
+	orange();
+
+
+	let name = 'John';
+
+	//  each fn has own Lexical Enviroment
+	function greeting(){
+		// LE: var phrase = undefined, name = John
+		var phrase = `Hi! My name is ${name}`; // LE: var phrase = Hi! My name is John, name = John
+		console.log(phrase);
+	}
+
+	greeting();
+
+	name = 'Jane';
+	greeting(); // LE: var phrase = Hi! My name is Jane, name = Jane
+
+
+
+	// counter
+
+	function makeCounter(){
+		let count = 1;
+
+		return function(){
+			console.log(count++);
 		}
 	}
 
-	console.log(fibonacci(1,1,11));
+	let counter = makeCounter();
+
+	counter();
+	counter();
+	counter();
+
+	let counter2 = makeCounter();
+
+	counter2();
+	counter2();
+	counter2();
 
 
-// 4) Найдите все года от 1 до 2023, сумма цифр которых равна 13. Для этого используйте вспомогательную функцию getDigitsSum из  задачи с урока
-	/// 8763423984523 -> 64 -> 10 -> 1
 
-	function getDigitsSum(n){
+	// [colors] rainbow() 
+
+	let colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet'];
+
+	function makeRainbow(){
+		let current = 0;
+
+		return function(){
+			console.log(colors[current]);
+			current = current < colors.length - 1 ? ++current : 0;
+		}
+	}
+
+	let rainbow = makeRainbow();
+
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+
+
+	// print next alphabet letter
+
+	function makeABC(){
+		let letter = 65;
+
+		return function(){
+			return letter++;
+		}
+	}
+
+	let abc = makeABC();
+
+	for(let i = 0; i <= 57; i++){
+		let l = abc();
+		if(i < 26 || i > 33){
+			console.log(String.fromCharCode(l));
+		}
+	}
+
+
+	// fn - / * using +
+
+	function extract(a, b){
+		let res = a;
+		for(let i = 0; i < b; i++){
+			res += -1;
+		}
+		return res;
+	}
+
+	console.log(extract(10,7));
+
+
+	function mul(a,b){
+		let res = 0;
+		for(i = 0; i < b; i++){
+			res += a;
+		}
+		return res;
+	}
+
+	console.log(mul(2,5));
+
+
+	function divide(a,b){
+
+		if(a < b){
+			let max = b;
+			b = a;
+			a = max;
+		}
+
+		let res = 0;
+		let c = 0;
+		while(res < a){
+			res += b;
+			c++;
+		}
+
+		return c;
+	}
+
+	console.log(divide(10,2));
+	console.log(divide(2, 10));
+
+
+	// fn(str, maxlength) 
+
+	function cutString(str, maxlength){
+		if(str.length > maxlength){
+			let newstr = '';
+			for(let i = 0; i < maxlength - 3; i++){
+				newstr += str[i];
+			}
+			newstr += '...';
+			console.log(newstr);
+		}
+	}
+
+	cutString('Hello World', 10);
+	
+
+	// (2)(3) // 5
+
+	function sum(a){
+		return function(b){
+			return a+b;
+		}
+	}
+
+	console.log(sum(2)(3));
+
+	// HW: (2)(3)(12)(7) -> 24
+
+
+	// find longest and shortest word in array
+
+	function stringsInArr(arr){
+		let short = arr[0];
+		let long = arr[0];
+
+		for(let i = 1; i < arr.length; i++){
+			if(arr[i].length > long.length){
+				long = arr[i];
+			}
+			if(arr[i].length < short.length){
+				short = arr[i];
+			}
+		}
+		console.log(`shortest is ${short}, longest is ${long}`);
+	}
+
+	stringsInArr(['Avocado', 'Lime', 'Egg', 'Watermelon']);
+
+
+	// sum range
+
+	function sumRange(start, end){
 		let sum = 0;
-		let str = String(n);
-		for(let num of str){
-			sum += +num;
+		if(start > end){
+			let max = start;
+			start = end;
+			end = max;
 		}
-		if(sum === 13){
-			return sum;
-		}
-		else if(sum > 9 && sum != 13){
-			return getDigitsSum(sum);
-		}
-		else{
-			return sum;
-		}
+		for(let i = start; i <= end; i++){
+			sum += i;
+		}	
+		console.log(`sum of range ${start} ... ${end} is ${sum}`);
 	}
 
-	function countYears(){
-		let totalCount = 0;
-		for(let i = 1; i <= 2023; i++){
-			if(getDigitsSum(i) === 13){
-				totalCount += 1;
+	sumRange(12, 3);
+	sumRange(22, 26);
+
+
+
+	// [2,4,5,16,25]
+
+	function sumOfSquares(arr){
+		let squares = [];
+		let index = 0;
+
+		for(let i = 0; i < arr.length-1; i++){
+			for(let j = 1; j < arr.length; j++){
+				if(arr[i] == Math.sqrt(arr[j])){
+					squares[index] = arr[j];
+					index++;
+				}
 			}
 		}
-		console.log(`Number of years with sum = 13 is ${totalCount}`);
+		let sum = 0;
+		for(let num of squares){
+			sum += num;
+		}
+
+		console.log(sum);
 	}
 
-	countYears();
+	sumOfSquares([2,4,5,16,25]);
+
+	
+	// '123456'
+
+	// function checkLettersSum(str){
+	// 	let start = +str[0] + +str[1] + +str[2];
+	// 	let end = +str[3]  + +str[4] + +str[5];
+
+	// 	if(start === end){
+	// 		console.log('Equal');
+	// 	}
+	// 	else{
+	// 		console.log('Not equal');
+	// 	}
+	// }
+
+	function checkLettersSum(str){
+		if(str.length !== 6 || isNaN(+str)){
+			console.error('Incorrect input!');
+			return;
+		}
+
+		let start = 0;
+		let end = 0;
+
+		for(let i = 0; i < str.length; i++){
+			if(i < 3){
+				start += +str[i];
+			}
+			else{
+				end += +str[i];
+			}
+		}
+
+		if(start === end){
+			console.log('Equal');
+		}
+		else{
+			console.log('Not equal');
+		}
+	}
+
+	checkLettersSum('123456');
+	checkLettersSum('423423');
+	checkLettersSum('fddfdd');
+	checkLettersSum('42343');
+
 
 
 	</script>
