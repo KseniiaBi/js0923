@@ -10,249 +10,57 @@
 
 	
 	<script>
-		
-	// functions
-
-
-	// Function Declaration
-	sayHi();
-	function sayHi(){
-		// fn body
-		console.log('Hi!');
-	}
-
-	// function Expression
-
-	// greeting(); Cannot access 'greeting' before initialization
-	// let greeting; greeting(); // greeting is not a function
-	
-	const greeting = function(){
-		console.log('Hello World!');
-	}
-	greeting(); 
-
-
-	// arguments
-
-	let a = 8, b = 3;
-	// let c = a + b;
-
-	// function sum(){
-	// 	console.log(a + b);
-	// }
-
-	function sum(x, y){
-		console.log(x + y);
-	}
-
-	sum(2, 3);
-	sum(6, 5);
-
-	function extendedSum(){
-		let sum = 0;
-		for(let i = 0; i < arguments.length; i++){
-			sum += arguments[i];
-		}
-		console.warn(sum);
-	}
-
-	extendedSum(2, 3);
-	extendedSum(2, 3, 4, 5);
-	extendedSum();
-
-
-	// default values
-
-	function sayHello(phrase = 'Hello', name = 'Stranger'){
-		console.log(`${phrase}, ${name}`);
-	}
-
-	sayHello('Good evening', 'Kseniia');
-	sayHello();
-	sayHello('Ciao');
-
-
-	// returning values
-
-	function mul(l,m){
-		return l*m;
-		console.log('11111111!!!!');
-	}
-
-	let n = mul(2, 3);
-
-	console.log(mul(4,5));
-
-	console.log(sum(9,1)); // undefined, because function has no return
-
-
-	// arrow function
-
-	const sayBye = () => console.log('Bye!');
-	sayBye();
-
-
-	const extract = (d,e) => d - e;
-	console.log(extract(10, 3));
-
-
-	const foo = text => {
-		text += '!!!';
-		return text;
-	}
-	console.log(foo('Javascript'));
-
-
-	// callback
-
-	setTimeout(sayBye, 1000);
-
-	function delFromCart(proceed, decline){
-		confirm('Are you sure you want to delete item from cart?') ? proceed() : decline();
-	}
-
-	function continueDeletion(){
-		console.log('Item was successfully deleted');
-	}
-
-	function skipDeletion(){
-		console.log('Nothing to delete');
-	}
-
-	delFromCart(continueDeletion, skipDeletion);
-
-	// anonymous function
-
-	setTimeout(function(){
-		console.warn('Hello from timeout');
-	}, 1500);
-
-
-	// anonymous self-calling function
-
-	(function(){
-		console.error('Anonymous');
-	})();
-
-
-	// recursive function 
-
-	let arr = [1,2,3];
-
-	function printArr(array, elem = 0){
-		if(elem < array.length){
-			console.log(array[elem]);
-			printArr(array, ++elem);
-		}
-	}
-
-	printArr(arr);
-
-
-
-	// for ... of  - loop for objects iterable (which has indexes)
-
-	function showLetters(str){
-		for(let letter of str){
-			console.log(letter);
-		}
-	}
-
-	showLetters('Bubble');
-
-
-	function addTwo(a){
-		for(let item of a){
-			console.log(item+2);
-		}
-	}
-	addTwo(arr);
-
-
-
-	// practice
-
-
-	// fn (1,2,3) => 1+2-3
-
-	function calc(a,b,c){
-		return a + b - c;
-	}
-	console.warn(calc(10, 12, 5));
-
-
-	// arr => arr[i]*2
-
-	function modifyArr(array){
-		let newArr = []; // newarr = array X!!! 
-		for(let i = 0; i < array.length; i++){
-			newArr[i] = array[i]*2;
-		}
-		return newArr;
-	}
-
-	console.log(modifyArr([2,3,4,5]));
-
-
-	// pure functions - does not changy any instance from global scope
-
-
-	// factorial !5 = 1*2*3*4*5
-
-	function factorial(n){
-		if(n > 1){
-			return n * factorial(n-1)
-		}
-		return n;
-	}
-
-	console.log(factorial(5));
-
-
-	// arr sum
-
-	let marr = [[1,2, [3, [4, 5, [6]]]], [7, 8, [9, 10]], [11, [12, 13]], 14, [15]];
-
-	function sumArr(a){
-		let sum = 0;
-
-		for(let i = 0; i < a.length; i++){
-			// if(typeof a[i] === 'object'){
-			// 	sum += sumArr(a[i]);
-			// }
-			// else{
-			// 	sum += a[i];
-			// }
-
-			sum += typeof a[i] === 'object' ? sumArr(a[i]) : a[i];
-		}
-		return sum;
-	}
-
-	console.log(sumArr(marr));
-
-
-	// function combination
-
-	let aaa = [1,2,3,4,5,6,7,8,9,10,11,12];
-
-	function sumEvenNums(a){
-		let result = 0;
-		for(let num of a){
-			if(isEven(num)){
-				result += num;
+// 		1) Функция принимает в качестве аргумента массив с числами. С помощью цикла проверьте, что в нем есть элемент со значением 5. Как только будет найден первый такой элемент - выведите 'Есть' и оборвите цикл. Если такого элемента нет - ничего не выводите.
+		function findFive(arr){
+			for(let i = 0; i < arr.length; i++){
+				if(arr[i] === 5){
+					console.log('Есть');
+					break;
+				}
 			}
 		}
-		return result;
+
+		findFive([1,2,3,4,5,6,7,8,9]);
+
+// 2) У скольких целых чисел, лежащих в диапазоне от 1 до 1000, есть цифра 3? PS: 33 - одно число
+		function findAllWithThrees(start, end){
+			let count = 0;
+			for(let i = start; i <= end; i++){
+				if(hasThree(i)){
+					count++;
+				}
+			}
+			return count;
+		}
+
+		function hasThree(num){
+			num = String(num);
+			let has = false;
+			for(let char of num){
+				if(char == 3){ '3' == 3
+					has = true;
+				}
+			}
+			return has;
+		}
+
+		console.log(findAllWithThrees(1,1000));
+
+// 3) рекурсией посчитать н-ноее число Фибоначчи, ряд начинать с 1
+
+	function fibonacci(a,b,n, current = 3){
+		if(current < n){
+			return fibonacci(b, b+a, n, ++current);
+		}
+		else{
+			return b+a;
+		}
 	}
 
-	function isEven(n){ // returns true of false
-		return n % 2 === 0;
-	}
-
-	console.log(sumEvenNums(aaa));
+	console.log(fibonacci(1,1,11));
 
 
+// 4) Найдите все года от 1 до 2023, сумма цифр которых равна 13. Для этого используйте вспомогательную функцию getDigitsSum из  задачи с урока
 	/// 8763423984523 -> 64 -> 10 -> 1
 
 	function getDigitsSum(n){
@@ -261,7 +69,10 @@
 		for(let num of str){
 			sum += +num;
 		}
-		if(sum > 9){
+		if(sum === 13){
+			return sum;
+		}
+		else if(sum > 9 && sum != 13){
 			return getDigitsSum(sum);
 		}
 		else{
@@ -269,42 +80,18 @@
 		}
 	}
 
-	console.log(getDigitsSum(8763423984523));
-	console.log(getDigitsSum(8763423984524));
-
-
-	// arrow fn 
-
-	let max = array => {
-		let bigger = 0;
-
-		for(let item of array){
-			if(item > bigger) {
-				bigger = item;
+	function countYears(){
+		let totalCount = 0;
+		for(let i = 1; i <= 2023; i++){
+			if(getDigitsSum(i) === 13){
+				totalCount += 1;
 			}
 		}
-		return `Max num from array ${array} is ${bigger}`;
+		console.log(`Number of years with sum = 13 is ${totalCount}`);
 	}
 
-	console.log(max([12,3,6,92,6, 33]));
+	countYears();
 
-
-
-	// sum of positive numbers
-
-	let q = [-3,5,8,-12, 6, 74, -34];
-
-	function sumPosNums(a){
-		let result = 0;
-		for(let num of a){
-			result += isPositive(num) ? num : 0;
-		}
-		return result;
-	}
-
-	const isPositive = num => num > 0; // true/false depend on num > 0
-
-	console.log(sumPosNums(q));
 
 	</script>
 </body>
