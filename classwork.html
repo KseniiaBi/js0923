@@ -10,362 +10,369 @@
 
 	
 	<script>
-	// functions
-	
-	// scope
+	// objects
 
-	let a = 5;
+	const student = {
+		name: 'John', // property: value
+		1: 'One',
+	};
 
-	if(3){
-		let a = 10;
-		console.log(a);
+	student.name = 'Jane';
+
+	console.log(student.age); // undefined
+
+	console.log('age' in student); // check if property exists
+
+	// add any property in object
+
+	student['hobbys'] = ['Art', 'Photography', 'Football']; // if hobbys without '' -> hobbys is not defined
+
+	// for...in
+
+	for(let prop in student){
+		console.log(`${prop} : ${student[prop]}`);
 	}
 
-	{
-		let a = 15;
-		console.log(a);
-	}
+	// delete prop
 
-	console.log(a);
-
-	// let const {}  var -> function
+	delete student['1'];
 
 
-	var b = 6;
+	// methods
 
-	if(5){
-		var b = 7;
-		console.log(b);
-	}
-	console.log(b);
-
-	function foo(){
-		var b = 12;
-		console.log(b);
-	}
-	foo();
-	console.log(b);
-
-
-
-	// hoisting
-
-	console.log(apples);
-	var apples = 12;
-
-	// console.log(bananas); // Cannot access 'bananas' before initialization
-	let bananas = 3;
-
-	boo();
-	function boo(){
-		console.log('Hello!');
-	}
-
-	// sayHi(); var sayHi sayHi is not a function - sayHi всплыла, но значение ей не присвоено
-	// sayHi(); // Cannot access 'sayHi' before initialization если let sayHi
-	let sayHi = function(){
-		console.log('Hi!');
-	}
-	sayHi();
-
-
-	// let/var inside for loop
-
-	for(var k = 0; k < 5; k++){
-		console.log(`k = ${k}`);
-	}
-	console.warn(`k = ${k}`);
-
-
-	for(let l = 0; l < 5; l++){
-		console.log(`l = ${l}`);
-	}
-	// console.warn(`l = ${l}`); // ReferenceError: l is not defined
-
-
-
-	// closures 
-
-
-	let oranges = 9;
-	function orange(){
-		let oranges = 33;
-		console.log(`We have ${oranges} oranges`);
-	}
-	orange();
-
-
-	let name = 'John';
-
-	//  each fn has own Lexical Enviroment
-	function greeting(){
-		// LE: var phrase = undefined, name = John
-		var phrase = `Hi! My name is ${name}`; // LE: var phrase = Hi! My name is John, name = John
-		console.log(phrase);
-	}
-
-	greeting();
-
-	name = 'Jane';
-	greeting(); // LE: var phrase = Hi! My name is Jane, name = Jane
-
-
-
-	// counter
-
-	function makeCounter(){
-		let count = 1;
-
-		return function(){
-			console.log(count++);
+	let admin = {
+		name: 'Admin',
+		administrate: function(){
+			console.log('Admin is administrating');
+		},
+		sayHi(){
+			console.log('Hi! I am admin!');
 		}
 	}
 
-	let counter = makeCounter();
-
-	counter();
-	counter();
-	counter();
-
-	let counter2 = makeCounter();
-
-	counter2();
-	counter2();
-	counter2();
+	admin.administrate();
+	admin.sayHi();
 
 
+	// [1,5,-3,7,-34,65,-12,77, 98, -14]
 
-	// [colors] rainbow() 
+	// function arrToObj(arr){
+	// 	let pos = 0;
+	// 	let neg = 0;
 
-	let colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet'];
-
-	function makeRainbow(){
-		let current = 0;
-
-		return function(){
-			console.log(colors[current]);
-			current = current < colors.length - 1 ? ++current : 0;
-		}
-	}
-
-	let rainbow = makeRainbow();
-
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-
-
-	// print next alphabet letter
-
-	function makeABC(){
-		let letter = 65;
-
-		return function(){
-			return letter++;
-		}
-	}
-
-	let abc = makeABC();
-
-	for(let i = 0; i <= 57; i++){
-		let l = abc();
-		if(i < 26 || i > 33){
-			console.log(String.fromCharCode(l));
-		}
-	}
-
-
-	// fn - / * using +
-
-	function extract(a, b){
-		let res = a;
-		for(let i = 0; i < b; i++){
-			res += -1;
-		}
-		return res;
-	}
-
-	console.log(extract(10,7));
-
-
-	function mul(a,b){
-		let res = 0;
-		for(i = 0; i < b; i++){
-			res += a;
-		}
-		return res;
-	}
-
-	console.log(mul(2,5));
-
-
-	function divide(a,b){
-
-		if(a < b){
-			let max = b;
-			b = a;
-			a = max;
-		}
-
-		let res = 0;
-		let c = 0;
-		while(res < a){
-			res += b;
-			c++;
-		}
-
-		return c;
-	}
-
-	console.log(divide(10,2));
-	console.log(divide(2, 10));
-
-
-	// fn(str, maxlength) 
-
-	function cutString(str, maxlength){
-		if(str.length > maxlength){
-			let newstr = '';
-			for(let i = 0; i < maxlength - 3; i++){
-				newstr += str[i];
-			}
-			newstr += '...';
-			console.log(newstr);
-		}
-	}
-
-	cutString('Hello World', 10);
-	
-
-	// (2)(3) // 5
-
-	function sum(a){
-		return function(b){
-			return a+b;
-		}
-	}
-
-	console.log(sum(2)(3));
-
-	// HW: (2)(3)(12)(7) -> 24
-
-
-	// find longest and shortest word in array
-
-	function stringsInArr(arr){
-		let short = arr[0];
-		let long = arr[0];
-
-		for(let i = 1; i < arr.length; i++){
-			if(arr[i].length > long.length){
-				long = arr[i];
-			}
-			if(arr[i].length < short.length){
-				short = arr[i];
-			}
-		}
-		console.log(`shortest is ${short}, longest is ${long}`);
-	}
-
-	stringsInArr(['Avocado', 'Lime', 'Egg', 'Watermelon']);
-
-
-	// sum range
-
-	function sumRange(start, end){
-		let sum = 0;
-		if(start > end){
-			let max = start;
-			start = end;
-			end = max;
-		}
-		for(let i = start; i <= end; i++){
-			sum += i;
-		}	
-		console.log(`sum of range ${start} ... ${end} is ${sum}`);
-	}
-
-	sumRange(12, 3);
-	sumRange(22, 26);
-
-
-
-	// [2,4,5,16,25]
-
-	function sumOfSquares(arr){
-		let squares = [];
-		let index = 0;
-
-		for(let i = 0; i < arr.length-1; i++){
-			for(let j = 1; j < arr.length; j++){
-				if(arr[i] == Math.sqrt(arr[j])){
-					squares[index] = arr[j];
-					index++;
-				}
-			}
-		}
-		let sum = 0;
-		for(let num of squares){
-			sum += num;
-		}
-
-		console.log(sum);
-	}
-
-	sumOfSquares([2,4,5,16,25]);
-
-	
-	// '123456'
-
-	// function checkLettersSum(str){
-	// 	let start = +str[0] + +str[1] + +str[2];
-	// 	let end = +str[3]  + +str[4] + +str[5];
-
-	// 	if(start === end){
-	// 		console.log('Equal');
+	// 	for(let num of arr){
+	// 		if(num > 0){
+	// 			pos += num;
+	// 		}
+	// 		else{
+	// 			neg += num
+	// 		}
 	// 	}
-	// 	else{
-	// 		console.log('Not equal');
+
+	// 	return {
+	// 		positive: pos,
+	// 		negative: neg
 	// 	}
 	// }
 
-	function checkLettersSum(str){
-		if(str.length !== 6 || isNaN(+str)){
-			console.error('Incorrect input!');
-			return;
+
+	function arrToObj(arr){
+		let o = {
+			positive: 0,
+			negative: 0
 		}
 
-		let start = 0;
-		let end = 0;
-
-		for(let i = 0; i < str.length; i++){
-			if(i < 3){
-				start += +str[i];
+		for(let num of arr){
+			if(num > 0){
+				o.positive += num;
 			}
 			else{
-				end += +str[i];
+				o.negative += num
 			}
 		}
+		return o;
+	}
 
-		if(start === end){
-			console.log('Equal');
+	console.log(arrToObj([1,5,-3,7,-34,65,-12,77, 98, -14]));
+
+
+	// ['Apple', 'Orange', 'Kiwi, 'Mango', 'Kiwi', 'Apple', 'Orange', 'Kiwi', 'Mango', 'Apple']
+
+	function sortFruits(arr){
+		let o = {};
+		for(let fruit of arr){
+			if(fruit in o){ // проверяю, есть ли уже такой фрукт в обьекте
+				o[fruit] += 1;
+			}
+			else{
+				o[fruit] = 1; // нашли первое совпадение по названию и записали в количестве 1
+			}
 		}
-		else{
-			console.log('Not equal');
+		console.log(o);
+	}
+
+	sortFruits(['Apple', 'Orange', 'Kiwi', 'Mango', 'Kiwi', 'Apple', 'Orange', 'Kiwi', 'Mango', 'Apple']);
+
+
+	// calc{}
+
+	let calculator = {
+		sum(a,b){
+			return a+b;
+		},
+		extract(a,b){
+			return a-b;
+		},
+		multiply(a,b){
+			return a*b;
+		},
+		divide(a,b){
+			return a/b;
 		}
 	}
 
-	checkLettersSum('123456');
-	checkLettersSum('423423');
-	checkLettersSum('fddfdd');
-	checkLettersSum('42343');
+	console.warn(calculator.sum(14,5));
+	console.warn(calculator.extract(14,5));
+	console.warn(calculator.multiply(14,5));
+	console.warn(calculator.divide(14,5));
+
+
+	// show products with specials
+
+	let shop = [
+		{
+			name: 'T-Shirt',
+			price: 199,
+			special: '-20%'
+		},
+		{
+			name: 'Sneakers',
+			price: 1999,
+		},
+		{
+			name: 'Hat',
+			price: 399,
+			special: '-30%'
+		},
+		{
+			name: 'Sunglasses',
+			price: 199,
+			special: '-40%'
+		},
+		{
+			name: 'T-Shirt 2',
+			price: 999,
+		},
+	];
+
+	function checkSales(arr){
+		for(let item of arr){
+			if('special' in item){
+					console.log(`${item.name}: ${item.price}`);
+			}
+		}
+	}
+
+	checkSales(shop);
+
+
+	//  object length
+
+	function objLength(obj){
+		let length = 0;
+		for(let prop in obj){
+			length++;
+		}
+		return length;
+	}
+
+	console.log(objLength(calculator));
+	console.log(objLength(student));
+	console.log(objLength(admin));
+	console.log(objLength({}));
+
+
+
+	// {ua: [days] || en : [days]} confirm for language and prompt for day number
+
+	const dictionary = {
+		ua: ['Понеділок', 'Вівторок', 'Середа','Четвер', 'Пʼятниця', 'Субота', 'Неділя'],
+		en: ['Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday', 'Sunday']
+	}
+
+	function chooseDay(){
+		let lang = confirm('Set ukrainian as default language?') ? 'ua' : 'en';
+		let day = prompt('Type a number 1-7');
+		console.warn(dictionary[lang][day-1]);
+	}
+
+	// chooseDay();
+
+	//  remove properties with empty values
+
+	function removeEmptyProperties(obj){
+		for(let prop in obj){
+			if(Boolean(obj[prop]) === false){
+				delete obj[prop];
+			}
+			else if(typeof obj[prop] === 'object' && obj[prop].length === 0 || objLength(obj[prop]) === 0){
+				delete obj[prop];
+			}
+		}
+		console.log(obj);
+	}
+
+	let oWithEmpties = {
+		name: 'Ann',
+		age: 0,
+		city: '',
+		location: null,
+		hobbies: [],
+		card: undefined,
+		pet: {},
+		size: NaN, 
+		fruits: ['Apples', 'Avocado'],
+		parents: {
+			mother: 'Leeloo',
+			father: 'John'
+		}
+	}
+	removeEmptyProperties(oWithEmpties);
+
+
+	// computed properties
+
+	let favNum = +prompt('Type any number');
+
+	let user = {
+		[favNum + 'password']: 'sdjfnesjrhqwadlcmdfkl;j30948'
+	}
+
+	console.log(user);
+
+
+	// copying objects
+
+	let laptop = {
+		size: '15`',
+		manufacturer: 'Apple'
+	}
+
+	let macBook = laptop;
+
+	console.log(macBook);
+
+	laptop === macBook // true because they are linked to same object
+
+	macBook.size = '13`';
+	console.log(laptop.size);
+
+	laptop = {
+		manufacturer: 'Lenovo'
+	}
+
+	laptop === macBook // false
+
+	// macBook = null;  // will be cleaned by Garbage Collector
+
+
+	let newlaptop = {};
+
+	for(let key in macBook){
+		newlaptop[key] = macBook[key];
+	}
+
+	console.log(newlaptop);
+	newlaptop === macBook; // false
+
+	// let computer = {};
+	// Object.assign(computer, macBook);
+
+	let computer = Object.assign({}, macBook);
+
+	console.log(computer);
+
+	let menu = {
+		name: 'navbar',
+		sizes: {
+			width: 1920,
+			height: 100
+		}
+	}
+
+	let navbar = Object.assign({}, menu);
+	console.log(navbar);
+	// menu.sizes === navbar.sizes // true
+
+	let clonedNavbar = structuredClone(navbar);
+	console.log(clonedNavbar.sizes === navbar.sizes); // false => cloned navbar fully independent from navbar, 
+	// inner objects are cloned and nave different links
+
+
+	// remove from object ({a: 1, b: 2, c: 3, d: 4}, {c: 3, d: 3}) => {a: 1, b: 2} 
+	// ({a: 1, b: 2, c: 3, d: 3}, {c: 3, d: 3}) => {a: 1, b: 2}
+
+	function removeFromObject(target, toDelete){
+		for(let prop in toDelete){
+			if(prop in target && target[prop] === toDelete[prop]){
+				delete target[prop];
+			}
+		}
+		console.log(target);
+	}
+
+	removeFromObject({a: 1, b: 2, c: 3, d: 4}, {c: 3, d: 3});
+	removeFromObject({a: 1, b: 2, c: 3, d: 3}, {c: 3, d: 3});
+
+
+	//  return array of prop values from array of objects
+
+	let people = [
+		{
+			name: 'Peter',
+			age: 33
+		},
+		{
+			name: 'Fred',
+			age: 42
+		},
+		{
+			name: 'Jane',
+			age: 22
+		}
+	];
+
+	function pluck(arr, propname){
+		let props = [];
+
+		for(let i = 0; i < arr.length; i++){
+			if(propname in arr[i]){
+				props[i] = arr[i][propname];
+			}
+		}
+		console.log(props);
+	}
+
+	pluck(people, 'name');
+	pluck(people, 'age');
+	pluck(people, 'user');
+
+
+	// {a: 1, b: 2, c: 3} => [[a, 1], ][b, 2], [c, 3]]
+
+	function objectToArr(obj){
+		let arr = [];
+		index = 0;
+		for(let key in obj){
+			arr[index] = [key, obj[key]];
+			index++;
+		}
+		console.log(arr);
+	}
+
+	objectToArr({a: 1, b: 2, c: 3});
+
+
 
 
 
