@@ -10,368 +10,47 @@
 
 	
 	<script>
-	// objects
+	// sum(2)(3)(12)(7) -> 24
 
-	const student = {
-		name: 'John', // property: value
-		1: 'One',
-	};
+	function sum(a){ // функция с названием, чтобы ее можно было вызывать рекурсивно
 
-	student.name = 'Jane';
-
-	console.log(student.age); // undefined
-
-	console.log('age' in student); // check if property exists
-
-	// add any property in object
-
-	student['hobbys'] = ['Art', 'Photography', 'Football']; // if hobbys without '' -> hobbys is not defined
-
-	// for...in
-
-	for(let prop in student){
-		console.log(`${prop} : ${student[prop]}`);
-	}
-
-	// delete prop
-
-	delete student['1'];
-
-
-	// methods
-
-	let admin = {
-		name: 'Admin',
-		administrate: function(){
-			console.log('Admin is administrating');
-		},
-		sayHi(){
-			console.log('Hi! I am admin!');
-		}
-	}
-
-	admin.administrate();
-	admin.sayHi();
-
-
-	// [1,5,-3,7,-34,65,-12,77, 98, -14]
-
-	// function arrToObj(arr){
-	// 	let pos = 0;
-	// 	let neg = 0;
-
-	// 	for(let num of arr){
-	// 		if(num > 0){
-	// 			pos += num;
-	// 		}
-	// 		else{
-	// 			neg += num
-	// 		}
-	// 	}
-
-	// 	return {
-	// 		positive: pos,
-	// 		negative: neg
-	// 	}
-	// }
-
-
-	function arrToObj(arr){
-		let o = {
-			positive: 0,
-			negative: 0
-		}
-
-		for(let num of arr){
-			if(num > 0){
-				o.positive += num;
+		return function(b){// возвращает функцию, внутри которой будет происходить сложение
+			if(b){// если у нас найден второй (третий, четвертый итд параметр, а не круглые пустые скобки)
+				return sum(a+b); // то мы суммируем его к предыдущим, при этом предыдущие накапливаются
 			}
-			else{
-				o.negative += num
-			}
-		}
-		return o;
-	}
-
-	console.log(arrToObj([1,5,-3,7,-34,65,-12,77, 98, -14]));
-
-
-	// ['Apple', 'Orange', 'Kiwi, 'Mango', 'Kiwi', 'Apple', 'Orange', 'Kiwi', 'Mango', 'Apple']
-
-	function sortFruits(arr){
-		let o = {};
-		for(let fruit of arr){
-			if(fruit in o){ // проверяю, есть ли уже такой фрукт в обьекте
-				o[fruit] += 1;
-			}
-			else{
-				o[fruit] = 1; // нашли первое совпадение по названию и записали в количестве 1
-			}
-		}
-		console.log(o);
-	}
-
-	sortFruits(['Apple', 'Orange', 'Kiwi', 'Mango', 'Kiwi', 'Apple', 'Orange', 'Kiwi', 'Mango', 'Apple']);
-
-
-	// calc{}
-
-	let calculator = {
-		sum(a,b){
-			return a+b;
-		},
-		extract(a,b){
-			return a-b;
-		},
-		multiply(a,b){
-			return a*b;
-		},
-		divide(a,b){
-			return a/b;
-		}
-	}
-
-	console.warn(calculator.sum(14,5));
-	console.warn(calculator.extract(14,5));
-	console.warn(calculator.multiply(14,5));
-	console.warn(calculator.divide(14,5));
-
-
-	// show products with specials
-
-	let shop = [
-		{
-			name: 'T-Shirt',
-			price: 199,
-			special: '-20%'
-		},
-		{
-			name: 'Sneakers',
-			price: 1999,
-		},
-		{
-			name: 'Hat',
-			price: 399,
-			special: '-30%'
-		},
-		{
-			name: 'Sunglasses',
-			price: 199,
-			special: '-40%'
-		},
-		{
-			name: 'T-Shirt 2',
-			price: 999,
-		},
-	];
-
-	function checkSales(arr){
-		for(let item of arr){
-			if('special' in item){
-					console.log(`${item.name}: ${item.price}`);
+			else{// если новый параметр не найден (нашли пустые скобки), вернуть все, что накопилось из всех прошлых непустых скобок
+				return a;
 			}
 		}
 	}
 
-	checkSales(shop);
+	console.log(sum(2)(3)(12)(7)());
 
+	//2) создать функцию, которая сравнивает между собой два объекта на равенство свойств и их значений
 
-	//  object length
+	function areEqual(o1, o2){
+		let equal = false;
 
-	function objLength(obj){
-		let length = 0;
-		for(let prop in obj){
-			length++;
-		}
-		return length;
-	}
-
-	console.log(objLength(calculator));
-	console.log(objLength(student));
-	console.log(objLength(admin));
-	console.log(objLength({}));
-
-
-
-	// {ua: [days] || en : [days]} confirm for language and prompt for day number
-
-	const dictionary = {
-		ua: ['Понеділок', 'Вівторок', 'Середа','Четвер', 'Пʼятниця', 'Субота', 'Неділя'],
-		en: ['Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday', 'Sunday']
-	}
-
-	function chooseDay(){
-		let lang = confirm('Set ukrainian as default language?') ? 'ua' : 'en';
-		let day = prompt('Type a number 1-7');
-		console.warn(dictionary[lang][day-1]);
-	}
-
-	// chooseDay();
-
-	//  remove properties with empty values
-
-	function removeEmptyProperties(obj){
-		for(let prop in obj){
-			if(Boolean(obj[prop]) === false){
-				delete obj[prop];
-			}
-			else if(typeof obj[prop] === 'object' && obj[prop].length === 0 || objLength(obj[prop]) === 0){
-				delete obj[prop];
+		if(objLength(o1) === objLength(o2)){
+			for(let prop in o2){
+				equal = o2[prop] === o1[prop]; // присваиваем в переменную результат сравнения свойства с одинаковым названием в двух разных обьектах
 			}
 		}
-		console.log(obj);
+
+		return equal;
 	}
 
-	let oWithEmpties = {
-		name: 'Ann',
-		age: 0,
-		city: '',
-		location: null,
-		hobbies: [],
-		card: undefined,
-		pet: {},
-		size: NaN, 
-		fruits: ['Apples', 'Avocado'],
-		parents: {
-			mother: 'Leeloo',
-			father: 'John'
+	function objLength(o){
+		let count = 0;
+		for(let prop in o){
+			count++;
 		}
-	}
-	removeEmptyProperties(oWithEmpties);
-
-
-	// computed properties
-
-	let favNum = +prompt('Type any number');
-
-	let user = {
-		[favNum + 'password']: 'sdjfnesjrhqwadlcmdfkl;j30948'
+		return count;
 	}
 
-	console.log(user);
-
-
-	// copying objects
-
-	let laptop = {
-		size: '15`',
-		manufacturer: 'Apple'
-	}
-
-	let macBook = laptop;
-
-	console.log(macBook);
-
-	laptop === macBook // true because they are linked to same object
-
-	macBook.size = '13`';
-	console.log(laptop.size);
-
-	laptop = {
-		manufacturer: 'Lenovo'
-	}
-
-	laptop === macBook // false
-
-	// macBook = null;  // will be cleaned by Garbage Collector
-
-
-	let newlaptop = {};
-
-	for(let key in macBook){
-		newlaptop[key] = macBook[key];
-	}
-
-	console.log(newlaptop);
-	newlaptop === macBook; // false
-
-	// let computer = {};
-	// Object.assign(computer, macBook);
-
-	let computer = Object.assign({}, macBook);
-
-	console.log(computer);
-
-	let menu = {
-		name: 'navbar',
-		sizes: {
-			width: 1920,
-			height: 100
-		}
-	}
-
-	let navbar = Object.assign({}, menu);
-	console.log(navbar);
-	// menu.sizes === navbar.sizes // true
-
-	let clonedNavbar = structuredClone(navbar);
-	console.log(clonedNavbar.sizes === navbar.sizes); // false => cloned navbar fully independent from navbar, 
-	// inner objects are cloned and nave different links
-
-
-	// remove from object ({a: 1, b: 2, c: 3, d: 4}, {c: 3, d: 3}) => {a: 1, b: 2} 
-	// ({a: 1, b: 2, c: 3, d: 3}, {c: 3, d: 3}) => {a: 1, b: 2}
-
-	function removeFromObject(target, toDelete){
-		for(let prop in toDelete){
-			if(prop in target && target[prop] === toDelete[prop]){
-				delete target[prop];
-			}
-		}
-		console.log(target);
-	}
-
-	removeFromObject({a: 1, b: 2, c: 3, d: 4}, {c: 3, d: 3});
-	removeFromObject({a: 1, b: 2, c: 3, d: 3}, {c: 3, d: 3});
-
-
-	//  return array of prop values from array of objects
-
-	let people = [
-		{
-			name: 'Peter',
-			age: 33
-		},
-		{
-			name: 'Fred',
-			age: 42
-		},
-		{
-			name: 'Jane',
-			age: 22
-		}
-	];
-
-	function pluck(arr, propname){
-		let props = [];
-
-		for(let i = 0; i < arr.length; i++){
-			if(propname in arr[i]){
-				props[i] = arr[i][propname];
-			}
-		}
-		console.log(props);
-	}
-
-	pluck(people, 'name');
-	pluck(people, 'age');
-	pluck(people, 'user');
-
-
-	// {a: 1, b: 2, c: 3} => [[a, 1], ][b, 2], [c, 3]]
-
-	function objectToArr(obj){
-		let arr = [];
-		index = 0;
-		for(let key in obj){
-			arr[index] = [key, obj[key]];
-			index++;
-		}
-		console.log(arr);
-	}
-
-	objectToArr({a: 1, b: 2, c: 3});
-
+	console.log(areEqual({a:1, b:2, c:3}, {a:1, b:2, c:3}));
+	console.log(areEqual({a:1, b:2, d:3}, {a:1, b:2, c:3}));
+	console.log(areEqual({a:1, b:2, c:3}, {a:1, b:2}));
 
 
 
