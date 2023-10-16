@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<script>
+
+//task#5_1
+
+function sum(a) {
+ 	return function(b) {
+   		return function(c){
+			return function(d){
+				return a+b+c+d
+			}
+ 		}
+	}
+}
+
+console.log("task#5_1");
+console.log("sum(2)(3)(12)(7) -> " + sum(2)(3)(12)(7));
+
+
+//task#5_2
+
+let macBook = {
+size: '15',
+manufacturer: 'Apple'
+};
+
+let newLaptop = {
+size: '15',
+manufacturer: 'Apple'
+};
+
+
+function compareTwoObj(obj1, obj2){
+
+let flag=false;
+
+for(let prop in obj1){
+	if(prop in obj2 && obj2[prop]!==obj1[prop]){
+		console.log("not equils obj1 and obj2");
+		flag=false;
+		return flag;
+	}
+	else if(prop in obj2 && obj2[prop]===obj1[prop]){
+		console.log("equils obj1 and obj2");
+		flag=true;
+	}
+}
+return flag;
+}
+
+console.log("task#5_2");
+console.log("newLaptop === macBook -> " + newLaptop === macBook);
+console.log("compareTwoObj(newLaptop, macBook) -> " + compareTwoObj(newLaptop, macBook));
+	
+</script>
+</body>
+</html>
