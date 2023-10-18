@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<script>
+	//task#6_1
+	console.log(`task 6_1`);
+
+	let team = {
+		lead: {
+			firstname: 'Ivan',
+			lastname: 'Ivanov',
+			get fullname() {
+				return `${this.firstname} ${this.lastname}`;
+			},
+			set fullname(newname) {
+				[this.firstname, this.lastname] = newname;
+			}
+		},
+		junior1: {
+			firstname: 'Ivanka',
+			lastname: 'Ivanova',
+			get fullname() {
+				return `${this.firstname} ${this.lastname}`;
+			},
+			set fullname(newname) {
+				[this.firstname, this.lastname] = newname;
+			}
+		},
+		junior2: {
+			firstname: 'Sid',
+			lastname: 'Sidorov',
+
+		},
+		middle: {
+			firstname: 'Peter',
+			lastname: 'Petrov',
+
+		},
+		senior: {
+			firstname: 'Samanta',
+			lastname: 'Smith',
+
+		},
+		get countMembersOfTeam() {
+
+			let count = 0;
+			for (let prop in team) {
+				if (prop == "countMembersOfTeam" || prop == "newLead") {
+					continue;
+				}
+				count++;
+			}
+			return `${count}`;
+		},
+		set newLead(newname) {
+			[team.lead.firstname, team.lead.lastname] = newname;
+		}
+	}	
+
+	console.log(`count of Member's Team -> ${team.countMembersOfTeam}`);
+
+	console.log(`I am current team lead -> ${team.lead.firstname} ${team.lead.lastname}`);
+	console.log(team.newLead = ['Samanta', 'Smith']);
+	console.log(`new lead fullname -> ${team.lead.fullname}`);
+
+	//task#6_2
+	console.log(`task 6_2`);
+
+	let bankingAccount = {
+		balance: 1000,
+		limit_of_credit: 1500,
+
+		get countMoney() {
+			let sum = 0;
+			for (let prop in bankingAccount) {
+				if (prop == "countMoney") {
+					continue;
+				}
+				sum += bankingAccount[prop];
+
+				console.log(`item of income -> ${prop}`);
+				console.log(typeof bankingAccount[prop]);
+			}
+			return `${sum}`;
+		}
+	}
+	console.log(`available resources -> ${bankingAccount.countMoney}`);
+
+	//task#6_3
+	console.log(`task 6_3`);
+
+	let circle = {
+			pi: 3.14,
+			radius: 25,
+			get getRadius() {
+				return `${this.radius}`;
+			},
+			get getSquareOfCircle() {
+				let sqCircle = this.pi * this.radius * this.radius;
+				return `${sqCircle}`;
+			},
+			set newRadius(new_radius) {
+				[this.radius] = new_radius;
+			}
+		}
+		console.log(`circle.getRadius ${circle.getRadius}`);
+		console.log(`circle.getSquareOfCircle ${circle.getSquareOfCircle}`);
+		console.log(`circle.newRadius ${circle.newRadius = [12]}`);
+		
+	//task#6_4
+	console.log(`task 6_4`);
+let car = {
+	maximum_speed: 220,
+	speed: 40,
+
+	get getSpeed() {
+		return `${car.speed}`;
+	},
+	get getMaxSpeed() {
+		return `${this.maximum_speed}`;
+	},
+
+	set SetMaxSpeed(newSpeed) {
+		let currentSpeed = car.getSpeed;
+		let currentMaxSpeed = car.getMaxSpeed;
+
+		if ((currentSpeed <= currentMaxSpeed) || (Number(newSpeed) <= currentMaxSpeed)) {
+			[this.speed] = newSpeed;
+		}
+		else {
+			console.log(`Incorrect new Speed for setting! Set speed less than ${this.maximum_speed}`);
+		}	
+	}
+}
+
+	console.log(`Setting new Speed of a car -> ${car.SetMaxSpeed = [15]}`);
+	console.log(`new current speed - > ${car.speed}`);
+
+</script>
+</body>
+</html>
