@@ -10,117 +10,282 @@
 
 	
 	<script>
-		// 	1) Створіть об'єкт "Команда" з полями "членів команди" та "лідера". Забезпечте геттер для визначення кількості членів команди та сеттер для встановлення нового лідера команди.
-		let team = {
-			leader: 'Ivan Ivanov',
-			members: {
-				m1: 'Ivan Ivanov',
-				m2: 'John Doe',
-				m3: 'Peter Peterson',
-				m4: 'Jack Jackson',
-				m5: 'Tony Tompson'
-			},
-			get membersCount(){
-				let count = 0;
-				for(let prop in this.members){
-					count++;
-				}
-				return count;
-			},
-			set newLeader(newleader){
-				let inTeam = false;
-				for(let name in this.members){
-					if(this.members[name] === newleader){
-						inTeam = true;
-					}
-				}
-				if(inTeam){
-					this.leader = newleader;
-					console.log(this);
-				}
-				else{
-					console.error('New leader is not from team');
-				}
-			}
-		}
+		// Array methods
 
-		console.log(team.membersCount);
-		team.newLeader = 'Andrew I';
-		team.newLeader = 'Peter Peterson';
+		const numbers = [1,2,3,4,5,6,7,8,9];
 
+		// at() 
+		let num = numbers.at(2); // 3 => numbers[2]
 
-		// 2) Створіть об'єкт "Банківський рахунок" з полями "баланс" та "ліміт кредиту". Забезпечте геттер для визначення доступних коштів (баланс + ліміт кредиту).
-		
-		let bankAccount = {
-			balance: 1000,
-			credit: 1000,
-			get availableCosts(){
-				return this.balance + this.credit;
-			}
-		}
+		// concat
+		let moreNums = numbers.concat([10,11,12], [13,14,15]);
+		console.log(moreNums);
 
-		console.log(bankAccount.availableCosts);
+		// copyWithin()
 
-		
-		// 3) Створіть об'єкт "Круг" з полем "радіус". Забезпечте геттер для обчислення площі круга на основі радіусу та сеттер для встановлення радіусу.
-		
-		let circle = {
-			radius: 70,
-			get sqare(){
-				return Math.PI * this.radius*this.radius;
-			},
-			set newRadius(rad){
-				if(typeof(rad) === 'number' && rad > 0){
-					this.radius = rad;
-					console.log(this);
-				}
-				else{
-					console.error('Incorrect radius');
-				}
-			}
-		}
+		const fruits = ['Apple', 'Avocado', 'Lemon', 'Lime', 'Orange'];
+		fruits.copyWithin(2,0,2);
+		console.log(fruits);
 
-		console.log(circle.sqare);
-		circle.newRadius = 14;
-		circle.newRadius = -9;
-		
-		// 4) Створіть об'єкт "Автомобіль" з полями "швидкість" та "максимальна швидкість". 
-		// Забезпечте геттер та сеттер для перевірки та обмеження швидкості, щоб вона не перевищувала максимальну швидкість.
+		// entries
 
-		let car = {
-			speed: 190,
-			maxSpeed: 180,
-			get currentSpeed(){
-				if(this.speed > this.maxSpeed){
-					console.warn(`Current speed is ${this.speed} km/h and higher than limit, setting new speed`);
-					this.newSpeed = this.maxSpeed;
-				}
-				return this.speed;
-			},
-			set newSpeed(s){
-				if(typeof s != 'number' || s < 0){
-					console.error('Incorrect speed input');
-				}
-				else if(s > this.maxSpeed){
-					console.error('Speed limit exceeded');
-				}
-				else{
-					this.speed = s;
-				}
-			}
+		let n = fruits.entries();
+		for(let smth of n){
+			console.log(smth);
 		}
 
 
-		console.log(car.currentSpeed);
-		car.newSpeed = 50;
-		car.newSpeed = -50;
-		console.log(car);
+		// every
+
+		console.log(fruits.every((fruit)=>{
+			return fruit[0] === 'A';
+		}));
+
+		// fill
+
+		fruits.fill('Plum', 4,5);
+		console.log(fruits);
+
+
+		// filter
+
+		const evenNums = moreNums.filter(num => num % 2 === 0);
+		console.log(evenNums);
+
+		// find
+
+		let greater7 = evenNums.find(num => num > 7);
+		console.log(greater7);
+		
+		// findIndex
+
+		let greater7ind = evenNums.findIndex(num => num > 7);
+		console.log(greater7ind);
+
+
+		// flat
+
+		let m = [[1,2,3], [4,5,6], [7,8,9,10,11,12,13]];
+
+		let flatM = m.flat(Infinity);
+		console.log(flatM);
+
+		// flatMap
+
+		const mappedM = m.flatMap(flattener);
+
+		function flattener(num) {
+				return num += 2;
+		}
+		console.log(mappedM);
+
+		// forEach(item, index, array) => item - current element, index
+
+		const a = [2,3,4,5];
+		a.forEach(item => console.log(item*item));
+		console.log(a);
+
+		// map
+
+		let b = a.map(item => item*item);
+		console.log(b);
+
+
+		// from()
+
+		let abc = Array.from('ABC');
+		console.log(abc);
+
+
+		// includes()
+
+		console.log(flatM.includes(15)); // false
+		console.log(flatM.includes(5, 5)); // false
+		console.log(flatM.includes(5, 2)); // false
+
+
+		// indexOf
+
+		console.log(flatM.indexOf(15)); // -1 - not found
+		console.log(flatM.indexOf(5)); // 4
+		console.log(flatM.indexOf(5, 5)); // -1
+
+
+		// isArray
+
+		console.log(Array.isArray('ABC')); // false
+		console.log(Array.isArray([1,2,3])); // true
+		console.log(Array.isArray({a:1})); // false
+
+		// join
+
+		let x = new Array(10);
+		console.log(x.join('wat')+'Batman!');
+
+		let words = ['Hello', 'World', 'of', 'Javascript'];
+		console.log(words.join(' '));
+
+
+		// keys, [values, entries]
+
+		let keys = fruits.values();
+		for(let k of keys){
+			console.log(k);
+		};
+
+
+		// lastIndexOf
+
+		console.log(flatM.lastIndexOf(15)); // -1
+		console.log(flatM.lastIndexOf(5, -2)); // 4
+		console.log(flatM.lastIndexOf(5, 7)); // 4
+
+
+		// push() adds new elem to the end of arr and  returns new Array length
+
+		console.log(fruits.push('Mango'));
+		console.log(fruits);
+
+
+		// pop() - deletes last element and returns it
+
+		console.log(fruits.pop());
+		console.log(fruits);
+
+
+		// unshift - adds new elem to the start of arr and  returns new Array length
+
+		console.log(fruits.unshift('Mango'));
+		console.log(fruits);
+
+
+		// shift - deletes first elem of arr and  returns it
+
+		console.log(fruits.shift());
+		console.log(fruits);
+
+
+		// reduce / reduceRight
+
+		let sumM = [1,2,3,4,5].reduce((total, num) => total + num);
+		console.log(sumM);
+
+
+		// reverse
+		let rev = [5,4,3,2,1];
+		rev.reverse();
+		console.log(rev);
+
+
+		// slice
+
+		const revrev = rev.slice();
+		revrev.reverse();
+		console.log(revrev);
+
+		console.log(flatM.slice(-5,-2));
+		console.log(flatM.slice(2,4));
+		console.log(flatM.slice(6,4)); // [] - start greater then end
+
+
+		// some
+
+		console.log(flatM.some(num => num > 5));
+
+
+		// sort 
+
+		console.log([1,2,3,24,32].sort());
+		console.log([1,2,3,24,32].sort((a,b) => b-a));
+
+
+		// splice
+
+		let letters = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+		// console.log(letters.splice(2,1)); // returns c
+		console.log(letters.splice(2,1, 'x', 'y')); // returns c
 
 
 
+		// sort objects
+
+		const students = [
+			{
+				name: 'Chris',
+				age: 33
+			},
+			{
+				name: 'Ann',
+				age: 21
+			},
+			{
+				name: 'John',
+				age: 22
+			},
+			{
+				name: 'Jane',
+				age: 30
+			}
+		];
+
+		// sort by name
+		// students.sort((a,b) =>{
+		// 	if(a.name > b.name){
+		// 		return 1;
+		// 	}
+		// 	else if(b.name > a.name){
+		// 		return -1;
+		// 	}
+		// 	else {
+		// 		return 0;
+		// 	}
+		// });
+
+		// sort by age
+		students.sort((a,b) =>{
+			if(a.age > b.age){
+				return 1;
+			}
+			else if(b.age > a.age){
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		});
+
+		console.log(students);
 
 
+		// [99 1-100] 
 
+
+		function randomArr(){
+			const arr = []; // создаем пустой массив 
+			let sum = 0; // здесь будет сумма элементов этого массива
+
+			while(arr.length < 99){ // создаем рандомные числа, пока масив не станет длиной 99
+				let num = Math.floor(Math.random()* 100 + 1); // создаем рандомные числа
+
+				if(!arr.includes(num)){//проверяем, что сгенерированное число еще не было добавлено в масив раньше
+					arr.push(num); // добавляем уникальное число в массив
+					sum += num; // и суммируем его к накопителю
+				}
+			}
+			arr.sort(); // сортируем и выводим массив в консоли только для самопроверки
+			console.log(arr);
+
+			let total = 0; // здесь мы считаем сумму всех чисел от 1 до 100 без пропусков
+			for(let i = 1; i <= 100; i++){
+				total += i; 
+			}
+
+			const missed = total - sum; // ищем пропущенное число, как разность между суммами всех чисел 1-100 и суммой элементов нашего массива
+			console.warn(missed);
+		}
+
+		randomArr();
 
 	</script>
 </body>
