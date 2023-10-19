@@ -10,303 +10,111 @@
 
 	
 	<script>
-		// 'use strict'
-
-		// x= null;// x is not defined
-	// objects deeper
-
-	// ?
-
-	const user = {
-		name: 'John',
-		age: 33,
-		// address: {
-		// 	street: 'North Ave',
-		// 	city: 'NY'
-		// }
-	}
-
-	// undefined if address exists but no street
-	// Cannot read properties of undefined (reading 'street') if empty object or no address
-	console.log(user?.address?.street);  // returns undefined if no address and no exception
-
-
-	// console.log(o?.address?.zip); // ReferenceError: o is not defined
-
-	let a = null;
-
-	a?.sayHello();
-
-
-
-	// this 
-
-	let admin = {
-		firstname: 'Jane',
-		lastname: 'Doe',
-		sayHello(){
-			console.log(`Hello! My name is ${admin.firstname}`);
-		}
-	}
-
-	admin.sayHello();
-
-	let siteOwner = admin;
-	siteOwner.sayHello();
-
-	admin = null;
-
-	// siteOwner.sayHello(); // Uncaught TypeError: Cannot read properties of null (reading 'name')
-
-
-	let b = {
-		firstname: 'Ann',
-		lastname: 'Doe',
-		greet(){
-			console.log(`Hi! I am ${this.firstname}`);
-		}
-	}
-
-	b.greet();
-
-	let c = b;
-	b = null;
-	c.greet();
-
-	// this - context - is always object before point -> c.greet() 'this' is 'c'
-
-
-	function sayName(){
-		console.log(`Hi! I am ${this.firstname} ${this.lastname}`);
-	}
-
-	sayName();
-
-	c.sayName = sayName; // we save in property sayName function with same name
-	c.sayName();
-
-	siteOwner.n = sayName;
-	siteOwner.n();
-
-
-	let family = {
-		lastname : 'Johnsons',
-		son: {
-			name: 'John junior',
-			age: 11
-		},
-		mom: {
-			name: 'Jennyfer',
-			age: 33,
-		},
-		dad: {
-			name: 'John',
-			age: 44
-		}
-	}
-
-	function showAge(){
-		 console.log(`${this.name} is ${this.age} years old`);
-		}
-
-	family.dad.a = showAge;
-	family.mom.a = showAge;
-	family.son.a = showAge;
-
-	family.mom.a();
-	family.son.a();
-
-
-	//  if none, this is undefined
-	// sayName(); // no error in code, just undefined in non-strict mode
-	// Cannot read properties of undefined (reading 'firstname') if in use strict mode
-
-
-	// flags and descriptors
-
-	// writable enumerable configurable
-
-	console.log(Object.getOwnPropertyDescriptors(c));
-	console.log(Object.getOwnPropertyDescriptor(c, 'firstname'));
-
-	Object.defineProperty(c, 'firstname', {
-		enumerable: false,
-		writable: false, 
-		configurable: false
-	});
-
-	c.firstname = 'Mary'; // in strict mode TypeError: Cannot read properties of undefined (reading 'firstname')
-	console.log(c.firstname);
-
-	for(let prop in c){
-		console.log(prop);
-	}
-
-	// Object.defineProperty(c, 'firstname', {
-	// 	enumerable: true
-	// }); // TypeError: Cannot redefine property: firstname
-	console.log(Object.getOwnPropertyDescriptors(c));
-
-
-
-	let y = {
-		a: 4,
-		b: 5,
-	}
-
-	Object.defineProperties(y, {
-		a: {enumerable: false},
-		b: {enumerable: false}
-	});
-
-	for(let prop in y){
-		console.log(prop);
-	}
-
-	let r = {
-		a: 1,
-		b: 2
-	}
-
-	for(let prop in r){
-		Object.defineProperty(r, prop, {
-			writable: false
-		});
-	}
-
-	console.log(Object.getOwnPropertyDescriptors(r));
-
-
-	// global freeze
-
-	let v = {
-		name: 'Victoria',
-		age: 33
-	}
-
-	Object.preventExtensions(v); // can not add new props or remove existing
-	v.lastname = 'M';
-	console.log(v);
-	// delete v.name;
-
-
-	Object.seal(v); // can not add new props + configurable:false 
-	// Object.defineProperty(v, 'name', {configurable: true}); // Cannot define property name, object is not extensible
-	console.log(Object.getOwnPropertyDescriptor(v, 'name'));
-
-	Object.freeze(v);// can not add new props + configurable:false  + writable: false for all existing props
-
-	console.log(Object.isExtensible(v)); // can we add/remove props
-	console.log(Object.isSealed(v)); // can we add/remove props + redefine props
-	console.log(Object.isFrozen(v)); // can we add/remove props + redefine props + rewrite props
-
-
-	// accessors
-
-	let student = {
-		firstname: 'Jason',
-		lastname: 'Johnson',
-		get fullname(){
-			return `${this.firstname} ${this.lastname}`;
-		},
-		set fullname(newname){
-			[this.firstname, this.lastname] = newname;
-		}
-	}
-
-	console.warn(student.fullname);
-	// student.fullname = 'Mark Peterson'; // no result in standart mode, in strict mode TypeError: Cannot read properties of undefined (reading 'firstname')
-	student.fullname = ['Mark', 'Peterson'];
-	console.warn(student.fullname);
-
-
-
-	// descriptors for accessors
-
-	// get, set, enumerable, configurable [no value and writable]
-
-	let teacher = {
-		course: 'Javascript',
-		_department: 'Front End'
-	}
-
-
-	Object.defineProperty(teacher, 'dept', {
-		get(){
-			return this._department;
-		},
-		set(val){
-			// this._department = val;
-			Object.defineProperty(teacher, '_department', {enumerable: false, writable: false, value: val});
-		},
-		configurable: false,
-		// value: 111 //ypeError: Invalid property descriptor. Cannot both specify accessors and a value or writable attribute,
-	});
-
-	Object.defineProperty(teacher, '_department', {enumerable: false, writable: false});
-
-	for(let prop in teacher){
-		console.log(prop);
-	}
-
-	teacher._department = 'History';
-	console.log(teacher._department);
-	teacher.dept = 'History';
-	console.log(teacher._department);
-
-
-	// smart setters
-
-	Object.defineProperty(student, 'fullname', {
-		set(newname){
-			if(typeof newname != 'object' || newname.length < 2){
-				console.error('Incorrect name!');
-			}
-			else{
-				for(let item of newname){
-					if(item.length < 3 || typeof item != 'string'){
-						console.error('Incorrect name length!');
+		// 	1) Створіть об'єкт "Команда" з полями "членів команди" та "лідера". Забезпечте геттер для визначення кількості членів команди та сеттер для встановлення нового лідера команди.
+		let team = {
+			leader: 'Ivan Ivanov',
+			members: {
+				m1: 'Ivan Ivanov',
+				m2: 'John Doe',
+				m3: 'Peter Peterson',
+				m4: 'Jack Jackson',
+				m5: 'Tony Tompson'
+			},
+			get membersCount(){
+				let count = 0;
+				for(let prop in this.members){
+					count++;
+				}
+				return count;
+			},
+			set newLeader(newleader){
+				let inTeam = false;
+				for(let name in this.members){
+					if(this.members[name] === newleader){
+						inTeam = true;
 					}
 				}
-				[this.firstname, this.lastname] = newname;
+				if(inTeam){
+					this.leader = newleader;
+					console.log(this);
+				}
+				else{
+					console.error('New leader is not from team');
+				}
 			}
 		}
-	});
+
+		console.log(team.membersCount);
+		team.newLeader = 'Andrew I';
+		team.newLeader = 'Peter Peterson';
 
 
-	let customer = {
-		name: 'Tom',
-		age: 45
-	}
-
-
-	let customer2 = {
-		name: 'Richard',
-		birthday: new Date(1981, 6, 1)
-	}
-
-	function checkAge(){
-		if(this.age != undefined){
-			console.log(`this user is ${this.age} y.o.`);
+		// 2) Створіть об'єкт "Банківський рахунок" з полями "баланс" та "ліміт кредиту". Забезпечте геттер для визначення доступних коштів (баланс + ліміт кредиту).
+		
+		let bankAccount = {
+			balance: 1000,
+			credit: 1000,
+			get availableCosts(){
+				return this.balance + this.credit;
+			}
 		}
-		else{
-			let age = new Date().getFullYear() - this.birthday.getFullYear();
-			console.log(`this user is ${age} y.o.`);
+
+		console.log(bankAccount.availableCosts);
+
+		
+		// 3) Створіть об'єкт "Круг" з полем "радіус". Забезпечте геттер для обчислення площі круга на основі радіусу та сеттер для встановлення радіусу.
+		
+		let circle = {
+			radius: 70,
+			get sqare(){
+				return Math.PI * this.radius*this.radius;
+			},
+			set newRadius(rad){
+				if(typeof(rad) === 'number' && rad > 0){
+					this.radius = rad;
+					console.log(this);
+				}
+				else{
+					console.error('Incorrect radius');
+				}
+			}
 		}
-	}
 
-	Object.defineProperty(customer2, 'age', {
-		get(){
-			return new Date().getFullYear() - this.birthday.getFullYear();
+		console.log(circle.sqare);
+		circle.newRadius = 14;
+		circle.newRadius = -9;
+		
+		// 4) Створіть об'єкт "Автомобіль" з полями "швидкість" та "максимальна швидкість". 
+		// Забезпечте геттер та сеттер для перевірки та обмеження швидкості, щоб вона не перевищувала максимальну швидкість.
+
+		let car = {
+			speed: 190,
+			maxSpeed: 180,
+			get currentSpeed(){
+				if(this.speed > this.maxSpeed){
+					console.warn(`Current speed is ${this.speed} km/h and higher than limit, setting new speed`);
+					this.newSpeed = this.maxSpeed;
+				}
+				return this.speed;
+			},
+			set newSpeed(s){
+				if(typeof s != 'number' || s < 0){
+					console.error('Incorrect speed input');
+				}
+				else if(s > this.maxSpeed){
+					console.error('Speed limit exceeded');
+				}
+				else{
+					this.speed = s;
+				}
+			}
 		}
-	});
-
-	console.log(customer2.age);
 
 
-
-
-
+		console.log(car.currentSpeed);
+		car.newSpeed = 50;
+		car.newSpeed = -50;
+		console.log(car);
 
 
 
