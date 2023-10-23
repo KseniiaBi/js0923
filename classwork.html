@@ -10,68 +10,193 @@
 
 	
 	<script>
-		// Дано масив чисел. Створити новий масив, який містить лише унікальні числа (без повторень), та відсортувати його в порядку спадання.
+		// String methods
+		let str = 'Hello World!';
+
+		// charAt() returns letter
+		console.log(str.charAt(0));
+
+
+		// charCodeAt() returns charCode
+		console.log(str.charCodeAt(0));
+
+		// concat()  returns new string!!!!!
+		// 'Hello ' + name + '!'
+		// `Hello, ${name}`
+
+		let s = str.concat(' How you doing?');
+		console.log(s);
+
+		// endsWith() returns true/false
+		console.log(str.endsWith('!'));
+
+		// fromCharCode returns letter
+
+		console.log(String.fromCharCode(1110));
+
+		// includes() returns true/false
+
+		console.warn(str.includes('ll'));
+
+		// indexOf() 	lastIndexOf()
+
+		console.log(str.indexOf('World'));
 		
-		const a1 = [6,3,9,23,12,6,76,22,3,12,8,9];
 
-		function excludeAndSort(arr){
-			let excluded = arr.slice();
+		// match()
 
-			excluded.forEach((item, index) => {
-				if(excluded.indexOf(item, index+1) !== -1){
-					excluded.splice(excluded.indexOf(item, index+1), 1);
-				}
-			});
-			excluded.sort((a,b) => b-a);
-			return excluded;
+		let text = "The rain in SPAIN stays mainly in the plain";
+
+		console.log(text.match(/ain/));
+		console.log(text.match(/ain/g));
+		console.log(text.match(/ain/gi));
+
+		// repeat returns new string
+
+		console.log(str.repeat(3));
+
+
+		// replace returns new string
+
+		const greeting = str.replace('Hello', 'Good evening');
+		console.warn(greeting);
+
+
+		// replaceAll
+
+		let s1 = "I love cats. Cats are very easy to love. Cats are very popular";
+
+		console.log(s1.replaceAll(/cats/gi, 'dogs'));
+
+
+		// search - returns index || -1
+
+		console.log(str.search(/l/gi));
+
+
+		// slice - returns new str (start, end)
+
+		console.log(str.slice(0,5));
+
+
+		// substr returns new str !!! (start, count) can use negative nums
+
+		console.log(str.substr(-3, 3));
+
+
+		// substring returns new str
+
+		console.log(str.substring(5,0));
+
+		// toLowerCase - all small,  toUpperCase - all CAPS return new string
+
+		console.log(str.toUpperCase());
+
+		// startsWith returns true/false
+
+		console.log(str.startsWith('H'));
+
+		// trim 
+
+		let w = `
+		 	dslds;dlk    		esdasdsd
+			qsasdad	
+					`;
+
+		console.log(w.trim());
+
+
+		// padEnd / padStart
+
+		console.log('1'.padEnd(7, '0'));
+		console.log('1'.padStart(7, '0'));
+
+		// split
+
+		console.log(str.split(''));
+
+
+		// practice
+
+		// .png .jpeg
+
+		// function checkImage(imgname){
+		// 	console.log((imgname.endsWith('.jpg') || imgname.endsWith('.png')) ? 'Image was changed' : 'Unsupported image format');
+		// }
+
+		function checkImage(imgname){
+			if(imgname.endsWith('.jpg') || imgname.endsWith('.png')) {
+				console.log('Image was changed');
+			}  
+			else{
+				 console.error('Unsupported image format');
+			}
 		}
-		console.log(excludeAndSort(a1));
 
-		// Дано масив чисел. Помножити кожне число на його індекс у масиві та вивести новий масив.
-
-		let a2 = [1,2,3,4,5];
-
-		const mul = (arr) =>  arr.map((item, index) => item * index);
-
-		console.log(mul(a2));
+		checkImage('myphoto.png');
+		checkImage('myphoto.pdf');
 
 
-		// Дано масив чисел. Порахувати кількість від'ємних чисел у масиві та знайти їх суму.
+		// '12345' -> '-1-2-3-4-5-'
 
-		const a3 = [9, -21, 8, -43, -2, 98, -7, 64];
+		function strDashes(str){
+			const arr = str.split('');
 
-		function sumOfNegatives(arr){
-			let filtered = arr.filter(num => num < 0);
-			let sum = filtered.reduce((total, num) => total + num);
+			let str2 = `-${arr.join('-')}-`;
+			// let str2 = '-'.concat(arr.join('-'), '-');
 
-			console.log(`Negatives count = ${filtered.count}, their sum = ${sum}`);
-		}
-		sumOfNegatives(a3);
-
-		// Дано масив чисел. Знайти суму всіх парних чисел, а потім знайти середнє значення цих чисел.
-
-		const a4 = [1,2,3,4,5,6,7,8,9,10];
-
-		function positivesSumAndMed(arr){
-			const filtered = arr.filter(item => item % 2 === 0);
-			let sum = filtered.reduce((total, num) => total + num);
-			let med = sum/filtered.length;
-			console.log(`Sum of even numbers = ${sum}, median = ${med}`);
+			console.log(str2);
 		}
 
-		positivesSumAndMed(a4);
+		strDashes('12345');
 
-		// Дано масив рядків. Знайти кількість рядків, які мають довжину більше 5 символів, і вивести їх в алфавітному порядку.
 
-		const words = ['Anna', 'Hello World!', 'Student', 'October', 'May'];
+		//  isAnagram
 
-		function filterStringsArr(arr){
-			const newArr = arr.filter(word => word.length > 5);
-			newArr.sort();
-			console.log(newArr);
+		function isAnagram(s1, s2){
+			if(s1.length != s2.length){ 
+				return false; // если входящие строки разной длины - это точно не анаграмма
+			}
+			else{
+				// превращаем в массивы и сортируем в алфавитном порядке
+				let a1 = s1.split('').sort();
+				let a2 = s2.split('').sort();
+
+				// превращаем в строки обратно
+				let ss1 = a1.join('');
+				let ss2 = a2.join('');
+
+				return ss1 === ss2; // возвзращаем результат сравнения отсортированных строк
+			}
 		}
 
-		filterStringsArr(words);
+		console.log(isAnagram('австралопитек', 'ватерполистка'));
+		console.log(isAnagram('рама', 'лама'));
+
+
+		//  toCamelCase  border-left-color -> borderLeftColor
+
+		// function toCamelCase(str){
+		// 	let arr = str.split('-'); // разбиваем на массив и за счет этого избавляемся от дефисов
+		// 	let s = arr[0]; // оставляем первое слово без изменений
+
+		// 	arr.forEach((item, index) => {
+		// 		if(index > 0){ // начиная со второго и до последнего слова
+		// 			s += item.charAt(0).toUpperCase() + item.slice(1); // собираем каждое следующее слово из 
+		// 			// первой буквы, приведенной в верхний регистр и приклеенного остатка слова со 2й буквы
+		// 		}
+		// 	});
+		// 	console.log(s);
+		// }
+
+		function toCamelCase(str){
+			return str.replace(/-[a-z]/gi, (x,y) => x.charAt(1).toUpperCase());
+		}
+
+		console.log(toCamelCase('border-left-color'));
+
+
+			
 
 
 	</script>
