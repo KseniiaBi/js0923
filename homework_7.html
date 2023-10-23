@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<script>
+//task#7_1
+    console.log(`task 7_1`);
+
+
+    let nums = [8, 2, 7, 5, 3, 1, 4, 6, 9, 12, 10, 11, 10, 12, 11];
+
+    function unique(arr) {
+        let result = [];
+
+        for (let str of arr) {
+            if (!result.includes(str)) {
+                result.push(str);
+            }
+        }
+        console.log(`with unique value an array and not sorted desc-> ${result.sort()}`);
+        console.log(result.sort((a, b) => b - a));
+        return result;
+    }
+    console.log(`initialized array -> ${nums}`);
+    console.log(`unique and sort array -> ${unique(nums)}`);	
+
+    
+    //task#7_2
+    console.log(`task 7_2`);
+
+    let arrOfNums = [18, 22, 7, 5, 3, 1, 4, 6, 9, 12, 10, 11, 10, 12, 11];
+    
+    function multOfNumAndInd(arr) {
+        let result = [];
+
+        for (let str in arr) {
+            result.push(arr.map((item, index) => item * index));
+            return result;
+        }
+    }
+
+    console.log(`initialized array -> ${arrOfNums.toString()}`);
+    console.log(`length of array -> ${arrOfNums.length}`);
+    console.log(`multiplication of number * index -> ${multOfNumAndInd(arrOfNums)}`);
+
+
+
+    //task#7_3
+    console.log(`task 7_3`);
+
+    let arrayOfNums = [18, -22, 7, -5, 3, -1, 4, -6, 9, -12, 10, -11, 10, -12, 11];
+    
+    function findQuantityAndSumOfNeg(arr) {
+        let count = 0; 
+        let quantityOfNeg = 0;
+        let sum = 0;
+        let sumOfNeg = 0;
+        let result = {};
+        let flag = false;
+       
+        //console.log(`quantity!!!!! -> ${quantityOfNeg = arrayOfNums.reduce((x, y) => y < 0 ? count++ : count)}`);
+        //console.log(`sum!!!!! -> ${sumOfNeg = arrayOfNums.reduce((x, y) => y < 0 ? sum += y : sum)}`);
+   
+        quantityOfNeg1 = arrayOfNums.reduce((x, y) => y < 0 ? count++ : count)
+        sumOfNeg1 = arrayOfNums.reduce((x, y) => y < 0 ? sum += y : sum);
+
+        result['quantity'] = quantityOfNeg1;
+        result['sum'] = sumOfNeg1;
+
+        for (let prop in result) {
+            if (prop == null) {
+                return flag;
+            }
+            else {
+                console.log(`${prop} : ${result[prop]}`);
+                flag = true;
+                }
+            }
+        return flag;       
+    }
+    console.log(`initialized array -> ${arrayOfNums.toString()}`);
+    console.log(`result.quantity -> ${findQuantityAndSumOfNeg(arrayOfNums)}`);
+
+
+    //task#7_4
+    console.log(`task 7_4`);
+    let array = [18, -22, 7, -5, 3, -1, 4, -6, 9, -12, 10, -11, 10, -12, 11];
+    
+    function findSumOfPos(arr) {
+        let sumOfPos = 0;
+        let count = 0;
+        let quantity = 0;
+        let sum = 0;
+
+        function countQuantity(el) {        
+            if (el % 2 === 0) {
+                count++;
+            }          
+            return count;
+        }
+
+        function countSum(item) {        
+            if (item < 0) {
+                sum += item;
+            }                   
+            return sum;
+        }
+       
+        sumOfPos = arrayOfNums.reduce((x, y) => y % 2 === 0 ? sum += y : sum); 
+        quantity = array.reduce((x, y) => y % 2 === 0 ? count++ : count);
+ 
+        console.log(`sum -> ${sumOfPos}`);
+        console.log(`quant -> ${quantity}`);
+
+        return sumOfPos / quantity;
+    }
+
+    console.log(`initialized array -> ${array.toString()}`);
+    console.log(`result.quantity -> ${findSumOfPos(array)}`);
+
+    //task#7_5
+        console.log(`task 7_5`);
+        let arrOfStr = ['Apricot', 'Orange', 'Kiwi', 'Mango', 'Pineapple', 'Banana', 'Orange', 'Grapefruit', 'Mango', 'Avocado']
+    
+        function findQuanOfStr(arr) {
+        let countS = 0;
+        let quantity = 0;
+        let result = [];
+        let str = [];
+        let count = 0;
+        
+    function countStr(item) {
+        if (item.length > 5) {
+            countS++;
+            result.push(item);
+        }
+        console.log(`count -> ${countS}`);
+        return result;
+    }
+    // quantity = arrOfStr.reduce((x, y) => y.length > 5 ? count++ : count);
+    // console.log(`quantity -> ${quantity}`);
+        str = arrOfStr.filter(countStr);
+        console.log(result.sort());
+    return result;
+
+    }
+	console.log(`initialized array -> ${arrOfStr.toString()}`);
+    console.log(`result.quantity -> ${findQuanOfStr(arrOfStr)}`);
+
+</script>	
+	
+</body>
+</html>
