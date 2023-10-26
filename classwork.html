@@ -10,193 +10,84 @@
 
 	
 	<script>
-		// String methods
-		let str = 'Hello World!';
-
-		// charAt() returns letter
-		console.log(str.charAt(0));
-
-
-		// charCodeAt() returns charCode
-		console.log(str.charCodeAt(0));
-
-		// concat()  returns new string!!!!!
-		// 'Hello ' + name + '!'
-		// `Hello, ${name}`
-
-		let s = str.concat(' How you doing?');
-		console.log(s);
-
-		// endsWith() returns true/false
-		console.log(str.endsWith('!'));
-
-		// fromCharCode returns letter
-
-		console.log(String.fromCharCode(1110));
-
-		// includes() returns true/false
-
-		console.warn(str.includes('ll'));
-
-		// indexOf() 	lastIndexOf()
-
-		console.log(str.indexOf('World'));
+		// 1) страница может быть размещена на хостинге и начинаться с http или https. вывести сообщение об успехе, если нет - об ошибке
 		
-
-		// match()
-
-		let text = "The rain in SPAIN stays mainly in the plain";
-
-		console.log(text.match(/ain/));
-		console.log(text.match(/ain/g));
-		console.log(text.match(/ain/gi));
-
-		// repeat returns new string
-
-		console.log(str.repeat(3));
-
-
-		// replace returns new string
-
-		const greeting = str.replace('Hello', 'Good evening');
-		console.warn(greeting);
-
-
-		// replaceAll
-
-		let s1 = "I love cats. Cats are very easy to love. Cats are very popular";
-
-		console.log(s1.replaceAll(/cats/gi, 'dogs'));
-
-
-		// search - returns index || -1
-
-		console.log(str.search(/l/gi));
-
-
-		// slice - returns new str (start, end)
-
-		console.log(str.slice(0,5));
-
-
-		// substr returns new str !!! (start, count) can use negative nums
-
-		console.log(str.substr(-3, 3));
-
-
-		// substring returns new str
-
-		console.log(str.substring(5,0));
-
-		// toLowerCase - all small,  toUpperCase - all CAPS return new string
-
-		console.log(str.toUpperCase());
-
-		// startsWith returns true/false
-
-		console.log(str.startsWith('H'));
-
-		// trim 
-
-		let w = `
-		 	dslds;dlk    		esdasdsd
-			qsasdad	
-					`;
-
-		console.log(w.trim());
-
-
-		// padEnd / padStart
-
-		console.log('1'.padEnd(7, '0'));
-		console.log('1'.padStart(7, '0'));
-
-		// split
-
-		console.log(str.split(''));
-
-
-		// practice
-
-		// .png .jpeg
-
-		// function checkImage(imgname){
-		// 	console.log((imgname.endsWith('.jpg') || imgname.endsWith('.png')) ? 'Image was changed' : 'Unsupported image format');
-		// }
-
-		function checkImage(imgname){
-			if(imgname.endsWith('.jpg') || imgname.endsWith('.png')) {
-				console.log('Image was changed');
-			}  
-			else{
-				 console.error('Unsupported image format');
-			}
-		}
-
-		checkImage('myphoto.png');
-		checkImage('myphoto.pdf');
-
-
-		// '12345' -> '-1-2-3-4-5-'
-
-		function strDashes(str){
-			const arr = str.split('');
-
-			let str2 = `-${arr.join('-')}-`;
-			// let str2 = '-'.concat(arr.join('-'), '-');
-
-			console.log(str2);
-		}
-
-		strDashes('12345');
-
-
-		//  isAnagram
-
-		function isAnagram(s1, s2){
-			if(s1.length != s2.length){ 
-				return false; // если входящие строки разной длины - это точно не анаграмма
+		function checkProtocol(url){
+			if(url.startsWith('https')){
+				console.log('Connection is secure!');
 			}
 			else{
-				// превращаем в массивы и сортируем в алфавитном порядке
-				let a1 = s1.split('').sort();
-				let a2 = s2.split('').sort();
-
-				// превращаем в строки обратно
-				let ss1 = a1.join('');
-				let ss2 = a2.join('');
-
-				return ss1 === ss2; // возвзращаем результат сравнения отсортированных строк
+				console.warn('Connection is not secure');
 			}
 		}
 
-		console.log(isAnagram('австралопитек', 'ватерполистка'));
-		console.log(isAnagram('рама', 'лама'));
+		checkProtocol('https://mysite.com');
+		checkProtocol('http://mysite.com');
+		
+		// 2) функция принимает параметром две строки, сравнить сколько букв в этих словах повторяются и в каком количестве. вывести как объект.
 
+		// function compareStrings(str1, str2){
+		// 	const obj = {};
 
-		//  toCamelCase  border-left-color -> borderLeftColor
-
-		// function toCamelCase(str){
-		// 	let arr = str.split('-'); // разбиваем на массив и за счет этого избавляемся от дефисов
-		// 	let s = arr[0]; // оставляем первое слово без изменений
-
-		// 	arr.forEach((item, index) => {
-		// 		if(index > 0){ // начиная со второго и до последнего слова
-		// 			s += item.charAt(0).toUpperCase() + item.slice(1); // собираем каждое следующее слово из 
-		// 			// первой буквы, приведенной в верхний регистр и приклеенного остатка слова со 2й буквы
+		// 	for(let letter of str1){
+		// 		if(str2.includes(letter)){
+		// 			if(letter in obj){
+		// 				obj[letter] += 1;
+		// 			}
+		// 			else{
+		// 				obj[letter] = 1;
+		// 			}
 		// 		}
-		// 	});
-		// 	console.log(s);
+		// 	}
+		// 	console.log(obj);
 		// }
 
-		function toCamelCase(str){
-			return str.replace(/-[a-z]/gi, (x,y) => x.charAt(1).toUpperCase());
+
+		// function compareStrings(str1, str2){
+		// 	const obj = {};
+
+		// 	for(let i = 0; i < str1.length; i++){
+		// 		if(str2.includes(str1[i]) && obj[str1[i]] == undefined){
+		// 			let count = 1;
+		// 			let found1 = i+1;
+		// 			while(str1.indexOf(str1[i], found1) > -1){
+		// 				count += 1;
+		// 				found1 = str1.indexOf(str1[i], found1) + 1;
+		// 			}
+		// 			let found2 = 0;
+		// 			while(str2.indexOf(str1[i], found2) > -1){
+		// 				count += 1;
+		// 				found2 = str2.indexOf(str1[i], found2) + 1;
+		// 			}
+		// 			obj[str1[i]] = count;
+		// 		}
+				
+		// 	}
+		// 	console.log(obj);
+		// }
+
+
+		function compareStrings(str1, str2){
+			const obj = {};
+
+			for(let i = 0; i < str1.length; i++){
+				if(str2.includes(str1[i]) && obj[str1[i]] == undefined){
+					let reg = new RegExp(str1[i], 'gi');
+
+					let inStr1 = str1.match(reg);
+					let inStr2 = str2.match(reg);
+					
+					obj[str1[i]] = inStr1.length + inStr2.length;
+				}
+				
+			}
+			console.log(obj);
 		}
 
-		console.log(toCamelCase('border-left-color'));
+		compareStrings('bubble', 'apple'); // {l:2, e: 2}
+		compareStrings('pineapple', 'apple');
 
 
-			
 
 
 	</script>
