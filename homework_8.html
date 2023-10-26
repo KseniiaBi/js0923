@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	<script>
+
+	//task#8_1
+	console.log(`task 8_1`);
+	let str_https = `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace`;
+	let str_http = `https://www.w3schools.com/jsref/jsref_indexof_array.asp`
+	let str_http1 = `www.w3schools.com/jsref/jsref_indexof_array.asp`
+
+	function checkBeginningOfNameSite(str) {
+		let target_https = `https`;
+
+		let target_http = `http`;
+
+		let result = 0;
+
+		result_https = str.indexOf(target_http, 0);
+
+		console.log(`https + ${res = str.indexOf(target_https, 0)} `);
+
+		result_http = str.indexOf(target_https, 0);
+
+		console.log(`http + ${res = str.indexOf(target_http, 0)}`);
+
+
+		if (result_https == 0 || result_http == 0) {
+			console.log(`Beginning of name' site is right + ${result = str.indexOf(target_https, 0)} + ${result = str.indexOf(target_http, 0)}`);
+		} else {
+			console.warn(`Beginning of name' site is wrong + ${result = str.indexOf(target_https, 0)} + ${result = str.indexOf(target_http, 0)}`);
+		}
+		return result;
+	}
+
+	console.log("checkBeginningOfNameSite(str_https) -> " + checkBeginningOfNameSite(str_https));
+	console.log("checkBeginningOfNameSite(str_http) -> " + checkBeginningOfNameSite(str_http));
+	console.log("checkBeginningOfNameSite(str_http1) -> " + checkBeginningOfNameSite(str_http1));
+	
+	//task#8_2
+	console.log(`task 8_2`);
+
+	let string1 = "begiNning";
+	let string2 = "reiterative";
+
+	function checkRepeatOfLet(str1, str2) {
+		if (str1.length == 0 || str2.length == 0) {
+			return false;
+		}
+		let result1 = {};
+		let result2 = {};
+		let string1_new = str1.toLowerCase().split("").sort();
+		let string2_new = str2.toLowerCase().split("").sort();
+
+		for (let prop of string1_new) {
+			if (result1[prop] === undefined) {
+				result1[prop] = 1;
+			} else {
+				result1[prop] += 1
+			}
+		}
+		console.log(string1_new);
+		console.log(result1);
+
+		for (let prop of string2_new) {
+			if (result2[prop] === undefined) {
+				result2[prop] = 1;
+			} else {
+				result2[prop]++;
+			}
+		}
+		console.log(string2_new);
+		for (let prop in result2) {
+			console.log("letter " + prop + " -> " + result2[prop]);
+		}	
+return true;
+	}
+
+	console.log("checkRepeatOfLet(string1, string2) -> " + checkRepeatOfLet(string1, string2));
+
+	</script>
+</body>
+</html>
