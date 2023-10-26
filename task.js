@@ -66,34 +66,67 @@
 // }
 
 
-// console.log(sum);
+// // console.log(sum);
 
-function checkFive(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === 5) {
-        console.log('Есть');
-        break; 
-    }
-}
-}
-const myArray = [1, 2, 3, 4, 5, 6];
-checkFive(myArray);
-
-
+// function checkFive(arr) {
+//     for (let i = 0; i < arr.length; i++) {
+//       if (arr[i] === 5) {
+//         console.log('Есть');
+//         break; 
+//     }
+// }
+// }
+// const myArray = [1, 2, 3, 4, 5, 6];
+// checkFive(myArray);
 
 
-function fibonacci(n) {
-    if (n <= 2) {
-        return 1;
+
+
+// function fibonacci(n) {
+//     if (n <= 2) {
+//         return 1;
+//   } else {
+//     return fibonacci(n - 1) + fibonacci(n - 2);
+// }
+// }
+
+// const n = 20
+// const result = fibonacci(n);
+// console.log(`число Фибоначчи: ${result}`);
+
+
+
+
+function checkPageUrl(url) {
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+   console.log("URL успешный" + url);
+
+
   } else {
-    return fibonacci(n - 1) + fibonacci(n - 2);
+    console.error("Ошибка Url должен начинатся с http или https")
+  }
 }
+
+checkPageUrl("http://rozetka.com")
+checkPageUrl("https://market.com")
+checkPageUrl("apple.com")
+
+
+function countLetters(str1, str2) {
+  const lettersCount = {};
+
+  for (let letter of str1) {
+      if (str2.includes(letter)) {
+          if (lettersCount[letter]) {
+              lettersCount[letter]++;
+          } else {
+              lettersCount[letter] = 1;
+          }
+      }
+  }
+
+  return lettersCount;
 }
 
-const n = 20
-const result = fibonacci(n);
-console.log(`число Фибоначчи: ${result}`);
-
-
-
-
+const result = countLetters("frontend", "backend");
+console.log(result);
