@@ -10,82 +10,21 @@
 
 	
 	<script>
-		// 1) страница может быть размещена на хостинге и начинаться с http или https. вывести сообщение об успехе, если нет - об ошибке
-		
-		function checkProtocol(url){
-			if(url.startsWith('https')){
-				console.log('Connection is secure!');
-			}
-			else{
-				console.warn('Connection is not secure');
-			}
+		// Припустимо, ви написали твір і в ньому для позначення діалогів використовували одинарні лапки.
+		// Тепер ви хочете замінити лапки на подвійні, а одинарні залишити лише для скорочення слів типу aren’t. 
+		// Придумайте шаблон, який буде розрізняти ці два види використання лапок і використайте його у методі replace 
+		// 'How happy are these children. Aren't they?' - says Mary
+
+		function replaceBackticks(str){
+			str = str.replace(/'/gmi, '"');
+			str = str.replace(/\D"\D/gmi, (a,b)=>{
+				return a.charAt(0) + `'` + a.charAt(2);
+			});
+			return str;
 		}
 
-		checkProtocol('https://mysite.com');
-		checkProtocol('http://mysite.com');
-		
-		// 2) функция принимает параметром две строки, сравнить сколько букв в этих словах повторяются и в каком количестве. вывести как объект.
 
-		// function compareStrings(str1, str2){
-		// 	const obj = {};
-
-		// 	for(let letter of str1){
-		// 		if(str2.includes(letter)){
-		// 			if(letter in obj){
-		// 				obj[letter] += 1;
-		// 			}
-		// 			else{
-		// 				obj[letter] = 1;
-		// 			}
-		// 		}
-		// 	}
-		// 	console.log(obj);
-		// }
-
-
-		// function compareStrings(str1, str2){
-		// 	const obj = {};
-
-		// 	for(let i = 0; i < str1.length; i++){
-		// 		if(str2.includes(str1[i]) && obj[str1[i]] == undefined){
-		// 			let count = 1;
-		// 			let found1 = i+1;
-		// 			while(str1.indexOf(str1[i], found1) > -1){
-		// 				count += 1;
-		// 				found1 = str1.indexOf(str1[i], found1) + 1;
-		// 			}
-		// 			let found2 = 0;
-		// 			while(str2.indexOf(str1[i], found2) > -1){
-		// 				count += 1;
-		// 				found2 = str2.indexOf(str1[i], found2) + 1;
-		// 			}
-		// 			obj[str1[i]] = count;
-		// 		}
-				
-		// 	}
-		// 	console.log(obj);
-		// }
-
-
-		function compareStrings(str1, str2){
-			const obj = {};
-
-			for(let i = 0; i < str1.length; i++){
-				if(str2.includes(str1[i]) && obj[str1[i]] == undefined){
-					let reg = new RegExp(str1[i], 'gi');
-
-					let inStr1 = str1.match(reg);
-					let inStr2 = str2.match(reg);
-					
-					obj[str1[i]] = inStr1.length + inStr2.length;
-				}
-				
-			}
-			console.log(obj);
-		}
-
-		compareStrings('bubble', 'apple'); // {l:2, e: 2}
-		compareStrings('pineapple', 'apple');
+		console.log(replaceBackticks(`'How happy are these children. Aren't they?'`));
 
 
 
