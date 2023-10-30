@@ -10,25 +10,116 @@
 
 	
 	<script>
-		// Припустимо, ви написали твір і в ньому для позначення діалогів використовували одинарні лапки.
-		// Тепер ви хочете замінити лапки на подвійні, а одинарні залишити лише для скорочення слів типу aren’t. 
-		// Придумайте шаблон, який буде розрізняти ці два види використання лапок і використайте його у методі replace 
-		// 'How happy are these children. Aren't they?' - says Mary
+		// context
 
-		function replaceBackticks(str){
-			str = str.replace(/'/gmi, '"');
-			str = str.replace(/\D"\D/gmi, (a,b)=>{
-				return a.charAt(0) + `'` + a.charAt(2);
-			});
-			return str;
+		// for(var i = 0; i < 5; i++){
+		// 	setTimeout(()=>{
+		// 		console.log(i);
+		// 	}, 500);
+		// }
+
+		// console.log(i);
+		
+
+		let user = {
+			firstname: 'John',
+			sayHi(){
+				console.log(`Hi! My name is ${this.firstname}`);
+			}
+		}
+
+		user.sayHi();
+		// setTimeout(user.sayHi, 1000);// lost context
+		// setTimeout(()=>user.sayHi(), 1000); // 'fixed' content with closure
+
+		// call(context, arg1, arg2, ... , argN)   apply(context, [arg1, arg2, ... , argN]) - переадрессация вызовов
+
+		console.log(Math.min(1,2,3,4,5,-6));
+		console.log(Math.min.apply(null, [1,2,3,4,5,-8]));
+
+		let arr = [1,2,3,4,5,-12];
+		console.log(Math.min(...arr)); // ...[1,2,3,4,5] -> 1,2,3,4,5
+
+
+		function sum(){
+			// let arr = Array.prototype.slice.call(arguments);
+			// let arr = [].slice.call(arguments); // заимствование метода
+			return [].reduce.call(arguments, (total, num) => total + num);
+		}
+
+		console.log(sum(1,2,3,4,5));
+
+
+		function greet(){
+			console.log(`Hello from ${this.name}`);
+		}
+
+		let adm = {
+			name: 'admin'
+		}
+
+		let student = {
+			name: 'Jane'
+		}
+
+		greet.call(adm);
+		greet.call(student);
+
+		// decorators
+
+		function s1(){
+			let sum = 0;
+			for(let num of arguments){
+				sum += num;
+			}
+			return sum;
+		}
+
+		let extrasum = function(){
+			return s1.apply(this, arguments);
 		}
 
 
-		console.log(replaceBackticks(`'How happy are these children. Aren't they?'`));
+		// bind for fixed content
+
+		const hiFromStudent = greet.bind(student);
+		const hiFromAdmin = greet.bind(adm);
+
+		hiFromAdmin();
+		hiFromAdmin();
+		hiFromStudent();
+
+		// bind in case of context loose
+		const userHi = user.sayHi.bind(user);
+		setTimeout(userHi, 1000);
+
+
+		// destucturing
+
+		// let [name, lastname] = ['John', 'Peterson'];
+		// let [name, , age] = ['John', 'Peterson', 18];
+		let [name, ...details] = ['John', 'Peterson', 18, 'student', 'New York'];
+
+		let human = {
+			firstname: 'Peter',
+			lastname: 'Johnson',
+			age: 22,
+			city: 'Kyiv',
+			hobbys: ['Art', 'JS', 'Football']
+		};
+
+		let {firstname, lastname, ...humanInfo} = human;
+		// let {city: c} = human;
+
+
+		let array = [1,2,3,4,5];
+
+		let array2 = [-1,0, ...array, 6,7,8,9];
 
 
 
 
 	</script>
+	<script type="module" src="common.js"></script>
 </body>
 </html>
