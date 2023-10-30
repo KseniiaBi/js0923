@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	
+	<script>
+
+		//task#9
+		console.log(`task 9`);
+
+		//let str = "'Hello World!'  'How happy are these children.' 'Aren't they?' '100500 попугаев съели 500100 бананов!'";
+		let str = "'Hello World!' 'How happy are these children.' 'Aren't they?'";
+
+		function toDoubleQuatationMarksBeginningAndEnd(string) {
+			//return string.replace(/'([^']*)'/g, `"$1"`);
+			//return string.replace(/'|[.?!]\'\s{0,}/gi, "\" ");
+			//return string.replace(/([a-z])'([a-z])/g, `$1"$2`);// for a word
+			return string.replace(/(?!s'|[A-Za-z]'[a-z])([\s\S])'|^'/g, '$1"');
+			}
+		console.log(toDoubleQuatationMarksBeginningAndEnd(str));
+
+	</script>
+</body>
+</html>
