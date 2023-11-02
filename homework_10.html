@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	
+	<script>
+
+	//task#10_1
+	console.log(`task 10_1`);
+
+	let calculator = {
+		value: 10,
+		add(a) {
+            return this.value + a;
+        },
+		subtract(a) {
+			return this.value - a;
+		},
+	}
+		let addFive = calculator.add.bind(calculator, 5);
+		console.log(`add 5 -> ${addFive()}`);
+
+		let subtractTwo = calculator.subtract.bind(calculator, 2);
+		console.log(`subtract 2-> ${subtractTwo()}`);
+
+	//task#10_2
+	console.log(`task 10_2`);
+
+	let calculatorNew = {
+		value: 10,
+		calculate(a, b) {
+			return this.value + a + b;
+		}
+	}
+
+	let newObj = {
+		value: 320,
+	}
+	console.log(calculatorNew.calculate.call(newObj, 7, 8));
+	
+	//task#10_3
+	console.log(`task 10_3`);
+
+	let phone = "+38(000)-000-00-00";
+
+	const matches = phone.match(/^(\+38\()\d{3}\)?-\d{3}-?\d{2}-?\d{2}?$/gi);
+	
+	console.log(matches);
+	</script>
+</body>
+</html>
