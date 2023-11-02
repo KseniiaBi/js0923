@@ -43,90 +43,134 @@
 // const resultArray = [];
 
 
-// for (let i = 0; i < array1.length; i++) {
-//   resultArray[i] = array1[i] + array2[i];
-// }
+// // for (let i = 0; i < array1.length; i++) {
+// //   resultArray[i] = array1[i] + array2[i];
+// // }
 
 
-// console.log(resultArray);
+// // console.log(resultArray);
 
 
-// Найти сумму чисел в массиве [[1,2,3], [4,5,6]]
+// // Найти сумму чисел в массиве [[1,2,3], [4,5,6]]
 
 
-// const Array = [[1, 2, 3], [4, 5, 6]];
-// let sum = 0;
+// // const Array = [[1, 2, 3], [4, 5, 6]];
+// // let sum = 0;
 
 
-// for (let i = 0; i < Array.length; i++) {
-//   for (let j = 0; j < Array[i].length; j++) {
+// // for (let i = 0; i < Array.length; i++) {
+// //   for (let j = 0; j < Array[i].length; j++) {
   
-//     sum += Array[i][j];
+// //     sum += Array[i][j];
+// //   }
+// // }
+
+
+// // // console.log(sum);
+
+// // function checkFive(arr) {
+// //     for (let i = 0; i < arr.length; i++) {
+// //       if (arr[i] === 5) {
+// //         console.log('Есть');
+// //         break; 
+// //     }
+// // }
+// // }
+// // const myArray = [1, 2, 3, 4, 5, 6];
+// // checkFive(myArray);
+
+
+
+
+// // function fibonacci(n) {
+// //     if (n <= 2) {
+// //         return 1;
+// //   } else {
+// //     return fibonacci(n - 1) + fibonacci(n - 2);
+// // }
+// // }
+
+// // const n = 20
+// // const result = fibonacci(n);
+// // console.log(`число Фибоначчи: ${result}`);
+
+
+
+
+// function checkPageUrl(url) {
+//   if (url.startsWith("http://") || url.startsWith("https://")) {
+//    console.log("URL успешный" + url);
+
+
+//   } else {
+//     console.error("Ошибка Url должен начинатся с http или https")
 //   }
 // }
 
-
-// // console.log(sum);
-
-// function checkFive(arr) {
-//     for (let i = 0; i < arr.length; i++) {
-//       if (arr[i] === 5) {
-//         console.log('Есть');
-//         break; 
-//     }
-// }
-// }
-// const myArray = [1, 2, 3, 4, 5, 6];
-// checkFive(myArray);
+// checkPageUrl("http://rozetka.com")
+// checkPageUrl("https://market.com")
+// checkPageUrl("apple.com")
 
 
+// function countLetters(str1, str2) {
+//   const lettersCount = {};
 
+//   for (let letter of str1) {
+//       if (str2.includes(letter)) {
+//           if (lettersCount[letter]) {
+//               lettersCount[letter]++;
+//           } else {
+//               lettersCount[letter] = 1;
+//           }
+//       }
+//   }
 
-// function fibonacci(n) {
-//     if (n <= 2) {
-//         return 1;
-//   } else {
-//     return fibonacci(n - 1) + fibonacci(n - 2);
-// }
+//   return lettersCount;
 // }
 
-// const n = 20
-// const result = fibonacci(n);
-// console.log(`число Фибоначчи: ${result}`);
+// const result = countLetters("frontend", "backend");
+// console.log(result);
+
+const calculator = {
+  value: 0,
+  add: function (y) {
+    this.value += y;
+  },
+  subtract: function (y) {
+    this.value -= y;
+  },
+};
+
+const addFive = calculator.add.bind(calculator, 5);
+const subtractTwo = calculator.subtract.bind(calculator, 2);
+
+addTen(); 
+console.log(calculator.value); 
+
+subtractTwo();
+console.log(calculator.value);
 
 
 
-
-function checkPageUrl(url) {
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-   console.log("URL успешный" + url);
-
-
-  } else {
-    console.error("Ошибка Url должен начинатся с http или https")
-  }
+function calculate(a, b) {
+  return a + b;
 }
 
-checkPageUrl("http://rozetka.com")
-checkPageUrl("https://market.com")
-checkPageUrl("apple.com")
+const obj = {
+  a: 10,
+  b: 20,
+};
+
+const sum = calculate.call(obj, obj.a, obj.b);
+
+console.log(sum); 
 
 
-function countLetters(str1, str2) {
-  const lettersCount = {};
-
-  for (let letter of str1) {
-      if (str2.includes(letter)) {
-          if (lettersCount[letter]) {
-              lettersCount[letter]++;
-          } else {
-              lettersCount[letter] = 1;
-          }
-      }
-  }
-
-  return lettersCount;
-}
-
-const result = countLetters("frontend", "backend");
-console.log(result);
+/^\+38\(\d{3}\)-\d{3}-\d{2}-\d{2}$/
+//^ - начало 
+//$ - конец 
+//  \+38 - проверка есть ли в номере 
+// \(  \) - проверка наличие 3 цыфр 
+// \d{3} - проверка наличия трех цифр после скобки 
+//  -  наличие дефисов между цифрамы 
+// \d{2} проверка наличие 4 последних цифр 
