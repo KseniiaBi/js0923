@@ -7,57 +7,237 @@
 </head>
 <body>
 
-	<form>
-		<input type="tel" required  pattern="\+38\(0[0-9]{2}\)-[0-9]{3}\-[0-9]{2}\-[0-9]{2}" placeholder="+38(000)-000-00-00"/>
-	</form>
+	
 	
 	<script>
-	// 1)Створіть об'єкт calculator з полями value та методами add і subtract. 
-	// Використайте bind, щоб створити дві нові функції addFive і subtractTwo, які автоматично додають 5
-	//  або віднімають 2 від поточного значення calculator.
+	// OOP
 
-	const calculator = {
-		value: 10,
-		add(a){
-			return a + this.value;
-		},
-		substract(b){
-			return this.value - b;
+	function Device(name, power){
+		this.name = name;
+		this._power = power;
+		this.enabled = false;
+		let lightInside = true;
+
+		this.enable = () =>{
+			this.enabled = true;
+			console.log(`${this.name} was enabled`);
+		}
+		this.disable = () =>{
+			this.enabled = false;
+			console.log(`${this.name} was disabled`);
+		}
+		this.getPower = () => {
+			console.log(`${this.name} has power ${this._power} and  lightInside:${lightInside}`);
 		}
 	}
 
-	const addFive = calculator.add.bind(calculator, 5);
-	const subtractTwo = calculator.substract.bind(calculator, 2);
+	let fridge = new Device('Samsung', 1200);
+	fridge.enable();
+	fridge.getPower();
+	console.log(fridge);
 
-	console.log(addFive());
-	console.log(subtractTwo());
+	let boiler = new Device('Electrolux', 2000);
+	boiler.enable();
+	boiler.getPower();
+	console.log(boiler);
 
 
-	// 2) Визначте функцію calculate, яка приймає два аргументи: числа a і b, і повертає їх суму.
-	// Використайте метод call, щоб обчислити суму двох чисел в іншому об'єкті, якщо ця функція визвана з іншим контекстом.
-	
-	function calculate(a,b){
-		return this.a + this.b;
+	// objects and __proto__
+
+	let animal = {
+		eat: true,
+		sleep: true
 	}
 
-	let obj = {
-		a: 4,
-		b: 9
+	let cat = {
+		meow: true,
+		purr: true
 	}
 
-	console.log(calculate.call(obj));
-	
-	// 3) Напишіть регулярний вираз для перевірки номеру телефону у форматі +38(000)-000-00-00
-
-	function checkPhone(tel){
-		return tel.match(/\+38\(0[0-9]{2}\)-[0-9]{3}\-[0-9]{2}\-[0-9]{2}/gi) ? true : false;
+	let dog = {
+		bark: true,
+		run: true
 	}
 
+	let husky = {
+		likeSnow: true
+	}
 
-	console.log(checkPhone('+3999000888800'));
-	console.log(checkPhone('+38(066)-555-55-55'));
+	cat.__proto__ = animal;
+	dog.__proto__ = animal;
+	husky.__proto__ = dog;
+
+	console.log(cat.sleep);
+
+	for(let prop in husky){
+		console.log(`husky can: ${prop}`);
+	}
+
+	for(let prop in cat){
+		if(cat.hasOwnProperty(prop)){
+			console.warn(`cat can: ${prop}`);
+		}
+	}
+
+	// animal.__proto__ = husky; //TypeError: Cyclic __proto__ value
 
 
+	function CoffeeMachine(name, power){
+		Device.call(this, name, power); // call Device's constructor
+		this._ready = false;
+		let waterTemp = 20;
+		this.waterAmount = 0;
+		this.waterCapacity = 1000;
+		this.grainAmount = 0;
+		this.grainCapacity = 250;
+		this.milkAmount = 0;
+		this.milkCapacity = 300;
+
+		const heat = () => {
+			setTimeout(()=>{
+				waterTemp = 96;
+				this._ready = true;
+				console.log(`${this.name} is ready, water is ${waterTemp}C`);
+			}, 1500);
+		}
+
+		let parentEnable = this.enable; // Device.enable saved to variable
+		this.enable = () => { // переопределение метода
+			parentEnable();
+			heat();
+		}
+
+		this.setWaterAmount = (amount) => {
+			if(amount + this.waterAmount > this.waterCapacity){
+				console.error('Too much water');
+				return;
+			}
+			if(amount <= 0){
+				console.error('Don`t use this water');
+				return;
+			}
+			if(typeof amount != 'number'){
+				console.error('Add only water!');
+				return;
+			}
+			this.waterAmount += amount;
+		}
+
+		this.setCoffeeAmount = (amount) => {
+			if(amount + this.grainAmount > this.grainCapacity){
+				console.error('Too much grain');
+				return;
+			}
+			if(amount < 0){
+				console.error('Don`t remove grain');
+				return;
+			}
+			if(typeof amount != 'number'){
+				console.error('Add only grain!');
+				return;
+			}
+			this.grainAmount += amount;
+		}
+
+		this.setMilkAmount = (amount) => {
+			if(amount + this.milkAmount > this.milkCapacity){
+				console.error('Too much milk');
+				return;
+			}
+			if(amount < 0){
+				console.error('Don`t remove milk');
+				return;
+			}
+			if(typeof amount != 'number'){
+				console.error('Add only milk!');
+				return;
+			}
+			this.milkAmount += amount;
+		}
+
+
+		const checkIngredients = (drinkname) => {
+			let drinks = [
+				{
+					name: 'espresso',
+					grain: 8,
+					water: 30
+				},
+				{
+					name: 'americano',
+					grain: 8,
+					water: 120
+				},
+				{
+					name: 'latte',
+					grain: 16,
+					water: 60,
+					milk: 190
+				},
+				{
+					name: 'flat white',
+					grain: 16,
+					water: 60,
+					milk: 90
+				}
+			];
+
+			let allIn = true;
+
+			drinks.forEach(item => {
+				if(item.name === drinkname){
+					for(let ingredient in item){
+						if(ingredient != item.name){
+							if(this[`${ingredient}Amount`] < item[ingredient]){
+								allIn = false;
+								console.warn(`${ingredient} is not enough`);
+							}
+						}
+					}
+				}
+			});
+			return allIn;
+		}
+
+		this.brew = (drink) => {
+			drink = drink.toLowerCase();
+			if(!this.enabled || !this._ready){
+				console.error(`${this.name} is not ready, can not brew ${drink}`);
+				return;
+			}
+			if(checkIngredients(drink)){
+				switch(drink){
+					case 'espresso': setTimeout(()=>{
+							console.log('Espresso is ready');
+						}, 1000);
+						break;
+					case 'americano': setTimeout(()=>{
+							console.log('Americano is ready');
+						}, 1000);
+						break;
+					case 'latte': setTimeout(()=>{
+							console.log('Latte is ready');
+						}, 1000);
+						break;
+					case 'flat white': setTimeout(()=>{
+							console.log('Flat white is ready');
+						}, 1000);
+						break;
+				}
+			}
+			else{
+				console.error(`Can not brew ${drink}`);
+			}
+		}
+	}
+
+	let gaggia = new CoffeeMachine('Gaggia Baby', 1000);
+	gaggia.brew('Latte');
+	gaggia.enable();
+	gaggia.setCoffeeAmount(150);
+	gaggia.setWaterAmount(750);
+	gaggia.setMilkAmount(250);
+	setTimeout(()=>gaggia.brew('Latte'),1600);
 
 
 	</script>
