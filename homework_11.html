@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JS FE</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	<script>
+		//task#11_1
+		console.log(`task 11_1`);
+
+		function Person(name, lastname, age, address) {
+
+			this.name = name;
+			this.lastname = lastname;
+			this.age = age;
+			this.address = address;
+		}
+
+		Person.prototype.sayHello = function () {
+			console.log(`Hello, my name is ${this.name} ${this.lastname}. \nI am ${this.age} years old. \nI live in ${this.address}.`);
+		};
+
+		const person1 = new Person("Ann", "Smith", 22, "Chicago");
+		const person2 = new Person("Sam", "Jones", 42, "Lemont");
+
+		person1.sayHello();
+		person2.sayHello();
+
+		function Student(name, lastname, age, address, education) {
+			Person.call(this, name, lastname, age, address, education);
+			this.education = education;
+		}
+
+		Student.prototype = Object.create(Person.prototype);
+		Student.prototype.constructor = Student;
+
+		const student = new Student("Jo", "Smart", 35, "Milwaukee", "Harvard University");
+		console.log(student);
+
+		student.sayHello();
+		
+
+		for (let prop in student) {
+			console.log(`class Student has next prop: ${prop}`);
+		}
+
+		function Teacher(name, lastname, age, address, lengthOfEmployment) {
+			Person.call(this, name, lastname, age, address, lengthOfEmployment);
+			this.lengthOfEmployment = lengthOfEmployment;
+		}
+		Teacher.prototype = Object.create(Person.prototype);
+		Teacher.prototype.constructor = Teacher;
+
+		const teacher = new Teacher("Jane", "Mitchel", 52, "Chicago", 15);
+		console.log(teacher);
+
+		for (let prop in teacher) {
+			if (teacher.hasOwnProperty(prop)) {
+				console.log(`Teacher class has next prop: ${prop}`);
+			}
+		}
+		teacher.sayHello();
+
+
+		//task#11_2
+		console.log(`task 11_2`);
+
+		let vehicle = {
+			carClass: true,
+			carType: true,
+			driveType: true,
+			bodyType: true,
+			engineCylinderVolume: true,
+			weight: true
+		}
+
+		let petrolCar = {
+			petrolFuel: true,
+		}
+		let dieselCar = {
+			dieselFuel: true,
+		}
+
+		let electricCar = {
+			battery: true,
+			synchronousMotor: true,
+			batteryLife: true
+		}
+
+		petrolCar.__proto__ = vehicle;
+		dieselCar.__proto__ = vehicle;
+		electricCar.__proto__ = vehicle;
+
+		for (let prop in electricCar) {
+			if (electricCar.hasOwnProperty(prop)) {
+				console.warn(`electricCar has: ${prop}`);
+			}
+		}
+
+	</script>
+	
+</body>
+</html>
