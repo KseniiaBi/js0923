@@ -10,234 +10,366 @@
 	
 	
 	<script>
-	// OOP
-
-	function Device(name, power){
-		this.name = name;
-		this._power = power;
-		this.enabled = false;
-		let lightInside = true;
-
-		this.enable = () =>{
-			this.enabled = true;
-			console.log(`${this.name} was enabled`);
+	// OOP Classes
+	// class declaration
+	class Animal {
+		constructor(name){
+			this.name = name;
+			this.food = [];
 		}
-		this.disable = () =>{
+		sleep(){
+			console.log(`${this.name} is sleeping`);
+		}
+		eat(food){
+			this.food.push(food);
+			console.log(this.food);
+		}
+		speak(){
+			console.log(`Hi! I am ${this.name}`);
+		}
+	}
+
+	const hamster = new Animal('Hamster Billy');
+	hamster.speak();
+	hamster.eat('Grain');
+	hamster.eat('Apple');
+	hamster.sleep();
+	console.log(typeof Animal);
+
+	// class Expression
+
+	let User = class {
+		registerDate = Date.now();
+		constructor(name = 'Stranger', role = 'guest'){
+			this.name = name;
+			this._role = role;
+		}
+
+		greet(){
+			console.log(`Hi! My name is ${this.name}`);
+		}
+
+		get role(){
+			return this._role;
+		}
+		set role(value){
+			if(value.length < 3){
+				console.error('Too short role');
+				return;
+			}
+			this._role = value;
+		}
+	}
+
+	const admin = new User('Adminich', 'admin');
+	const guest = new User();
+
+	guest.greet();
+	admin.greet();
+
+	console.log(guest.role);
+	guest.role = 'Writer';
+	console.log(guest.role);
+
+
+	// inheritance
+
+	class Dog extends Animal {
+		constructor(name, breed){
+			super(name);
+			this.breed = breed;
+		}
+
+		speak(){
+			super.speak();
+			console.log('Bark! Bark!');
+		}
+
+	}
+
+	const husky = new Dog('Jay');
+	husky.speak();
+
+
+	// static props and methods
+
+	class Book {
+		static count = 0;
+		static publisher = 'Pero';
+		static compare = (book1, book2) => {
+			if(book1.name > book2.name){
+				return 1;
+			}
+			else if(book1.name < book2.name){
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		};
+
+		constructor(name, author){
+			this.name = name;
+			this.author = author;
+
+			Book.count += 1;
+		}
+	}
+
+	let books = [
+		new Book('Harry Potter', 'J. Rowling'),
+		new Book('The Lord of Rings', 'J. R. R. Tolkien'),
+		new Book('Dzherelo', 'A. Rend')
+	];
+
+	books.sort(Book.compare);
+	console.log(books);
+
+	console.log(Book.count);
+
+	const js = new Book('Eloquent Javascript', 'M. Haverbecke');
+
+
+	// protected and private props/methods
+
+	class Cat extends Animal {
+		constructor(name, favToy){
+			super(name);
+			this._favToy = favToy;
+		}
+
+		get favToy(){
+			return this._favToy;
+		}
+	}
+
+	const murka = new Cat('Murka', 'Mouse');
+	console.log(murka.favToy);
+	murka.favToy = 'Sneaker';
+	console.log(murka.favToy);
+
+
+	// #
+
+	class CoffeeMachine{
+		#current_temp = 20;
+
+		constructor(name, power){
+			this.name = name;
+			this.power = power;
 			this.enabled = false;
-			console.log(`${this.name} was disabled`);
 		}
-		this.getPower = () => {
-			console.log(`${this.name} has power ${this._power} and  lightInside:${lightInside}`);
+
+		#heat(){
+			this.#current_temp = 96;
 		}
-	}
 
-	let fridge = new Device('Samsung', 1200);
-	fridge.enable();
-	fridge.getPower();
-	console.log(fridge);
-
-	let boiler = new Device('Electrolux', 2000);
-	boiler.enable();
-	boiler.getPower();
-	console.log(boiler);
-
-
-	// objects and __proto__
-
-	let animal = {
-		eat: true,
-		sleep: true
-	}
-
-	let cat = {
-		meow: true,
-		purr: true
-	}
-
-	let dog = {
-		bark: true,
-		run: true
-	}
-
-	let husky = {
-		likeSnow: true
-	}
-
-	cat.__proto__ = animal;
-	dog.__proto__ = animal;
-	husky.__proto__ = dog;
-
-	console.log(cat.sleep);
-
-	for(let prop in husky){
-		console.log(`husky can: ${prop}`);
-	}
-
-	for(let prop in cat){
-		if(cat.hasOwnProperty(prop)){
-			console.warn(`cat can: ${prop}`);
-		}
-	}
-
-	// animal.__proto__ = husky; //TypeError: Cyclic __proto__ value
-
-
-	function CoffeeMachine(name, power){
-		Device.call(this, name, power); // call Device's constructor
-		this._ready = false;
-		let waterTemp = 20;
-		this.waterAmount = 0;
-		this.waterCapacity = 1000;
-		this.grainAmount = 0;
-		this.grainCapacity = 250;
-		this.milkAmount = 0;
-		this.milkCapacity = 300;
-
-		const heat = () => {
+		run(){
+			this.enabled = true;
 			setTimeout(()=>{
-				waterTemp = 96;
-				this._ready = true;
-				console.log(`${this.name} is ready, water is ${waterTemp}C`);
-			}, 1500);
+				this.#heat();
+				console.log(`${this.name} is ready! Current Temp = ${this.#current_temp}`);
+			}, this.timeout);
+		}
+	}
+
+	let saeco = new CoffeeMachine('Saeco', 1000);
+	// console.log(saeco.#current_temp); // SyntaxError: Private field '#current_temp' must be declared in an enclosing class
+	saeco.run();
+
+
+
+	// practice
+
+	class KitchenDevice {
+		static totalPower = 0;
+		constructor(name, power){
+			this.name = name;
+			this.power = power;
+			this.enabled = false;
+
+			KitchenDevice.totalPower += power;
 		}
 
-		let parentEnable = this.enable; // Device.enable saved to variable
-		this.enable = () => { // переопределение метода
-			parentEnable();
-			heat();
+		enable(){
+			this.enabled = true;
+			console.log(`${this.name} is enabled`);
+		}
+		
+		disable(){
+			this.enabled = false;
+			console.log(`${this.name} is disabled`);
+		}
+	}
+
+	class Fridge extends KitchenDevice {
+
+		constructor(...props){
+			super(...props);
+			this.currentTemp = 20;
 		}
 
-		this.setWaterAmount = (amount) => {
-			if(amount + this.waterAmount > this.waterCapacity){
-				console.error('Too much water');
-				return;
+		enable(){
+			super.enable();
+			setTimeout(()=> this.currentTemp = 3, 1500);
+		}
+	}
+
+	const samsung = new Fridge('Samsung Fridge', 1400);
+	samsung.enable();
+	console.log(samsung.currentTemp);
+	setTimeout(() => console.log(samsung.currentTemp), 1600);
+
+
+	// OOP patterns, design patterns
+
+	// singletone
+
+	class State {
+		static instance = null;
+		constructor(current){
+			this.current = current;
+
+			if(State.instance == null){
+				State.instance = this;
 			}
-			if(amount <= 0){
-				console.error('Don`t use this water');
-				return;
+			else {
+				return State.instance;
 			}
-			if(typeof amount != 'number'){
-				console.error('Add only water!');
-				return;
+		}
+	}
+
+	const mainmenu = new State('Main Menu');
+	const level = new State('Level'); // State{this.current: 'Main Menu'}
+
+	console.log(mainmenu);
+	console.log(level);
+	level.current = 'Level 1';
+	mainmenu === level; // true
+
+
+	// Factory
+
+	class Car {
+		constructor(options){
+			this.name = options.name;
+			this.year = options.year;
+			this.color = options.color;
+		}
+	}
+
+	class Truck {
+		constructor(options){
+			this.name = options.name;
+			this.year = options.year;
+			this.capacity = options.capacity;
+		}
+	}
+
+	class Digger {
+		constructor(options){
+			this.name = options.name;
+			this.year = options.year;
+			this.weight = options.weight;
+		}
+	}
+
+
+	class VehicleFactory {
+		static createVehicle(options){
+			switch(options.type){
+				case 'car': return new Car(options);
+							break;
+				case 'truck': return new Truck(options);
+							break;
+				case 'digger': return new Digger(options);
+							break;
+				default: return new Car(options);
+							break;
 			}
-			this.waterAmount += amount;
+		}
+	}
+
+	const prius = VehicleFactory.createVehicle({
+		color: 'white',
+		year: 2020,
+		name: 'Toyota Prius',
+		type: 'car'
+	});
+	const man = VehicleFactory.createVehicle({
+		type: 'truck',
+		name: 'Man',
+		capacity: 4000,
+		year: 2001
+	});
+	const digger = VehicleFactory.createVehicle({
+		type: 'digger',
+		year: 2010,
+		weight: 3000
+	});
+
+	const volvo = VehicleFactory.createVehicle({
+		name: 'Volvo XC90',
+		color: 'red',
+		year: 2018
+	});
+
+	console.log(prius);
+	console.log(man);
+	console.log(digger);
+	console.log(volvo);
+
+
+	// Decorator
+
+	const Person = class {
+		constructor(name){
+			this.name = name;
+		}
+		greet(){
+			console.log(`Hello, my name is ${this.name}`);
+		}
+	}
+
+	const unique = new Person('John');
+	unique.hobbys = ['art', 'football', 'photography'];
+
+	unique.greet = () => {
+		Person.prototype.greet.call(unique);
+		console.log(`My hobbies are ${unique.hobbys.join()}`);
+	}
+
+	unique.greet();
+
+
+	// Facade
+
+	let $ = (target) => new MemeQuery(target);
+
+	class MemeQuery {
+		constructor (target){
+			this.target = target;
 		}
 
-		this.setCoffeeAmount = (amount) => {
-			if(amount + this.grainAmount > this.grainCapacity){
-				console.error('Too much grain');
-				return;
-			}
-			if(amount < 0){
-				console.error('Don`t remove grain');
-				return;
-			}
-			if(typeof amount != 'number'){
-				console.error('Add only grain!');
-				return;
-			}
-			this.grainAmount += amount;
-		}
-
-		this.setMilkAmount = (amount) => {
-			if(amount + this.milkAmount > this.milkCapacity){
-				console.error('Too much milk');
-				return;
-			}
-			if(amount < 0){
-				console.error('Don`t remove milk');
-				return;
-			}
-			if(typeof amount != 'number'){
-				console.error('Add only milk!');
-				return;
-			}
-			this.milkAmount += amount;
-		}
-
-
-		const checkIngredients = (drinkname) => {
-			let drinks = [
-				{
-					name: 'espresso',
-					grain: 8,
-					water: 30
-				},
-				{
-					name: 'americano',
-					grain: 8,
-					water: 120
-				},
-				{
-					name: 'latte',
-					grain: 16,
-					water: 60,
-					milk: 190
-				},
-				{
-					name: 'flat white',
-					grain: 16,
-					water: 60,
-					milk: 90
-				}
-			];
-
-			let allIn = true;
-
-			drinks.forEach(item => {
-				if(item.name === drinkname){
-					for(let ingredient in item){
-						if(ingredient != item.name){
-							if(this[`${ingredient}Amount`] < item[ingredient]){
-								allIn = false;
-								console.warn(`${ingredient} is not enough`);
-							}
-						}
-					}
-				}
-			});
-			return allIn;
-		}
-
-		this.brew = (drink) => {
-			drink = drink.toLowerCase();
-			if(!this.enabled || !this._ready){
-				console.error(`${this.name} is not ready, can not brew ${drink}`);
-				return;
-			}
-			if(checkIngredients(drink)){
-				switch(drink){
-					case 'espresso': setTimeout(()=>{
-							console.log('Espresso is ready');
-						}, 1000);
-						break;
-					case 'americano': setTimeout(()=>{
-							console.log('Americano is ready');
-						}, 1000);
-						break;
-					case 'latte': setTimeout(()=>{
-							console.log('Latte is ready');
-						}, 1000);
-						break;
-					case 'flat white': setTimeout(()=>{
-							console.log('Flat white is ready');
-						}, 1000);
-						break;
-				}
+		color(){
+			if(arguments.length === 0){
+				return this.target.color;
 			}
 			else{
-				console.error(`Can not brew ${drink}`);
+				this.target.color = arguments[0];
 			}
 		}
 	}
 
-	let gaggia = new CoffeeMachine('Gaggia Baby', 1000);
-	gaggia.brew('Latte');
-	gaggia.enable();
-	gaggia.setCoffeeAmount(150);
-	gaggia.setWaterAmount(750);
-	gaggia.setMilkAmount(250);
-	setTimeout(()=>gaggia.brew('Latte'),1600);
+	const button = {
+		width: 200,
+		height: 50,
+		color: 'green'
+	}
+
+	console.log($(button).color());
+	$(button).color('pink'); // document.querySelectorAll('button')
+	console.log($(button).color());
 
 
 	</script>
