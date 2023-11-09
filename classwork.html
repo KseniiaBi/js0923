@@ -6,84 +6,165 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
 	<style>
-		header, section, footer{
-			height: 500px;
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
 		}
+		.slider{
+			position: relative;
+			width: 100%;
+			height: 400px;
+		}
+		.slide{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: gray;
+			color: white;
+			text-align: center;
+			padding: 120px 0;
+			font-size: 100px;
+			opacity: 0;
+			transition: opacity 0.5s linear;
+		}
+		.slide.active{
+			opacity: 1;
+		}
+
+		.slide:nth-of-type(2){
+			background: hotpink;
+		}
+		.slide:nth-of-type(3){
+			background: lightgreen;
+		}
+		.slide:nth-of-type(4){
+			background: lightblue;
+		}
+		.slide:nth-of-type(5){
+			background: gold;
+		}
+
+		.arr_prev, .arr_next{
+			position: absolute;
+			top: 150px;
+			font-size: 50px;
+			cursor: pointer;
+			color: #ffffff;
+			z-index: 5;
+			left: 0;
+			transform: scaleY(1.6);
+		}
+
+		.arr_next{
+			left: auto;
+			right: 0;
+		}
+
+		ul {
+			list-style: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			width: 100%;
+			bottom: 20px;
+		}
+
+		.slidernav{
+			width: 15px;
+			height: 15px;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			margin: 0 6px;
+			cursor: pointer;
+		}
+		.slidernav.active{
+			background: #fff;
+		}
+
 	</style>
 </head>
 <body>
 
-	<!-- <div id="box" onclick="foo()">box</div> DON'T DO THAT! ANY INLINE LISTENERS -->
-	<header>header</header>
-	<div id="box">box</div>
-	<div class="block">block</div>
-	<button>Click me!</button>
-	<section>section 1</section>
-	<section><h2>H2 in section</h2>section 2</section>
-	<footer>footer</footer>
+	<div class="slider">
+		<div class="slide active">Slide 1</div>
+		<div class="slide">Slide 2</div>
+		<div class="slide">Slide 3</div>
+		<div class="slide">Slide 4</div>
+		<div class="slide">Slide 5</div>
+
+		<ul>
+			<li class="slidernav active" data-slide="0"></li>
+			<li class="slidernav" data-slide="1"></li>
+			<li class="slidernav" data-slide="2"></li>
+			<li class="slidernav" data-slide="3"></li>
+			<li class="slidernav" data-slide="4"></li>
+		</ul>
+
+		<div class="arr_prev">&lt;</div>
+		<div class="arr_next">&gt;</div>
+	</div>
 
 	
 	
 	<script>
-		// FE basics
-	
-		// BOM - Browser Object Model
-		console.log(window);
-	
-		// DOM - Document Object Model
-	
-		const box = document.getElementById('box');
-		const block = document.getElementsByClassName('block')[0]; // HTMLCollection 
-		const btn = document.getElementsByTagName('button')[0]; // HTMLCollection
-		const section1 = document.querySelector('section'); // can process any valid CSS selector - .block, #box, ul a
-		const sections = document.querySelectorAll('section'); // NodeList
+		// slider
+
+		// autoplay + 
+		// arrows
+		// dots +
+
+		const slides = document.querySelectorAll('.slide');
+		const navs = document.querySelectorAll('.slidernav');
+		const arrPrev = document.querySelector('.arr_prev');
+		const arrNext = document.querySelector('.arr_next');
+		let currentSlide = 0;
+		let interval;
 
 
-		const foo = () => console.log('Hi there!');
-	
-		box.onmouseover = foo; // hover
+		// autoplay
+		function init(){
+			interval = setInterval(()=>{
+				currentSlide = currentSlide < slides.length - 1 ? ++currentSlide : 0;
+				changeSlide(currentSlide);
+			}, 2000);		
+		}
 
-		btn.onclick = (event) => console.log(event);
+		init(); // запускаем автоплей при загрузке страницы
 
-		// delegate
-
-		document.addEventListener('click', function(e){
-			if(e.target.classList.contains('block')){
-				e.target.style.color = 'green';
-			}
-			if(e.target.tagName.toLowerCase() == 'section'){
-				e.target.style.background = 'lightgray';
-			}
-			if(e.target.parentNode.tagName.toLowerCase() == 'section'){
-				e.target.style.color = 'red';
-			}
-		});
-
-
-
-		let wasFirstShown = false;
-		let wasSecondShown = false;
-		let wasThirdShown = false;
-
-		function scrollHandler() {
-
-			if(window.scrollY > 200 && window.scrollY <= 500 && !wasFirstShown){
-				wasFirstShown = true; // wasFirstShown = !wasFirstShown will not work correct
-				console.log('200-500');
-			}
-			else if(window.scrollY > 500 && !wasSecondShown){
-				wasSecondShown = true;
-				console.log('scroll > 500');
-			}
-			else if(window.scrollY < 200 && !wasThirdShown){
-				wasThirdShown = true;
-				console.log('scroll < 200');
+		// dots
+		for(let dot of navs){
+			dot.onclick = () => {
+				currentSlide = +dot.dataset.slide;
+				changeSlide(currentSlide);
 			}
 		}
 
-		window.addEventListener('scroll', scrollHandler);
+		function changeSlide(){
+			for(let i = 0; i < slides.length; i++){
+				slides[i].classList.remove('active');
+				navs[i].classList.remove('active');
+			}
+			slides[currentSlide].classList.add('active');
+			navs[currentSlide].classList.add('active');
+			clearInterval(interval);
+			init();
+		}
 
-		block.onclick = () => window.removeEventListener('scroll', scrollHandler);
+		// arrows 
+
+		arrNext.onclick = () => {
+			currentSlide = currentSlide < slides.length - 1 ? ++currentSlide : 0;
+			changeSlide(currentSlide);
+		}
+
+		arrPrev.onclick = () => {
+			currentSlide = currentSlide > 0  ? --currentSlide : slides.length - 1;
+			changeSlide(currentSlide);
+		}
+
+
 
 		
 	
