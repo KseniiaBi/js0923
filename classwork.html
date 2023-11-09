@@ -106,67 +106,107 @@
 		<div class="arr_next">&gt;</div>
 	</div>
 
+
+	<div class="slider">
+		<div class="slide active">Slide 1</div>
+		<div class="slide">Slide 2</div>
+		<div class="slide">Slide 3</div>
+		<div class="slide">Slide 4</div>
+		<div class="slide">Slide 5</div>
+
+		<ul>
+			<li class="slidernav active" data-slide="0"></li>
+			<li class="slidernav" data-slide="1"></li>
+			<li class="slidernav" data-slide="2"></li>
+			<li class="slidernav" data-slide="3"></li>
+			<li class="slidernav" data-slide="4"></li>
+		</ul>
+
+		<div class="arr_prev">&lt;</div>
+		<div class="arr_next">&gt;</div>
+	</div>
+
+
+	<div class="slider">
+		<div class="slide active">Slide 1</div>
+		<div class="slide">Slide 2</div>
+		<div class="slide">Slide 3</div>
+		<div class="slide">Slide 4</div>
+		<div class="slide">Slide 5</div>
+
+		<ul>
+			<li class="slidernav active" data-slide="0"></li>
+			<li class="slidernav" data-slide="1"></li>
+			<li class="slidernav" data-slide="2"></li>
+			<li class="slidernav" data-slide="3"></li>
+			<li class="slidernav" data-slide="4"></li>
+		</ul>
+
+		<div class="arr_prev">&lt;</div>
+		<div class="arr_next">&gt;</div>
+	</div>
+
 	
 	
 	<script>
 		// slider
 
-		// autoplay + 
-		// arrows
-		// dots +
+		class Slider{
+			constructor(parent, timer){
+				this.slides = parent.querySelectorAll('.slide');
+				this.navs = parent.querySelectorAll('.slidernav');
+				this.arrPrev = parent.querySelector('.arr_prev');
+				this.arrNext = parent.querySelector('.arr_next');
+				this.currentSlide = 0;
+				this.interval;
+				this.timer = timer;
 
-		const slides = document.querySelectorAll('.slide');
-		const navs = document.querySelectorAll('.slidernav');
-		const arrPrev = document.querySelector('.arr_prev');
-		const arrNext = document.querySelector('.arr_next');
-		let currentSlide = 0;
-		let interval;
+				this.init(); // запускаем автоплей при загрузке страницы
+				// dots
+				for(let dot of this.navs){
+					dot.onclick = () => {
+						this.currentSlide = +dot.dataset.slide;
+						this.changeSlide();
+					}
+				}
 
+				// arrows 
 
-		// autoplay
-		function init(){
-			interval = setInterval(()=>{
-				currentSlide = currentSlide < slides.length - 1 ? ++currentSlide : 0;
-				changeSlide(currentSlide);
-			}, 2000);		
-		}
+				this.arrNext.onclick = () => {
+					this.currentSlide = this.currentSlide < this.slides.length - 1 ? ++this.currentSlide : 0;
+					this.changeSlide();
+				}
 
-		init(); // запускаем автоплей при загрузке страницы
+				this.arrPrev.onclick = () => {
+					this.currentSlide = this.currentSlide > 0  ? --this.currentSlide : this.slides.length - 1;
+					this.changeSlide();
+				}
+			}
+			
+			// autoplay
+			init(){
+				this.interval = setInterval(()=>{
+					this.currentSlide = this.currentSlide < this.slides.length - 1 ? ++this.currentSlide : 0;
+					this.changeSlide();
+				}, this.timer);		
+			}
 
-		// dots
-		for(let dot of navs){
-			dot.onclick = () => {
-				currentSlide = +dot.dataset.slide;
-				changeSlide(currentSlide);
+			changeSlide(){
+				for(let i = 0; i < this.slides.length; i++){
+					this.slides[i].classList.remove('active');
+					this.navs[i].classList.remove('active');
+				}
+				this.slides[this.currentSlide].classList.add('active');
+				this.navs[this.currentSlide].classList.add('active');
+				clearInterval(this.interval);
+				this.init();
 			}
 		}
 
-		function changeSlide(){
-			for(let i = 0; i < slides.length; i++){
-				slides[i].classList.remove('active');
-				navs[i].classList.remove('active');
-			}
-			slides[currentSlide].classList.add('active');
-			navs[currentSlide].classList.add('active');
-			clearInterval(interval);
-			init();
+		const sliders = document.querySelectorAll('.slider');
+		for(let i = 0; i < sliders.length; i++){
+			new Slider(sliders[i], (i+1)*1000);
 		}
-
-		// arrows 
-
-		arrNext.onclick = () => {
-			currentSlide = currentSlide < slides.length - 1 ? ++currentSlide : 0;
-			changeSlide(currentSlide);
-		}
-
-		arrPrev.onclick = () => {
-			currentSlide = currentSlide > 0  ? --currentSlide : slides.length - 1;
-			changeSlide(currentSlide);
-		}
-
-
-
-		
 	
 	
 		</script>
