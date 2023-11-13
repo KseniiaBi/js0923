@@ -205,7 +205,8 @@
 
 		const sliders = document.querySelectorAll('.slider');
 		for(let i = 0; i < sliders.length; i++){
-			new Slider(sliders[i], (i+1)*1000);
+			let s = new Slider(sliders[i], Math.floor(Math.random()* (4000 - 2000) + 2000)); // (i+1)*1000 0+1*1000 = 1000, 1+1*1000 = 2000, 1+2*1000 = 3000 
+			console.log(s);
 		}
 	
 	
