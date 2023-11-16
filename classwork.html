@@ -12,220 +12,86 @@
 			box-sizing: border-box;
 		}
 		
-		header{
-			background-color: #000000;
-			color: #ffffff;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 10px 30px;
+		canvas {
+			margin: 50px ;
+			border: 1px solid black;
 		}
-
-		.logo{
-			font-size: 24px;
-		}
-
-		a{
-			text-decoration: none;
-			color: inherit;
-		}
-
-		.shop {
-			padding: 30px;
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			flex-wrap: wrap;
-		}
-
-		.coffee {
-			width: 300px;
-			height: 400px;
-			box-shadow: 2px 2px 10px #e2e2e2;
-			padding: 10px;
-			display: flex;
-			align-items: center;
-			flex-direction: column;
-			margin-bottom: 30px;
-		}
-
-		.coffee img {
-			width: 100%;
-			height: 150px;
-			object-fit: cover;
-			margin-bottom: 30px;
-		}
-		
-		.price{
-			font-size: 40px;
-			font-weight: bold;
-			margin: 30px 0;
-		}
-
-		.coffee button {
-			padding: 10px;
-			text-transform: uppercase;
-		}
-
 	</style>
 </head>
 <body>
-	<header>
-		<span class="logo">CoffeePlace</span>
-		<nav>
-			<a href="#">Home</a>
-			<a href="#">Shop</a>
-			<a href="#">Contact</a>
-
-			<div class="cart">
-				<span class="cart_items">0</span> items (<span class="cart_sum">0</span> UAH) 
-			</div>
-		</nav>
-	</header>
-
-	<select class="sorting">
-		<option selected disabled>Sorting</option>
-		<option value="name">By name (A-Z)</option>
-		<option value="price">By price (Low to high)</option>
-	</select>
-
-	<div class="shop"></div>
+	<canvas width="400" height="300" id="game"></canvas>
 
 	
 	<script>
-		const url = 'data.json';
-		const shop = document.querySelector('.shop');
-		let data;
-		const cart = [];
-		const cartItemsSpan = document.querySelector('.cart_items');
-		const cartSumSpan = document.querySelector('.cart_sum');
-		let cartCount = 0;
-		let cartTotal = 0;
-		const sorter = document.querySelector('.sorting');
+		const canvas = document.querySelector('#game');
+		const ctx = canvas.getContext('2d');
+		const cWidth = canvas.offsetWidth;
+		const cHeight = canvas.offsetHeight;
 
-		// XMLHttpRequest
+		const maxCount = 10;
+		const balls = [];
+		let interval;
+		const maxRadius = 24;
+		const minRadius = 8;
 
-		// const xhr = new XMLHttpRequest();
-		// xhr.onreadystatechange = () =>{
-		// 	if(xhr.readyState === 4 && xhr.status === 200){
-		// 		data = JSON.parse(xhr.response);
-		// 		buildMarkup(data);
-		// 	}
-		// }
-		// xhr.open('GET', url);
-		// xhr.send();
-
-		function buildMarkup(d){
-			d.forEach(item => {
-				const div = document.createElement('div');
-				div.classList.add('coffee');
-				
-				const pic = new Image();
-				pic.src = item.img;
-
-				const name = document.createElement('h2');
-				name.textContent = item.name;
-
-				const price = document.createElement('div');
-				price.classList.add('price');
-				price.textContent = item.price;
-
-				const btn = document.createElement('button');
-				btn.textContent = 'Order';
-				btn.onclick = (id)=>addToCart(item.id);
-
-				div.append(pic, name, price, btn);
-				shop.append(div);
-			})
-		}
-
-		function addToCart(id){
-			let added;
-			data.forEach(item => {
-				if(item.id === id){
-					added = item;
-				}
-			});
-			let wasInCart = false;
-			cart.forEach(incart => {
-				if(incart.id === id){
-					wasInCart = true;
-					incart.count += 1;
-				}
-			});
-			wasInCart ? null : cart.push({...added, count: 1});
-			cartCount += 1;
-			cartTotal += added.price;
-
-
-			cartItemsSpan.textContent = cartCount;
-			cartSumSpan.textContent = cartTotal;
-		}
-
-		sorter.onchange = (e) => {
-			switch(sorter.value){
-				case 'name': sortCoffee('h2');
-					break;
-				case 'price': sortCoffee('.price');
-					break; 
+		interval = setInterval(()=>{
+			if(balls.length < maxCount){
+				createBall();
 			}
-		}
-
-		function sortCoffee(param){
-			let coffees = document.querySelectorAll(`.coffee ${param}`);
-			coffees = [].slice.call(coffees);
-			let sortFN = param === '.price'? sortByPrice : sortByName;
-			coffees.sort((a,b)=>sortFN(a,b));
-			coffees.forEach((c, index) => c.parentNode.style.order = index);
-		}
-
-		function sortByName(a,b){
-			if(a.innerText > b.innerText){
-				return 1;
+			else{
+				clearInterval(interval);
 			}
-			else if(a.innerText < b.innerText){
-				return -1;
-			}
-			else {
-				return 0;
-			}
-		}
+		}, 1000);
 
-		function sortByPrice(a,b){
-			if(+a.innerText > +b.innerText){
-				return 1;
-			}
-			else if(+a.innerText < +b.innerText){
-				return -1;
-			}
-			else {
-				return 0;
-			}
-		}
-
-		// Promise
-
-		// let promise = new Promise((resolve, reject) =>{
-		// 	confirm('Delete item?') ? resolve('Item was deleted') : reject('Item was not deleted');
-		// });
-
-		// promise.then(result => console.log(result))
-		// 		.catch(error => console.error(error))
-		// 		//.finally(()=> console.log('Work with cart was finished'));
-
-		
-		// fetch
-
-			let fetchedPromise = fetch(url);
+		function createBall(){
+			const rad = Math.floor(Math.random()*(maxRadius - minRadius) + minRadius);
+			const r = Math.floor(Math.random() * (255 - 100) + 100);
+			const g = Math.floor(Math.random() * (255 - 100) + 100);
+			const b = Math.floor(Math.random() * (255 - 100) + 100);
 			
-			fetchedPromise.then(result => result.json())
-						.then(response => {
-							data = response;
-							buildMarkup(response)
-						})
+			const ball = {
+				radius: rad,
+				color: `rgb(${r}, ${g}, ${b})`,
+				x: rad,
+				y: rad,
+				d_x: 3,
+				d_y: 3
+			}
+			balls.push(ball);
+		}
 
-				.catch(error=> console.warn(error));
-	
+		function drawBall(ball){
+			ctx.fillStyle = ball.color;
+			ctx.beginPath();
+			ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2, true);
+			ctx.fill();
+		}
+
+		function moveBall(ball){
+			if(ball.x + ball.d_x > cWidth - ball.radius || ball.x + ball.d_x < ball.radius){
+				ball.d_x = -ball.d_x;
+			}
+			if(ball.y + ball.d_y > cHeight- ball.radius || ball.y + ball.d_y < ball.radius){
+				ball.d_y = -ball.d_y;
+			}
+			ball.x += ball.d_x;
+			ball.y += ball.d_y;
+		}
+
+		function clear(){
+			ctx.clearRect(0,0,cWidth, cHeight);
+		}
+
+		function init(){
+			clear();
+			balls.forEach(ball => {
+				drawBall(ball);
+				moveBall(ball);
+			});
+		}
+
+		setInterval(init, 20);
+
 	</script>
 </body>
 </html>
