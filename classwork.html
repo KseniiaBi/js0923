@@ -12,270 +12,220 @@
 			box-sizing: border-box;
 		}
 		
-		.todoform{
-			margin: 50px auto;
+		header{
+			background-color: #000000;
+			color: #ffffff;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			padding: 10px 30px;
+		}
+
+		.logo{
+			font-size: 24px;
+		}
+
+		a{
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.shop {
+			padding: 30px;
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			flex-wrap: wrap;
+		}
+
+		.coffee {
 			width: 300px;
-		}
-
-		.todoform input {
-			height: 40px;
-			border-radius: 3px;
+			height: 400px;
+			box-shadow: 2px 2px 10px #e2e2e2;
 			padding: 10px;
-			border: 1px solid #e2e2e2;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			margin-bottom: 30px;
 		}
-		.todoinput{
-			width: calc(100% - 60px);
+
+		.coffee img {
+			width: 100%;
+			height: 150px;
+			object-fit: cover;
+			margin-bottom: 30px;
 		}
-		input[type='submit'] {
-			background: hotpink;
-			color: #ffffff;
+		
+		.price{
+			font-size: 40px;
+			font-weight: bold;
+			margin: 30px 0;
+		}
+
+		.coffee button {
+			padding: 10px;
 			text-transform: uppercase;
-		}
-
-		h3{
-			text-align: center;
-		}
-
-		ol{
-			margin: 50px;
-		}
-
-		.done {
-			text-decoration: line-through;
-		}
-
-		.del_btn, .edit_btn {
-			display: inline-block;
-			margin-left: 20px;
-			width: 26px;
-			height: 26px;
-			cursor: pointer;
-		}
-
-		.del_btn {
-			background: url('delete.png') no-repeat center;
-			background-size: contain;
-		}
-		.edit_btn {
-			background: url('edit.png') no-repeat center;
-			background-size: contain;
-		}
-
-		.hidden {
-			display: none;
-		}
-
-		h1{
-			margin: 150px 50px;
-		}
-		.typewriter {
-			position: relative;
-		}
-		.typewriter::after {
-			content: "|";
-			animation: blink 1s linear infinite;
-		}
-
-		@keyframes blink {
-			0%, 20%, 80%, 100% {
-				opacity: 0;
-			}
-
-			50% {
-				opacity: 1;
-			}
 		}
 
 	</style>
 </head>
 <body>
+	<header>
+		<span class="logo">CoffeePlace</span>
+		<nav>
+			<a href="#">Home</a>
+			<a href="#">Shop</a>
+			<a href="#">Contact</a>
 
-	<form class="todoform">
-		<input type="text" class="todoinput" placeholder="Type your task">
-		<input type="submit" value="save">
-	</form>
+			<div class="cart">
+				<span class="cart_items">0</span> items (<span class="cart_sum">0</span> UAH) 
+			</div>
+		</nav>
+	</header>
 
-	<h3>Any tasks yet. Start with adding tasks in form above.</h3>
-	<ol class="todolist"></ol>
+	<select class="sorting">
+		<option selected disabled>Sorting</option>
+		<option value="name">By name (A-Z)</option>
+		<option value="price">By price (Low to high)</option>
+	</select>
 
-	<h1>Hello, I am <span class="typewriter"></span></h1>
+	<div class="shop"></div>
+
 	
 	<script>
-		// To Do List
-		// save task +
-		// mark as done +
-		// delete task + 
-		// edit task + 
-		// save to LS +
+		const url = 'data.json';
+		const shop = document.querySelector('.shop');
+		let data;
+		const cart = [];
+		const cartItemsSpan = document.querySelector('.cart_items');
+		const cartSumSpan = document.querySelector('.cart_sum');
+		let cartCount = 0;
+		let cartTotal = 0;
+		const sorter = document.querySelector('.sorting');
 
-		const form = document.getElementsByClassName('todoform')[0];
-		const todoinp = document.querySelector('.todoinput');
-		const heading = document.getElementsByTagName('h3')[0];
-		const list = document.querySelector('.todolist');
-		const storage = window.localStorage;
-		const APP_NAME = 'TODOS';
-		let todos;
-		const inStorage = storage.getItem(APP_NAME);
+		// XMLHttpRequest
 
-		if(inStorage === null || JSON.parse(inStorage).length === 0){
-			todos = [];
-		}
-		else{
-			todos = JSON.parse(inStorage);
-			todos.forEach(item => createTodoMarkup(item));
-		}
-
-		function saveToLS(){
-			storage.setItem(APP_NAME, JSON.stringify(todos));
-		}
-
-		function checkTodos(){
-			if(todos.length === 0){
-				heading.style.display = 'block';
-				list.style.display = 'none';
-			}
-			else{
-				heading.style.display = 'none';
-				list.style.display = 'block';
-			}
-		}
-		checkTodos();
-
-		function saveTask(){
-			const text = todoinp.value;
-			if(text.length >= 3){
-				const id = Date.now();
-				const todo = {
-					task: text,
-					done: false,
-					id: id
-				}
-				todos.push(todo);
-				createTodoMarkup(todo);
-				todoinp.value = '';
-
-				if(todos.length === 1){
-					checkTodos();
-				}
-				saveToLS();
-			}
-		}
-
-		function createTodoMarkup(todo){
-			const li = document.createElement('li');
-			li.dataset.id = todo.id;
-
-			li.append(createHTMLelement('span', ['textspan'], todo.task, () => markAsDone(li)));
-			li.appendChild(createHTMLelement('input', ['hidden'] ));
-			li.appendChild(createHTMLelement('span', ['del_btn'], '', () => deleteTask(li)));
-			li.appendChild(createHTMLelement('span', ['edit_btn'], '', () => editTask(li)));
-
-			list.append(li);
-		}
-
-		function createHTMLelement(tag, classes = [], text = '', handler = null){
-			const elem = document.createElement(tag);
-			elem.classList.add(...classes);
-			elem.textContent = text;
-			elem.onclick = handler;
-			return elem;
-		}
-
-		function markAsDone(el){
-			el.classList.toggle('done');
-			todos.forEach(item => {
-				if(item.id === +el.dataset.id){
-					item.done = !item.done;
-				}
-			});
-			saveToLS();
-		}
-
-		function deleteTask(el){
-			const id = +el.dataset.id;
-			el.remove();
-			todos.forEach((item, index) => {
-				if(item.id === id){
-					todos.splice(index, 1);
-				}
-			});
-			if(todos.length === 0){
-				checkTodos();
-			}
-			saveToLS();
-		}
-
-		function editTask(el){
-			const id = +el.dataset.id;
-			const txt = el.querySelector('.textspan');
-			const inp = el.querySelector('input');
-
-			inp.value = txt.innerText;
-			inp.classList.remove('hidden');
-			txt.classList.add('hidden');
-
-			inp.onkeyup = (e) => {
-				if(e.key === 'Enter'){
-					txt.innerText = inp.value;
-					inp.classList.add('hidden');
-					txt.classList.remove('hidden');
-
-					todos.forEach(item => {
-						if(item.id === id){
-							item.task = inp.value;
-						}
-					});
-					inp.onkeyup = null;
-				}
-			}
-			saveToLS();
-		}
-
-		form.onsubmit = (e) =>{
-			e.preventDefault();
-			saveTask();
-		}
-
-		// list.addEventListener('click', (event) => {
-		// 	if(event.target.parentNode.tagName.toLowerCase() === 'li'){
-		// 		markAsDone(event.target.parentNode);
+		// const xhr = new XMLHttpRequest();
+		// xhr.onreadystatechange = () =>{
+		// 	if(xhr.readyState === 4 && xhr.status === 200){
+		// 		data = JSON.parse(xhr.response);
+		// 		buildMarkup(data);
 		// 	}
+		// }
+		// xhr.open('GET', url);
+		// xhr.send();
+
+		function buildMarkup(d){
+			d.forEach(item => {
+				const div = document.createElement('div');
+				div.classList.add('coffee');
+				
+				const pic = new Image();
+				pic.src = item.img;
+
+				const name = document.createElement('h2');
+				name.textContent = item.name;
+
+				const price = document.createElement('div');
+				price.classList.add('price');
+				price.textContent = item.price;
+
+				const btn = document.createElement('button');
+				btn.textContent = 'Order';
+				btn.onclick = (id)=>addToCart(item.id);
+
+				div.append(pic, name, price, btn);
+				shop.append(div);
+			})
+		}
+
+		function addToCart(id){
+			let added;
+			data.forEach(item => {
+				if(item.id === id){
+					added = item;
+				}
+			});
+			let wasInCart = false;
+			cart.forEach(incart => {
+				if(incart.id === id){
+					wasInCart = true;
+					incart.count += 1;
+				}
+			});
+			wasInCart ? null : cart.push({...added, count: 1});
+			cartCount += 1;
+			cartTotal += added.price;
+
+
+			cartItemsSpan.textContent = cartCount;
+			cartSumSpan.textContent = cartTotal;
+		}
+
+		sorter.onchange = (e) => {
+			switch(sorter.value){
+				case 'name': sortCoffee('h2');
+					break;
+				case 'price': sortCoffee('.price');
+					break; 
+			}
+		}
+
+		function sortCoffee(param){
+			let coffees = document.querySelectorAll(`.coffee ${param}`);
+			coffees = [].slice.call(coffees);
+			let sortFN = param === '.price'? sortByPrice : sortByName;
+			coffees.sort((a,b)=>sortFN(a,b));
+			coffees.forEach((c, index) => c.parentNode.style.order = index);
+		}
+
+		function sortByName(a,b){
+			if(a.innerText > b.innerText){
+				return 1;
+			}
+			else if(a.innerText < b.innerText){
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		}
+
+		function sortByPrice(a,b){
+			if(+a.innerText > +b.innerText){
+				return 1;
+			}
+			else if(+a.innerText < +b.innerText){
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		}
+
+		// Promise
+
+		// let promise = new Promise((resolve, reject) =>{
+		// 	confirm('Delete item?') ? resolve('Item was deleted') : reject('Item was not deleted');
 		// });
 
+		// promise.then(result => console.log(result))
+		// 		.catch(error => console.error(error))
+		// 		//.finally(()=> console.log('Work with cart was finished'));
 
-		// typewriter effect
-		const phrases = ['JS developer', 'Designer', 'Human'];
-		const placeholder = document.getElementsByClassName('typewriter')[0];
-		let totalTime = 0;
+		
+		// fetch
 
-		for(let p of phrases){
-			let time = p.length*100 + 1500;
-			setTimeout(()=>{
-				typewrite(p);
-			}, totalTime);
+			let fetchedPromise = fetch(url);
+			
+			fetchedPromise.then(result => result.json())
+						.then(response => {
+							data = response;
+							buildMarkup(response)
+						})
 
-			totalTime +=  time;
-		}
-
-		function typewrite(text){
-			let letter = 0;
-			let interval = setInterval(() =>{
-				if(letter < text.length){
-					placeholder.textContent += text.charAt(letter);
-					letter++;
-				}
-				else{
-					clearInterval(interval);
-					setTimeout(()=>{
-						placeholder.textContent = ''; // text.substring(0, i--)
-					}, 500);
-				}
-			}, 100);
-		}
+				.catch(error=> console.warn(error));
 	
-		</script>
+	</script>
 </body>
 </html>
