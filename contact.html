@@ -180,46 +180,6 @@
 		.tab.active {
 			display: block;
 		}
-
-		/* tic tac toe game */
-		.game{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.game_field{
-			width: 302px;
-			display: flex;
-			flex-wrap: wrap;
-			border: 1px solid #000;
-			margin: 100px 300px;
-		}
-
-		.square {
-			border: 1px solid #000;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 60px;
-			width: 100px;
-			height: 100px;
-			cursor: pointer;
-		}
-
-		.square:hover{
-			background-color: #e2e2e2;
-		}
-
-		.restart {
-			padding: 10px 20px;
-			background: #000000;
-			border: none;
-			color: #ffffff;
-			text-transform: uppercase;
-			margin-top: 20px;
-		}
 		
 	</style>
 </head>
@@ -256,8 +216,6 @@
 		<div class="arr_next">&gt;</div>
 	</div>
 
-	<a href="contact.html#tab_4">Contact tab 4</a>
-
 	<div class="tabs">
 		<div class="tab_names">
 			<div class="tab_name active" data-id="tab_1">Tab 1</div>
@@ -283,13 +241,6 @@
 				<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta omnis blanditiis cum recusandae, incidunt veritatis dolores excepturi, doloribus debitis eaque tempore totam magnam. Fuga illum asperiores voluptates blanditiis porro. Inventore!</p>
 			</div>
 		</div>
-	</div>
-
-	<div class="game">
-		<h3 class="game_info">Current Player is <span class="game_player">X</span></h3>
-		<button class="restart">Restart game</button>
-
-		<div class="game_field"></div>
 	</div>
 	
 
@@ -337,73 +288,29 @@
 
 		var tabbtns = $('.tab_name');
 		var tabs = $('.tab');
+
+		var hash = window.location.hash;
+
+		if(hash != ''){
+			switchTab(hash.substr(1));
+		}
+
+		function switchTab(id){
+			for(let i = 0; i < tabs.length; i++){
+				$(tabbtns[i]).removeClass('active');
+				$(tabs[i]).removeClass('active');
+				if($(tabbtns[i]).attr('data-id') === id){
+					$(tabbtns[i]).addClass('active');
+				}
+			}
+			$(`#${id}`).addClass('active');
+		}
 		
-		tabbtns.click((e)=>{
+		tabbtns.click((e)=>{	
 			var target = $(e.target);
-			tabbtns.each((i,el)=> $(el).removeClass('active'));
-			tabs.each((i,el)=> $(el).removeClass('active'));
 			var ref = target.attr('data-id');
-			$(`#${ref}`).addClass('active');
-			target.addClass('active');
+			switchTab(ref);
 		});
-
-
-
-		// tic tac toe game
-
-		var field = $('.game_field');
-		var restartbtn = $('.restart');
-		restartbtn.hide();
-		var isActiveX = true;
-
-		// restartbtn.click(()=>window.location.reload());
-		restartbtn.click(()=>{
-			squares.fill('');
-			$('.square').text('');
-			restartbtn.hide();
-			$('.game_info').html('Current Player is <span class="game_player">X</span>');
-		});
-
-		let squares = new Array(9).fill('');
-		squares.forEach((item, index) => {
-			let div = document.createElement('div');
-			$(div).addClass('square');
-			field.append(div);
-			$(div).click(()=>turn(div, index))
-		});
-
-		function turn(el, i){
-			var letter = isActiveX ? 'X' : '0';
-			if($(el).text().length === 0){
-				$(el).text(letter);
-			}
-			isActiveX = !isActiveX;
-			squares[i] = letter;
-			$('.game_player').text(isActiveX ? 'X' : '0');
-			checkGameOver();
-		}
-
-		function checkGameOver(){
-			if(squares[0] === squares[1] && squares[1] === squares[2] && squares[0] !== '' || 
-			squares[3] === squares[4] && squares[4] === squares[5] && squares[5] !== '' ||
-			squares[6] === squares[7] && squares[7] === squares[8] && squares[8] !== '' ||
-			squares[0] === squares[3] && squares[6] === squares[3] && squares[3] !== '' ||
-			squares[1] === squares[4] && squares[4] === squares[7] && squares[7] !== '' ||
-			squares[2] === squares[5] && squares[5] === squares[8] && squares[5] !== '' ||
-			squares[0] === squares[4] && squares[4] === squares[8] && squares[8] !== '' ||
-			squares[2] === squares[4] && squares[4] === squares[6] && squares[6] !== '' 
-			){
-				gameOver(`${isActiveX ? '0' : 'X'} won!`);
-			}
-			if(!squares.includes('')){
-				gameOver(`No winner`);
-			}
-		}
-
-		function gameOver(txt){
-			$('.game_info').text(txt);
-			restartbtn.show(txt);
-		}
 
 
 	</script>
