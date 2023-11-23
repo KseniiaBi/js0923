@@ -69,7 +69,7 @@
 						</div>
 						<div class="flex">
 							<aside class="filters">
-								<div class=" group active">
+								<div class="prod_type group active">
 									<div class="header">
 										<h4>Група товару</h4>
 										<span></span>
@@ -90,9 +90,9 @@
 										<span></span>
 									</div>
 									<ul>
-										<li>20</li>
-										<li>30</li>
-										<li>40+</li>
+										<li><input id="age_20" type="checkbox"  value="20"><label for="age_20"></label>20</li>
+										<li><input id="age_30" type="checkbox"  value="30"><label for="age_30"></label>30</li>
+										<li><input id="age_40" type="checkbox"  value="40"><label for="age_40"></label>40+</li>
 									</ul>
 								</div>
 								<div class="group inactive">
@@ -152,7 +152,7 @@
 							</aside>
 							<div class="column">
 								<div class="items">
-									<div class="item" data-group="cream">
+									<div class="item" data-age="20" data-group="cream">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-1-fluid.png" alt="fluid for face">
 											<span class="heart"></span>
@@ -168,7 +168,7 @@
 											<div class="btn-mini" data-id="1"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item" data-group="cream">
+									<div class="item" data-age="30" data-group="cream">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-2-antiox-cream.png"
 												alt="antiox-cream">
@@ -186,7 +186,7 @@
 											<div class="btn-mini" data-id="2"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="gel">
+									<div class="item"  data-age="40"  data-group="gel">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-3-shower-gel.png" alt="shower-gel">
 											<span class="heart"></span>
@@ -203,7 +203,7 @@
 											<div class="btn-mini" data-id="3"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="serum">
+									<div class="item" data-age="20"  data-group="serum">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-4-moisturizing serum.png"
 												alt="moisturizing serum">
@@ -221,7 +221,7 @@
 											<div class="btn-mini" data-id="4"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item">
+									<div class="item" data-group="cream"  data-age="30">
 										<div class="image-holder"  data-group="cream">
 											<img src="./images/image-catalogue-page-5-moisturizing-cream.png"
 												alt="moisturizing-cream">
@@ -239,7 +239,7 @@
 											<div class="btn-mini" data-id="5"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="tonic">
+									<div class="item"  data-age="40"  data-group="tonic">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-6-face-tonic.png" alt="face-tonic">
 											<span class="heart"></span>
@@ -256,7 +256,7 @@
 											<div class="btn-mini" data-id="6"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="foam">
+									<div class="item" data-age="20"  data-group="foam">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-7-cleaning-foam.png"
 												alt="cleaning-foam">
@@ -274,7 +274,7 @@
 											<div class="btn-mini" data-id="7"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="cream">
+									<div class="item"  data-age="30" data-group="cream">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-8-day-night-cream.png"
 												alt="day-night-cream">
@@ -292,7 +292,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="cream">
+									<div class="item"  data-age="40"  data-group="cream">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-9-mattifying-cream.png"
 												alt="mattifying-cream">
@@ -310,7 +310,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="cream">
+									<div class="item" data-age="20"  data-group="cream">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-10-night-anti-aging-cream.png"
 												alt="night-anti-aging-cream">
@@ -328,7 +328,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="gel">
+									<div class="item"  data-age="30"  data-group="gel">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-11-make-up-remover-gel.png"
 												alt="make-up-remover-gel">
@@ -345,7 +345,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="serum">
+									<div class="item"  data-age="40"  data-group="serum">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-12-anti-aging-serum.png"
 												alt="anti-aging-serum">
@@ -363,7 +363,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="tonic">
+									<div class="item" data-age="20" data-group="tonic">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-13-lotion-skin.png"
 												alt="lotion-skin">
@@ -381,7 +381,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="gel">
+									<div class="item"  data-age="30"  data-group="gel">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-14-scrub-sensitive.png"
 												alt="scrub-sensitive">
@@ -398,7 +398,7 @@
 											<div class="btn-mini"><span>В кошик</span></div>
 										</div>
 									</div>
-									<div class="item"  data-group="gel">
+									<div class="item"  data-age="40"  data-group="gel">
 										<div class="image-holder">
 											<img src="./images/image-catalogue-page-15-gel-deep-cleaning.png"
 												alt="gel-deep-cleaning">

@@ -6,8 +6,27 @@
 	<meta name="viewport" content="width=device-width; initial-scale=1" />
 	<link rel="stylesheet" href="css/all.css" type="text/css" />
 	<link rel="stylesheet" href="css/fonts.css" type="text/css" />
-	<script type="text/javascript" src="js/main.js"></script>
 	<title>Aethetics</title>
+	<style>
+		.slider, .slide{
+			height: calc(100vw/1.5);
+		}
+
+		.slide_pic{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			opacity: 0;
+			position: absolute;
+			/* aspect-ratio: 6/4; */
+			top: 0;
+			left: 0;
+			transition: opacity 0.5s linear;
+		}
+		.slide_pic.active{
+			opacity: 1;
+		}
+	</style>
 </head>
 
 <body>
@@ -82,15 +101,17 @@
 				<section class="slider">
 					<div class="slide">
 						<img class="mobile" src="images/image-360-main-slide-1.png" alt="moisturizing serum">
-						<img class="desktop" src="images/image-main-slide-1.png" alt="moisturizing serum">
+						<img class="slide_pic active desktop" src="images/image-main-slide-1.png" alt="moisturizing serum">
+						<img class="slide_pic desktop" src="images/image-main-page-article-preview-3.png" alt="moisturizing serum">
+						<img class="slide_pic desktop" src="images/image-main-page-article-preview-2.png" alt="moisturizing serum">
 						<article class="text">
 							<h2>Новинка від AESTHETICS</h2>
 							<h4>Зволожуюча сиворотка для обличчя</h4>
 						</article>
 						<div class="slider-controls">
-							<div class="radio active"></div>
-							<div class="radio"></div>
-							<div class="radio"></div>
+							<div data-slide="0" class="radio active"></div>
+							<div data-slide="1" class="radio"></div>
+							<div data-slide="2" class="radio"></div>
 						</div>
 					</div>
 					<div class="button-catalogue">
@@ -225,6 +246,7 @@
 			</div>
 		</footer>
 	</div>
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>

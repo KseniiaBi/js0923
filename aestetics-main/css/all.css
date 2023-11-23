@@ -723,6 +723,14 @@ header .layout .wrapper .interface ul li.favourite a:hover {
 }
 header .layout .wrapper .interface ul li.basket a {
   background-image: url(../images/icon-basket-default.png);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 26px;
+  text-decoration: none;
 }
 header .layout .wrapper .interface ul li.basket a:hover {
   background-image: url(../images/icon-basket-hover.png);

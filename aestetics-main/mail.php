@@ -1,6 +1,6 @@
 <?php  
  
- $mailto = "@gmail.com";  //Website owner email address
+ $mailto = "example@gmail.com";  //Website owner email address
  //getting customer data
  $name = $_POST['name']; //getting customer name
  $phone = $_POST['telephone']; //getting customer Phome number
