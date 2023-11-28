@@ -1,0 +1,118 @@
+body {
+    height: 100%;
+    width: 100%;
+    /*height:100vh;
+   width: 100vw;*/
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    /*background-size: cover;*/
+    background-size: 100%;
+    /* background-image: url("d:/Front_End_JS/final_task_race/img/bg_car2.png"); background-size: 100%; */
+    background-image: url("../img/bg_car2.png");
+    background-color: transparent;
+    /*overflow: hidden;*/
+}
+
+canvas {
+    margin: 50px;
+    /* font: "170px Arial";*/
+    /*border: 1px solid black;*/  
+}
+
+.game-button {
+    visibility: hidden;
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+.game-button:hover {
+    transform: scale(1.1);
+}
+
+.game-button img {
+    width: 50px;
+    height: 50px;
+}
+
+.game-button .play{
+    display: none;
+}
+
+.form {
+    border-radius: 40px;
+    background: #ECF4F8;
+    width: 1170px;
+    /*height: 20px;*/
+    margin: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 100px;
+    padding-right: 100px;
+    box-sizing: border-box;   
+    text-align: center;
+}
+
+.form-title {
+    color: #1B1D1F;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 28px;
+    margin-bottom: 40px;
+}
+.form-field{
+    border-radius: 12px;
+    border: 1px solid #2B4C5C;
+    width: 304px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    margin-right: 24px;
+    color: #1B1D1F;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px
+}
+
+.form-submit-btn {
+    border-radius: 12px;
+    background: #ff6b0a;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    border: none;
+    width: 150px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.start-btn {
+    border-radius: 12px;
+    background: #ff6b0a;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    border: none;
+    width: 300px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+div{
+    text-align: center;
+}
