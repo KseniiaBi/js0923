@@ -8,17 +8,15 @@ import {
     heightLine, heightCar, widthCar
 } from './constants.js';
 
-   /////////////////////////////////
- let lives = 5;
- let okLeft = false;
- let okRight = false;
- let okUp = false;
- let okDown = false;
- let myRequest = 0;
- let isStop = false;
- let isPause = false;
- let isCarCrash = false ;
-  /////////////////////////////////////  
+    let lives = 5;
+    let okLeft = false;
+    let okRight = false;
+    let okUp = false;
+    let okDown = false;
+    let myRequest = 0;
+    let isStop = false;
+    let isPause = false;
+    let isCarCrash = false ;  
 
     let line1FirstPart = new Image();
     line1FirstPart.src = highwayLine;
@@ -55,6 +53,10 @@ import {
     thirdCar.X = 50;
     thirdCar.Y = -150;
     
+    let residual23X = 0;  
+    let ranCoordXSecCar = 0;
+    let ranCoordXThirdCar = 0;
+    
     function drawPause() {
         gameButton.addEventListener('click', () => {
             isPause = !isPause;
@@ -77,19 +79,19 @@ import {
         gameButton.style.visibility = 'visible';
    }
 
-function drawGreeting() {   
-    ctx.font = "30px Arial";
-    ctx.fillStyle = "#000000";
+    function drawGreeting() {   
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "#000000";
     
-    for (let i = 0; i < nameOfUserArr.length; i++){
-         if (typeof (userNameInfo.nickname)=== nameOfUserArr[i] ) {
-            ctx.fillText("wellcome back " + userNameInfo.nickname, 10, 20);
-            return true;
-         }
+        for (let i = 0; i < nameOfUserArr.length; i++){
+            if (typeof (userNameInfo.nickname)=== nameOfUserArr[i] ) {
+                ctx.fillText("wellcome back " + userNameInfo.nickname, 10, 20);
+                return true;
+            }
         ctx.fillText("Hello " + userNameInfo.nickname, 10, 20);
         return true;
-     }
-}
+        }
+    }
     function drawExistingLives(){
         ctx.font = "30px Arial";
         ctx.fillStyle = "#000000";
@@ -156,6 +158,12 @@ function drawGreeting() {
             if (line2SecondPart.Y > cHeight) {
                 line2SecondPart.Y = -heightLine;
             }
+            if (okDown === true && firstCar.Y < cHeight) {
+                firstCar.Y -=2;
+            }
+            if (okDown === true && firstCar.Y === 0) {
+                firstCar.Y = 400;     
+            }
         }        
         ctx.drawImage(firstCar, firstCar.X, firstCar.Y);
     }
@@ -197,9 +205,16 @@ function drawGreeting() {
             if (!isCarCrash) {
                 ctx.drawImage(thirdCar, thirdCar.X, thirdCar.Y);
                 thirdCar.Y += 2;
+                ranCoordXThirdCar = Math.floor(Math.random() * 535);
+                residual23X = Math.abs(secondCar.X - ranCoordXThirdCar);
                 if (thirdCar.Y > cHeight) {
                     thirdCar.Y = -heightCar;
-                    thirdCar.X = Math.floor(Math.random()*535);
+                    if (residual23X <= widthCar && (secondCar.X + widthCar + 2) <= 535 && (secondCar.X + widthCar + 2) >= 0) {
+                        thirdCar.X = secondCar.X + widthCar + 2;
+                    }
+                    else if (residual23X <= widthCar && (secondCar.X + widthCar + 2) <= 0){   
+                        thirdCar.X = secondCar.X;
+                    }
                 }
             }
 }
@@ -215,7 +230,6 @@ function drawGreeting() {
         drawThirdCar();
         drawPause();
         drawGreeting();
-        //drawForm.drawGreeting();
         drawExistingLives();
 
         myRequest = requestAnimationFrame(startRace);
