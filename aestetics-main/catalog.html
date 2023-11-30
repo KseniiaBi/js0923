@@ -7,6 +7,27 @@
 	<link rel="stylesheet" href="css/all.css" type="text/css" />
 	<link rel="stylesheet" href="css/fonts.css" type="text/css" />
 	<title>Aethetics</title>
+
+	<style>
+		.sorter {
+			position: relative;
+		}
+		.sort_options{
+			display: none;
+			width: 200px;
+			position: absolute;
+			background: #ffffff;
+			z-index: 10;
+		}
+		.sorter:hover  .sort_options{
+			display: block;
+		}
+		.sort_opt{
+			width: 100%;
+			padding: 10px;
+			cursor: pointer;
+		}
+	</style>
 </head>
 
 <body>
@@ -64,7 +85,12 @@
 						<div class="sorting">
 							<div class="wrapper">
 								<p>Фільтри</p>
-								<p>Сортування</p>
+								<div class="sorter">
+									<div class="sorter_value">Сортування</div>
+									<div class="sort_options">
+										<div class="sort_opt" data-sort="price">Price</div>
+										<div class="sort_opt" data-sort="name">Name</div>
+									</div>
 							</div>
 						</div>
 						<div class="flex">

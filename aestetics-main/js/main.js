@@ -52,20 +52,20 @@ filters.forEach(f => {
     f.onchange = ()=> {
         const filterData = f.id.split('_');
         if(f.checked === true){
-            if(filtered[filterData[0]] in filtered){
+            if(filterData[0] in filtered){
                 filtered[filterData[0]].push(filterData[1]);
             }
            else{
             filtered[filterData[0]] = [filterData[1]];
            }
         }
-        // else{
-        //     filtered[filterData[0]].forEach((filter, index)=>{
-        //         if(f.value === filter){
-        //             filtered[filterData[0]].splice(index,1);
-        //         }
-        //     });
-        // }
+        else{
+            filtered[filterData[0]].forEach((filter, index)=>{
+                if(f.value === filter){
+                    filtered[filterData[0]].splice(index,1);
+                }
+            });
+        }
         showFilteredProducts();
     }
 });
@@ -73,29 +73,74 @@ filters.forEach(f => {
 
 
 function showFilteredProducts(){
-    // if(filtered.length === 0){
-    //     for(let p of productsOnPage){
-    //         p.style.display = 'block';
-    //     }
-    // }
-    // else{
-    //     for(let p of productsOnPage){
-    //         if(filtered.includes(p.dataset.group)){
-    //             p.style.display = 'block';
-    //         }
-    //         else{
-    //             p.style.display = 'none';
-    //         }
-    //     }
-    // }
+    let filtersCount = 0;
+    for(let prop in filtered){
+        filtersCount += filtered[prop].length;
+    }
+    if(filtersCount === 0){
+        for(let p of productsOnPage){
+            p.style.display = 'block';
+        }   
+    }
+    else{
+       let prodCopy = [].slice.call(productsOnPage);
+       for(let f in filtered){
+            if(filtered[f].length > 0){
+                prodCopy = prodCopy.filter(item => {
+                    if(filtered[f].includes(item.dataset[f])){
+                        return item;
+                    }
+                });
+            }
+       }
+       for(let p of productsOnPage){
+            p.style.display = 'none';
+        } 
+        for(let p of prodCopy){
+            p.style.display = 'block';
+        } 
+    }
 }
 
-// filter by price 
+// sort by price 
+const sortedBy = document.querySelector('.sorter_value');
+const sortOptions = document.querySelectorAll('.sort_opt');
+
+for(let opt of sortOptions){
+    opt.onclick = () => {
+        sortItems(opt.dataset.sort);
+        sortedBy.textContent = `Відсортовано за ${opt.dataset.sort === 'price' ? 'ціною' : 'назвою' }`;
+    }
+}
 
 
+// sort  
 
-function filterByprice(){
-    
+function sortItems(type){
+    let filelds = document.querySelectorAll(`.item .${type} p`);
+    filelds = [].slice.call(filelds);
+    filelds.sort((a,b)=>{
+        
+        if(type === 'price'){
+            a = +a.textContent.substring(0, a.textContent.length - 5);
+            b = +b.textContent.substring(0, b.textContent.length - 5);
+        }
+        else{
+            a = a.textContent;
+            b = b.textContent;
+        }
+
+        if(a > b){
+            return 1;
+        }
+        else if(a < b){
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    })
+    filelds.forEach((item,index) => item.parentNode.parentNode.style.order = index);
 }
 
 // get products
