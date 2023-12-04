@@ -1,0 +1,26 @@
+{
+  "name": "aestetics-main",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "critical": "^2.0.6",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-cwebp": "^4.0.2",
+    "gulp-html-img-to-picture": "^1.0.3",
+    "gulp-imagemin": "^7.0.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.69.5"
+  },
+  "dependencies": {
+    "gulp-htmlmin": "^5.0.1"
+  }
+}
