@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.task_btn{
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+  display: inline-block;
+  cursor: pointer;
+}

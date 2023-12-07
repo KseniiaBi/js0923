@@ -291,6 +291,9 @@
 
 		<div class="game_field"></div>
 	</div>
+
+	<img class="lazy" data-src="edit.png" loading="lazy" alt="">
+	<img class="lazy" data-src="delete.png" loading="lazy" alt="">
 	
 
 	<script
@@ -405,6 +408,22 @@
 			restartbtn.show(txt);
 		}
 
+
+
+		/// lazy-load
+
+		const lazyImages = document.querySelectorAll('.lazy');
+		let lazyLoaded = false;
+
+		window.onscroll = () => {
+			if(!lazyLoaded){
+				lazyLoaded = true;
+				for(let img of lazyImages){
+					img.src = img.dataset.src;
+					img.dataset.src = '';
+				}
+			}
+		}
 
 	</script>
 </body>
