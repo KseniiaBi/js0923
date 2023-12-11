@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './page.module.css';
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import  editBtn from './edit.png';
 import  delBtn from './delete.png';
 import Image from 'next/image';
@@ -21,17 +21,21 @@ export default function Home() {
   const deleteTask = (id) => {
     const todosCopy = state.slice();
     todosCopy.forEach((item,index) => {
-      debugger
-      if(item.id === index){
+      if(id === index){
         todosCopy.splice(index,1);
       }
     });
     setTodos(todosCopy);
-    console.log(todosCopy);
   }
 
-  const editTask = (id) => {
-
+  const editTask = (id, newtask) => {
+    const todosCopy = state.slice();
+    todosCopy.forEach((item, index) => {
+      if(id === index){
+        todosCopy[index] = newtask;
+      }
+    });
+    setTodos(todosCopy);
   }
 
     return (
@@ -64,10 +68,30 @@ function ToDoList(props){
 }
 
 function ToDo({task, id, onDelete, onEdit}) {
+  let inEditMode = false;
+  const editRef = createRef(null);
+
+  function setEditMode(){
+    inEditMode = true;
+    const inp = editRef.current;
+    inp.classList.remove('hidden');
+    inp.value = task;
+
+    inp.onkeyup = (e) => {
+      if(e.key === 'Enter'){
+        let newtask = inp.value;
+        inp.classList.add('hidden');
+        onEdit(id, newtask);
+      }
+    }
+  }
+
+
   return (
     <li data-id={id}>
       {task}
-      <Image className='task_btn edit_btn' onClick={() =>onEdit(id)} src={editBtn} alt="" width={24} height={24} />
+      <input ref={editRef} className='hidden' type="text" />
+      <Image className='task_btn edit_btn' onClick={()=>setEditMode()} src={editBtn} alt="" width={24} height={24} />
       <Image className='task_btn del_btn' onClick={()=>onDelete(id)} src={delBtn} alt="" width={24} height={24} />
     </li>
   )
