@@ -93,6 +93,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
 }
 
 a {
@@ -106,7 +110,19 @@ a {
   }
 }
 
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+nav a {
+  margin-left: 20px;
+}
+
+nav .active{
+  font-weight: bold;
+}
 
 .hidden {
   display: none;
