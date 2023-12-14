@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tense race</title>
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="css/styles.css">    
-</head>    
-<body>
-    <form action="#" class="form" id="form">
-        <h2 class="form-title">Please enter your nickname </h2>
-        <input type="text" class="form-field" id="user-name" name="Name's gamer" placeholder="Enter your name">
-        <button class="form-submit-btn" id="form-submit-btn"  >Login</button>
-    </form> 
-<div ></div>
-<p></p>
-<!--<div ><button class="start-btn" id="start-btn" onclick="return startRace();">Start race</button></div>-->
-<div><button class="start-btn" id="start-btn" >Start race</button></div>
-<canvas width="600" height="500" id="race"></canvas>
-<button type="button" class="game-button">
-    <img class="pause" src="img/pause.png" />
-    <img class="play" src="img/play2.png" />
-</button>
 
-<script type ="module" src="js/drawImages.js"> </script>
+    <title>Tense race</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+   
+    <link rel=”icon” href=”/favicon.ico” type=”image/x-icon”>
+
+   <!--<link rel="shortcut icon" href="#">-->
+    <link rel="stylesheet" href="css/styles.css">    
+</head>
+    
+<body >
+        <form action="#" class="form" id="form">
+            <h2 class="form-title">Please enter your nickname </h2>
+            <input type="text" class="form-field" id="user-name" name="Name's gamer" placeholder="Enter your name">
+            <button class="form-submit-btn" id="form-submit-btn">Login</button>
+        </form>
+  
+    <div><button class="reload-btn" id="reload-btn" >Reload</button></div>
+    <div><button class="start-btn" id="start-btn">Start race</button></div>
+   
+    <div class="wrapper">
+        <label class="label-game-timer" id="label-game-timer">Countdown</label>
+        <div class="game-timer" id="game-timer">21</div>    
+
+        <input type="text" class="info-high-low-speed" id="info-high-low-speed" readonly hidden  disabled>
+        <canvas class="race" width="600" height="500" id="race"></canvas>  
+    </div>
+
+    <button type="button" class="game-button">
+        <img class="pause" src="img/pause.png" alt="button pause"/>
+        <img class="play" src="img/play.png"  alt="button play"/>
+    </button>
+
+<script type="module" src="js/drawImages.js" defer> </script>
+
 </body>
 </html>  
