@@ -5,7 +5,7 @@ export default function Product({img, name, price, onBuy}){
         <div className="product">
             <Image src={img} width='300' height='200' alt={name} />
             <h3>{name}</h3>
-            <div className="price">{price} UAH</div>
+            <div className="price">{price} USD</div>
             <button className="buy" onClick={onBuy}>Add to Cart</button>
         </div>
     )

@@ -127,3 +127,43 @@ nav .active{
 .hidden {
   display: none;
 }
+
+.shop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.product {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product img{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.product_cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.product_cart img{
+  width: 70px;
+  height: 70px;
+}
+
+.product_cart h3{
+  width: 200px;
+}
+
+.cart_summary {
+  text-align: right;
+}
